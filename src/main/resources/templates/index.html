@@ -157,7 +157,7 @@
                         <i class="bi bi-tv"></i>
                         <span>家用电器</span>
                     </li>
-                    <li class="category-item" th:classappend="${category == 'clothes'} ? 'active'" onclick="filterCategory('clothes')">
+                    <li class="category-item" th:classappend="${category == 'cloth-shoes'} ? 'active'" onclick="filterCategory('cloth-shoes')">
                         <i class="bi bi-bag"></i>
                         <span>服饰鞋包</span>
                     </li>
@@ -169,17 +169,13 @@
                         <i class="bi bi-book"></i>
                         <span>图书文具</span>
                     </li>
-                    <li class="category-item" th:classappend="${category == 'beauty'} ? 'active'" onclick="filterCategory('beauty')">
+                    <li class="category-item" th:classappend="${category == 'cosmetics'} ? 'active'" onclick="filterCategory('cosmetics')">
                         <i class="bi bi-palette"></i>
                         <span>美妆个护</span>
                     </li>
                     <li class="category-item" th:classappend="${category == 'sports'} ? 'active'" onclick="filterCategory('sports')">
                         <i class="bi bi-bicycle"></i>
                         <span>运动户外</span>
-                    </li>
-                    <li class="category-item" th:classappend="${category == 'home'} ? 'active'" onclick="filterCategory('home')">
-                        <i class="bi bi-house"></i>
-                        <span>家居家装</span>
                     </li>
                 </ul>
             </div>
@@ -234,12 +230,11 @@
                             <span th:case="'phone'">📱 手机数码</span>
                             <span th:case="'computer'">💻 电脑办公</span>
                             <span th:case="'appliance'">📺 家用电器</span>
-                            <span th:case="'clothes'">👗 服饰鞋包</span>
+                            <span th:case="'cloth-shoes'">👗 服饰鞋包</span>
                             <span th:case="'food'">🍔 食品生鲜</span>
                             <span th:case="'book'">📚 图书文具</span>
-                            <span th:case="'beauty'">💄 美妆个护</span>
+                            <span th:case="'cosmetics'">💄 美妆个护</span>
                             <span th:case="'sports'">⚽ 运动户外</span>
-                            <span th:case="'home'">🏠 家居家装</span>
                             <span th:case="*">🔥 热门推荐</span>
                         </span>
                     </span>

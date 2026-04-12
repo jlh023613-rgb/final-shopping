@@ -6,11 +6,11 @@
     </select>
     
     <select id="findRandom" resultType="com.example.shopping.entity.Product">
-        SELECT * FROM products WHERE status = 1 ORDER BY RAND() LIMIT #{limit}
+        SELECT * FROM products WHERE status = 1 AND category IN ('phone', 'computer') ORDER BY RAND() LIMIT #{limit}
     </select>
     
     <select id="findByCategory" resultType="com.example.shopping.entity.Product">
-        SELECT * FROM products WHERE status = 1 AND category = #{category}
+        SELECT * FROM products WHERE status = 1 AND category = #{category} ORDER BY RAND()
     </select>
     
     <select id="findByNameContainingIgnoreCase" resultType="com.example.shopping.entity.Product">
