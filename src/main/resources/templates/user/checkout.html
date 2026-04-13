@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="bg-light">
+<style>
+    body { font-family: 'Noto Sans SC', sans-serif; background-color: #f3f4f6; }
+    .checkout-card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 1.5rem; margin-bottom: 1rem; }
+    .product-img { width: 60px; height: 60px; object-fit: contain; border-radius: 8px; background: #f8f9fa; }
+    .address-card { border: 2px solid #e9ecef; border-radius: 8px; padding: 1rem; cursor: pointer; transition: all 0.2s; }
+    .address-card:hover { border-color: #667eea; }
+    .address-card.selected { border-color: #667eea; background: #f8f9ff; }
+    .btn-submit { background: linear-gradient(to right, #667eea, #764ba2); color: white; border: none; padding: 12px 40px; border-radius: 25px; font-weight: 600; }
+    .btn-submit:hover { color: white; opacity: 0.9; }
+</style>
+
+<nav th:replace="~{layout :: nav}"></nav>
+
+<main class="container py-4">
+    <h4 class="fw-bold mb-4"><i class="bi bi-bag-check me-2"></i>确认订单</h4>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="checkout-card">
+                <h6 class="fw-bold mb-3"><i class="bi bi-geo-alt me-2"></i>收货地址</h6>
+                <div th:if="${addresses == null or addresses.isEmpty()}" class="text-center py-3">
+                    <p class="text-secondary mb-2">暂无收货地址</p>
+                    <a href="/user/address" class="btn btn-outline-primary btn-sm">添加地址</a>
+                </div>
+                <div th:if="${addresses != null and !addresses.isEmpty()}" class="row g-2">
+                    <div th:each="addr, stat : ${addresses}" class="col-md-6">
+                        <div class="address-card" th:classappend="${stat.first} ? 'selected'" 
+                             th:attr="data-id=${addr.id}" onclick="selectAddress(this)">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <strong th:text="${addr.receiverName}">姓名</strong>
+                                    <span class="text-secondary ms-2" th:text="${addr.receiverPhone}">电话</span>
+                                    <span th:if="${addr.isDefault}" class="badge bg-primary ms-2">默认</span>
+                                </div>
+                            </div>
+                            <small class="text-secondary" th:text="${addr.province + addr.city + addr.district + addr.detailAddress}">地址</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkout-card">
+                <h6 class="fw-bold mb-3"><i class="bi bi-bag me-2"></i>商品清单</h6>
+                <div th:each="item : ${cartItems}" class="d-flex align-items-center border-bottom pb-3 mb-3">
+                    <img th:if="${item.imageUrl != null}" th:src="${item.imageUrl}" class="product-img">
+                    <div class="ms-3 flex-grow-1">
+                        <h6 class="mb-1" th:text="${item.productName}">商品名称</h6>
+                        <div class="small text-secondary">
+                            <span th:if="${item.selectedColor != null}" th:text="${item.selectedColor}"></span>
+                            <span th:if="${item.selectedStorage != null}" th:text="${item.selectedStorage}"></span>
+                        </div>
+                        <div class="mt-1">
+                            <span class="text-danger fw-bold" th:text="'¥' + ${item.unitPrice != null ? item.unitPrice : item.price}"></span>
+                            <span class="text-secondary ms-2" th:text="'x' + ${item.quantity}"></span>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <small class="text-secondary">小计：</small>
+                        <span class="text-danger fw-bold" th:text="'¥' + ${(item.unitPrice != null ? item.unitPrice : item.price) * item.quantity}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="checkout-card">
+                <h6 class="fw-bold mb-3">订单结算</h6>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>商品数量</span>
+                    <span th:text="${cartItems.size()} + ' 件'">0 件</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>商品金额</span>
+                    <span class="text-danger" th:text="'¥' + ${total}">¥0.00</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold">应付金额</span>
+                    <span class="text-danger fw-bold fs-5" th:text="'¥' + ${total}">¥0.00</span>
+                </div>
+                <input type="hidden" id="cartIds" th:value="${cartIds}">
+                <input type="hidden" id="addressId" th:value="${addresses != null and !addresses.isEmpty()} ? ${addresses[0].id} : ''">
+                <button type="button" class="btn btn-submit w-100" onclick="submitOrder()">提交订单</button>
+                <a href="/cart" class="btn btn-outline-secondary w-100 mt-2">返回购物车</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script th:replace="~{layout :: scripts}"></script>
+<script>
+    function selectAddress(el) {
+        document.querySelectorAll('.address-card').forEach(function(card) {
+            card.classList.remove('selected');
+        });
+        el.classList.add('selected');
+        document.getElementById('addressId').value = el.dataset.id;
+    }
+
+    function submitOrder() {
+        var cartIds = document.getElementById('cartIds').value;
+        var addressId = document.getElementById('addressId').value;
+
+        if (!addressId) {
+            alert('请选择收货地址');
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('cartIds', cartIds);
+        formData.append('addressId', addressId);
+
+        fetch('/checkout', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                window.location.href = '/user/orders';
+            } else {
+                alert(data.message || '下单失败');
+            }
+        })
+        .catch(() => {
+            alert('下单失败，请重试');
+        });
+    }
+</script>
+</body>
+</html>

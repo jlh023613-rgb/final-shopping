@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopping.mapper.MerchantMapper">
+    <insert id="insert" parameterType="com.example.shopping.entity.Merchant" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO merchants (username, password, shop_name, shop_description, shop_image, category, status)
+        VALUES (#{username}, #{password}, #{shopName}, #{shopDescription}, #{shopImage}, #{category}, #{status})
+    </insert>
+
+    <select id="findById" resultType="com.example.shopping.entity.Merchant">
+        SELECT * FROM merchants WHERE id = #{id}
+    </select>
+
+    <select id="findByUsername" resultType="com.example.shopping.entity.Merchant">
+        SELECT * FROM merchants WHERE username = #{username}
+    </select>
+
+    <select id="findByStatus" resultType="com.example.shopping.entity.Merchant">
+        SELECT * FROM merchants WHERE status = #{status} ORDER BY created_at DESC
+    </select>
+
+    <select id="findAll" resultType="com.example.shopping.entity.Merchant">
+        SELECT * FROM merchants ORDER BY created_at DESC
+    </select>
+
+    <update id="updateStatus" parameterType="com.example.shopping.entity.Merchant">
+        UPDATE merchants SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <update id="updateCategory" parameterType="com.example.shopping.entity.Merchant">
+        UPDATE merchants SET category = #{category} WHERE id = #{id}
+    </update>
+
+    <update id="update" parameterType="com.example.shopping.entity.Merchant">
+        UPDATE merchants SET shop_name = #{shopName}, shop_description = #{shopDescription}, shop_image = #{shopImage}
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="bg-light">
+<style>
+    body { font-family: 'Noto Sans SC', sans-serif; background-color: #f3f4f6; }
+    .refund-card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 1.25rem; margin-bottom: 1rem; }
+    .status-pending { background: #fef3c7; color: #92400e; }
+    .status-approved { background: #d1fae5; color: #065f46; }
+    .status-rejected { background: #fee2e2; color: #991b1b; }
+</style>
+
+<nav th:replace="~{layout :: nav}"></nav>
+
+<main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold"><i class="bi bi-arrow-return-left me-2"></i>退款管理</h4>
+        <a href="/admin/dashboard" class="btn btn-outline-secondary">返回控制台</a>
+    </div>
+
+    <div th:if="${refunds == null or refunds.isEmpty()}" class="text-center py-5">
+        <i class="bi bi-box-seam text-secondary" style="font-size: 4rem;"></i>
+        <p class="text-secondary mt-3">暂无退款申请</p>
+    </div>
+
+    <div th:each="refund : ${refunds}" class="refund-card">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <div>
+                <small class="text-secondary">订单号：</small>
+                <small class="fw-bold" th:text="${refund.orderNo}"></small>
+                <small class="text-secondary ms-3" th:text="${#temporals.format(refund.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+            </div>
+            <div>
+                <span class="badge status-pending" th:if="${refund.status == 'pending'}">待处理</span>
+                <span class="badge status-approved" th:if="${refund.status == 'approved'}">已同意</span>
+                <span class="badge status-rejected" th:if="${refund.status == 'rejected'}">已拒绝</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="mb-1"><strong>商品：</strong><span th:text="${refund.productName}"></span></p>
+                <p class="mb-1"><strong>买家：</strong><span th:text="${refund.username}"></span></p>
+                <p class="mb-1"><strong>商家：</strong><span th:text="${refund.merchantShopName}"></span></p>
+                <p class="mb-1"><strong>退款原因：</strong></p>
+                <p class="text-secondary small" th:text="${refund.reason}"></p>
+            </div>
+            <div class="col-md-6">
+                <div th:if="${refund.status == 'pending'}">
+                    <form th:action="@{/admin/refund/approve/{id}(id=${refund.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-success btn-sm">同意退款</button>
+                    </form>
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" th:attr="data-bs-target='#rejectModal' + ${refund.id}">拒绝退款</button>
+                    
+                    <div class="modal fade" th:id="'rejectModal' + ${refund.id}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">拒绝退款</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <form th:action="@{/admin/refund/reject/{id}(id=${refund.id})}" method="post">
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label class="form-label">拒绝原因</label>
+                                            <textarea name="result" class="form-control" rows="3" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-danger">确认拒绝</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${refund.status != 'pending'}">
+                    <p class="mb-1"><strong>处理结果：</strong></p>
+                    <p class="text-secondary small" th:text="${refund.result}"></p>
+                    <small class="text-secondary" th:if="${refund.processedAt != null}" th:text="'处理时间: ' + ${#temporals.format(refund.processedAt, 'yyyy-MM-dd HH:mm')}"></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script th:replace="~{layout :: scripts}"></script>
+</body>
+</html>

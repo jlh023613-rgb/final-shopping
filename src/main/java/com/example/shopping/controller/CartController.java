@@ -6,12 +6,11 @@ import com.example.shopping.entity.User;
 import com.example.shopping.mapper.CartMapper;
 import com.example.shopping.mapper.ProductMapper;
 import com.example.shopping.mapper.UserMapper;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -31,10 +30,16 @@ public class CartController {
         this.productMapper = productMapper;
     }
 
+    private User getCurrentUser(HttpSession session) {
+        return (User) session.getAttribute("user");
+    }
+
     @GetMapping
-    public String cart(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        String phone = userDetails.getUsername();
-        User user = userMapper.findByPhone(phone);
+    public String cart(HttpSession session, Model model) {
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return "redirect:/user/login";
+        }
         List<CartItem> cartItems = cartMapper.findByUserId(user.getId());
         
         BigDecimal total = cartItems.stream()
@@ -50,16 +55,20 @@ public class CartController {
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("total", total);
         model.addAttribute("cartCount", cartCount);
+        model.addAttribute("user", user);
         return "cart/list";
     }
     
     @GetMapping("/count")
     @ResponseBody
-    public Map<String, Object> getCartCount(@AuthenticationPrincipal UserDetails userDetails) {
+    public Map<String, Object> getCartCount(HttpSession session) {
         Map<String, Object> result = new HashMap<>();
         try {
-            String phone = userDetails.getUsername();
-            User user = userMapper.findByPhone(phone);
+            User user = getCurrentUser(session);
+            if (user == null) {
+                result.put("count", 0);
+                return result;
+            }
             int count = cartMapper.countByUserId(user.getId());
             result.put("count", count);
         } catch (Exception e) {
@@ -75,11 +84,15 @@ public class CartController {
                            @RequestParam(required = false) String selectedColor,
                            @RequestParam(required = false) String selectedStorage,
                            @RequestParam(defaultValue = "none") String insuranceType,
-                           @AuthenticationPrincipal UserDetails userDetails) {
+                           HttpSession session) {
         Map<String, Object> result = new HashMap<>();
         try {
-            String phone = userDetails.getUsername();
-            User user = userMapper.findByPhone(phone);
+            User user = getCurrentUser(session);
+            if (user == null) {
+                result.put("success", false);
+                result.put("message", "请先登录");
+                return result;
+            }
             
             Product product = productMapper.findById(productId);
             if (product == null) {
@@ -130,9 +143,11 @@ public class CartController {
     @PostMapping("/update/{id}")
     public String updateQuantity(@PathVariable Long id,
                                 @RequestParam Integer quantity,
-                                @AuthenticationPrincipal UserDetails userDetails) {
-        String phone = userDetails.getUsername();
-        User user = userMapper.findByPhone(phone);
+                                HttpSession session) {
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return "redirect:/user/login";
+        }
         
         if (quantity <= 0) {
             cartMapper.delete(id, user.getId());
@@ -144,20 +159,26 @@ public class CartController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteItem(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {
-        String phone = userDetails.getUsername();
-        User user = userMapper.findByPhone(phone);
+    public String deleteItem(@PathVariable Long id, HttpSession session) {
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return "redirect:/user/login";
+        }
         cartMapper.delete(id, user.getId());
         return "redirect:/cart";
     }
     
     @PostMapping("/delete-selected")
     @ResponseBody
-    public Map<String, Object> deleteSelected(@RequestParam String ids, @AuthenticationPrincipal UserDetails userDetails) {
+    public Map<String, Object> deleteSelected(@RequestParam String ids, HttpSession session) {
         Map<String, Object> result = new HashMap<>();
         try {
-            String phone = userDetails.getUsername();
-            User user = userMapper.findByPhone(phone);
+            User user = getCurrentUser(session);
+            if (user == null) {
+                result.put("success", false);
+                result.put("message", "请先登录");
+                return result;
+            }
             
             String[] idArray = ids.split(",");
             for (String idStr : idArray) {

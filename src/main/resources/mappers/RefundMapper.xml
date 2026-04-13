@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopping.mapper.RefundMapper">
+    <insert id="insert" parameterType="com.example.shopping.entity.Refund" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO refunds (order_id, user_id, merchant_id, reason, status)
+        VALUES (#{orderId}, #{userId}, #{merchantId}, #{reason}, #{status})
+    </insert>
+
+    <select id="findById" resultType="com.example.shopping.entity.Refund">
+        SELECT * FROM refunds WHERE id = #{id}
+    </select>
+
+    <select id="findByOrderId" resultType="com.example.shopping.entity.Refund">
+        SELECT * FROM refunds WHERE order_id = #{orderId}
+    </select>
+
+    <select id="findByUserId" resultType="com.example.shopping.entity.Refund">
+        SELECT r.*, o.order_no, o.product_name, m.shop_name as merchantShopName, u.username
+        FROM refunds r
+        LEFT JOIN orders o ON r.order_id = o.id
+        LEFT JOIN merchants m ON r.merchant_id = m.id
+        LEFT JOIN users u ON r.user_id = u.id
+        WHERE r.user_id = #{userId} ORDER BY r.created_at DESC
+    </select>
+
+    <select id="findByMerchantId" resultType="com.example.shopping.entity.Refund">
+        SELECT r.*, o.order_no, o.product_name, u.username
+        FROM refunds r
+        LEFT JOIN orders o ON r.order_id = o.id
+        LEFT JOIN users u ON r.user_id = u.id
+        WHERE r.merchant_id = #{merchantId} ORDER BY r.created_at DESC
+    </select>
+
+    <select id="findAllPending" resultType="com.example.shopping.entity.Refund">
+        SELECT r.*, o.order_no, o.product_name, m.shop_name as merchantShopName, u.username
+        FROM refunds r
+        LEFT JOIN orders o ON r.order_id = o.id
+        LEFT JOIN merchants m ON r.merchant_id = m.id
+        LEFT JOIN users u ON r.user_id = u.id
+        WHERE r.status = 'pending' ORDER BY r.created_at DESC
+    </select>
+
+    <select id="findAll" resultType="com.example.shopping.entity.Refund">
+        SELECT r.*, o.order_no, o.product_name, m.shop_name as merchantShopName, u.username
+        FROM refunds r
+        LEFT JOIN orders o ON r.order_id = o.id
+        LEFT JOIN merchants m ON r.merchant_id = m.id
+        LEFT JOIN users u ON r.user_id = u.id
+        ORDER BY r.created_at DESC
+    </select>
+
+    <update id="update" parameterType="com.example.shopping.entity.Refund">
+        UPDATE refunds SET status = #{status}, result = #{result}, processed_at = #{processedAt}
+        WHERE id = #{id}
+    </update>
+</mapper>

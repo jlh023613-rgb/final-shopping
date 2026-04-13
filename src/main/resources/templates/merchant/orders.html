@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="bg-light">
+<style>
+    body { font-family: 'Noto Sans SC', sans-serif; background-color: #f3f4f6; }
+    .order-card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 1.25rem; margin-bottom: 1rem; }
+    .order-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f3f4; padding-bottom: 0.75rem; margin-bottom: 0.75rem; }
+    .status-pending { background: #fef3c7; color: #92400e; }
+    .status-shipping { background: #dbeafe; color: #1e40af; }
+    .status-delivered { background: #d1fae5; color: #065f46; }
+    .status-completed { background: #dcfce7; color: #166534; }
+    .status-cancelled { background: #fee2e2; color: #991b1b; }
+    .status-refunded { background: #f3e8ff; color: #6b21a8; }
+    .action-btn { padding: 0.25rem 0.75rem; font-size: 0.8rem; border-radius: 20px; margin-left: 0.5rem; }
+</style>
+
+<nav th:replace="~{layout :: nav}"></nav>
+
+<main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold"><i class="bi bi-receipt me-2"></i>订单管理</h4>
+        <a href="/merchant/dashboard" class="btn btn-outline-secondary">返回控制台</a>
+    </div>
+
+    <div th:if="${orders == null or orders.isEmpty()}" class="text-center py-5">
+        <i class="bi bi-box-seam text-secondary" style="font-size: 4rem;"></i>
+        <p class="text-secondary mt-3">暂无订单</p>
+    </div>
+
+    <div th:each="order : ${orders}" class="order-card">
+        <div class="order-header">
+            <div>
+                <small class="text-secondary">订单号：</small>
+                <small class="fw-bold" th:text="${order.orderNo}"></small>
+                <small class="text-secondary ms-3" th:text="${#temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+            </div>
+            <div>
+                <span class="badge status-pending" th:if="${order.status == 'pending'}">等待接单</span>
+                <span class="badge status-shipping" th:if="${order.status == 'shipping'}">运输中</span>
+                <span class="badge status-delivered" th:if="${order.status == 'delivered'}">已送达</span>
+                <span class="badge status-completed" th:if="${order.status == 'completed'}">已完成</span>
+                <span class="badge status-cancelled" th:if="${order.status == 'cancelled'}">已取消</span>
+                <span class="badge status-refunded" th:if="${order.status == 'refunded'}">已退款</span>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <img th:if="${order.productImage != null}" th:src="${order.productImage}" style="width:80px;height:80px;object-fit:contain;border-radius:8px;margin-right:1rem;background:#f8f9fa;">
+            <div class="flex-grow-1">
+                <h6 class="mb-1" th:text="${order.productName}"></h6>
+                <small class="text-secondary">买家：<span th:text="${order.username}"></span></small>
+                <div class="mt-1">
+                    <span class="text-danger fw-bold" th:text="'¥' + ${order.totalPrice}"></span>
+                    <span class="text-secondary ms-2" th:text="'x' + ${order.quantity}"></span>
+                </div>
+                <small class="text-secondary d-block mt-1" th:text="'收货地址: ' + ${order.receiverAddress}"></small>
+                <small class="text-secondary d-block" th:text="'收货人: ' + ${order.receiverName} + ' ' + ${order.receiverPhone}"></small>
+            </div>
+            <div class="text-end">
+                <form th:if="${order.status == 'pending'}" th:action="@{/merchant/order/accept/{id}(id=${order.id})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-success action-btn">接单</button>
+                </form>
+                <form th:if="${order.status == 'shipping'}" th:action="@{/merchant/order/deliver/{id}(id=${order.id})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-primary action-btn">确认送达</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script th:replace="~{layout :: scripts}"></script>
+</body>
+</html>

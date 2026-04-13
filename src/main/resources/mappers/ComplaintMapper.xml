@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopping.mapper.ComplaintMapper">
+    <insert id="insert" parameterType="com.example.shopping.entity.Complaint" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO complaints (user_id, merchant_id, order_id, content, status)
+        VALUES (#{userId}, #{merchantId}, #{orderId}, #{content}, #{status})
+    </insert>
+
+    <select id="findById" resultType="com.example.shopping.entity.Complaint">
+        SELECT c.*, o.order_no, o.product_name FROM complaints c
+        LEFT JOIN orders o ON c.order_id = o.id
+        WHERE c.id = #{id}
+    </select>
+
+    <select id="findByOrderId" resultType="com.example.shopping.entity.Complaint">
+        SELECT * FROM complaints WHERE order_id = #{orderId}
+    </select>
+
+    <select id="findByUserId" resultType="com.example.shopping.entity.Complaint">
+        SELECT c.*, m.shop_name as merchantShopName, o.order_no, o.product_name FROM complaints c
+        LEFT JOIN merchants m ON c.merchant_id = m.id
+        LEFT JOIN orders o ON c.order_id = o.id
+        WHERE c.user_id = #{userId} ORDER BY c.created_at DESC
+    </select>
+
+    <select id="findByMerchantId" resultType="com.example.shopping.entity.Complaint">
+        SELECT c.*, u.username, o.order_no, o.product_name FROM complaints c
+        LEFT JOIN users u ON c.user_id = u.id
+        LEFT JOIN orders o ON c.order_id = o.id
+        WHERE c.merchant_id = #{merchantId} ORDER BY c.created_at DESC
+    </select>
+
+    <select id="findByStatus" resultType="com.example.shopping.entity.Complaint">
+        SELECT c.*, u.username, m.shop_name as merchantShopName, o.order_no, o.product_name FROM complaints c
+        LEFT JOIN users u ON c.user_id = u.id
+        LEFT JOIN merchants m ON c.merchant_id = m.id
+        LEFT JOIN orders o ON c.order_id = o.id
+        WHERE c.status = #{status} ORDER BY c.created_at DESC
+    </select>
+
+    <select id="findAll" resultType="com.example.shopping.entity.Complaint">
+        SELECT c.*, u.username, m.shop_name as merchantShopName, o.order_no, o.product_name FROM complaints c
+        LEFT JOIN users u ON c.user_id = u.id
+        LEFT JOIN merchants m ON c.merchant_id = m.id
+        LEFT JOIN orders o ON c.order_id = o.id
+        ORDER BY c.created_at DESC
+    </select>
+
+    <update id="updateResult" parameterType="com.example.shopping.entity.Complaint">
+        UPDATE complaints SET status = #{status}, result = #{result} WHERE id = #{id}
+    </update>
+</mapper>

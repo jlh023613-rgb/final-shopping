@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body class="bg-light">
+<style>
+    body { font-family: 'Noto Sans SC', sans-serif; background-color: #f3f4f6; }
+    .complaint-card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 2rem; max-width: 700px; margin: 0 auto; }
+    .product-img { width: 60px; height: 60px; object-fit: contain; border-radius: 8px; background: #f8f9fa; }
+</style>
+
+<nav th:replace="~{layout :: nav}"></nav>
+
+<main class="container py-4">
+    <h4 class="fw-bold mb-4"><i class="bi bi-exclamation-triangle me-2"></i>投诉商家</h4>
+    <div class="complaint-card">
+        <div th:if="${order != null}" class="mb-4 p-3 bg-light rounded">
+            <h6 class="fw-bold mb-2">订单信息</h6>
+            <div class="d-flex align-items-center">
+                <img th:if="${order.productImage != null}" th:src="${order.productImage}" class="product-img">
+                <div class="ms-3">
+                    <div th:text="${order.productName}">商品名称</div>
+                    <small class="text-secondary">订单号：<span th:text="${order.orderNo}"></span></small>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-warning">
+            <i class="bi bi-shop me-2"></i>投诉商家：<strong th:text="${merchant.shopName}"></strong>
+        </div>
+        <form method="post" action="/user/complaint/submit">
+            <input type="hidden" name="orderId" th:value="${order.id}">
+            <input type="hidden" name="merchantId" th:value="${merchant.id}">
+            <div class="mb-3">
+                <label class="form-label fw-bold">投诉内容</label>
+                <textarea name="content" class="form-control" rows="5" placeholder="请详细描述投诉原因..." required></textarea>
+            </div>
+            <div class="alert alert-info small">
+                <i class="bi bi-info-circle me-1"></i>
+                投诉提交后，管理员会尽快处理。同一订单只能投诉一次。
+            </div>
+            <button type="submit" class="btn btn-danger w-100">提交投诉</button>
+            <a href="/user/orders" class="btn btn-outline-secondary w-100 mt-2">返回订单列表</a>
+        </form>
+    </div>
+</main>
+
+<script th:replace="~{layout :: scripts}"></script>
+</body>
+</html>

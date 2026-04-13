@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
 import java.util.regex.Pattern;
 
 @Controller
@@ -31,6 +32,31 @@ public class UserLoginController {
     @GetMapping("/user/login")
     public String loginPage() {
         return "user/login";
+    }
+
+    @PostMapping("/user/login")
+    public String login(@RequestParam String phone,
+                        @RequestParam String password,
+                        HttpSession session,
+                        Model model) {
+        User user = userMapper.findByPhone(phone);
+        if (user == null) {
+            model.addAttribute("error", "手机号或密码错误");
+            return "user/login";
+        }
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            model.addAttribute("error", "手机号或密码错误");
+            return "user/login";
+        }
+
+        session.setAttribute("user", user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/user/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/user/login?logout";
     }
 
     @GetMapping("/user/register")

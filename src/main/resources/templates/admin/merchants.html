@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>商家管理</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body { background: #f3f4f6; font-family: 'Noto Sans SC', sans-serif; }
+        .sidebar { background: linear-gradient(180deg, #1a1a2e 0%, #0f3460 100%); min-height: 100vh; padding-top: 1rem; }
+        .sidebar .nav-link { color: rgba(255,255,255,0.8); padding: 12px 20px; border-radius: 8px; margin: 4px 12px; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(255,255,255,0.2); color: white; }
+        .sidebar .nav-link i { margin-right: 10px; }
+        .content-area { padding: 1.5rem; }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 sidebar">
+            <div class="text-center text-white mb-4">
+                <i class="bi bi-shield-lock" style="font-size: 2rem;"></i>
+                <h5 class="mt-2">管理员</h5>
+            </div>
+            <nav class="nav flex-column">
+                <a class="nav-link" href="/admin/dashboard"><i class="bi bi-speedometer2"></i>概览</a>
+                <a class="nav-link active" href="/admin/merchants"><i class="bi bi-shop"></i>商家管理</a>
+                <a class="nav-link" href="/admin/complaints"><i class="bi bi-exclamation-triangle"></i>投诉管理</a>
+                <a class="nav-link" href="/admin/logout"><i class="bi bi-box-arrow-left"></i>退出</a>
+            </nav>
+        </div>
+        <div class="col-md-10 content-area">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold mb-0">商家管理</h4>
+                <div>
+                    <a href="/admin/merchants" class="btn btn-sm btn-outline-secondary" th:classappend="${currentStatus == null or currentStatus.isEmpty()} ? 'active'">全部</a>
+                    <a href="/admin/merchants?status=pending" class="btn btn-sm btn-outline-warning" th:classappend="${currentStatus == 'pending'} ? 'active'">待审核</a>
+                    <a href="/admin/merchants?status=approved" class="btn btn-sm btn-outline-success" th:classappend="${currentStatus == 'approved'} ? 'active'">已通过</a>
+                    <a href="/admin/merchants?status=closed" class="btn btn-sm btn-outline-danger" th:classappend="${currentStatus == 'closed'} ? 'active'">已关停</a>
+                </div>
+            </div>
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                            <tr><th>ID</th><th>账号</th><th>店铺名称</th><th>描述</th><th>分类</th><th>状态</th><th>注册时间</th><th>操作</th></tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="m : ${merchants}">
+                                <td th:text="${m.id}"></td>
+                                <td th:text="${m.username}"></td>
+                                <td th:text="${m.shopName}"></td>
+                                <td>
+                                    <span th:text="${#strings.abbreviate(m.shopDescription != null ? m.shopDescription : '', 30)}"></span>
+                                </td>
+                                <td>
+                                    <span th:if="${m.category != null}" class="badge bg-primary" th:text="${m.category}"></span>
+                                    <span th:unless="${m.category != null}" class="text-secondary">未指定</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-warning" th:if="${m.status == 'pending'}">待审核</span>
+                                    <span class="badge bg-success" th:if="${m.status == 'approved'}">正常</span>
+                                    <span class="badge bg-danger" th:if="${m.status == 'closed'}">已关停</span>
+                                    <span class="badge bg-secondary" th:if="${m.status == 'rejected'}">已拒绝</span>
+                                </td>
+                                <td th:text="${#temporals.format(m.createdAt, 'yyyy-MM-dd')}"></td>
+                                <td>
+                                    <div th:if="${m.status == 'pending'}">
+                                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" th:attr="data-bs-target='#approveModal' + ${m.id}">通过</button>
+                                        <form th:action="@{/admin/merchant/reject/{id}(id=${m.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定拒绝？')">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">拒绝</button>
+                                        </form>
+                                        <div class="modal fade" th:id="'approveModal' + ${m.id}" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">审核通过 - 指定分类</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <form th:action="@{/admin/merchant/approve/{id}(id=${m.id})}" method="post">
+                                                        <div class="modal-body">
+                                                            <label class="form-label">选择商品分类</label>
+                                                            <select name="category" class="form-select" required>
+                                                                <option value="">请选择分类</option>
+                                                                <option value="phone">手机数码</option>
+                                                                <option value="computer">电脑办公</option>
+                                                                <option value="appliance">家用电器</option>
+                                                                <option value="cloth-shoes">服饰鞋包</option>
+                                                                <option value="food">食品生鲜</option>
+                                                                <option value="book">图书文具</option>
+                                                                <option value="cosmetics">美妆个护</option>
+                                                                <option value="sports">运动户外</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                                            <button type="submit" class="btn btn-success">确认通过</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form th:if="${m.status == 'approved'}" th:action="@{/admin/merchant/close/{id}(id=${m.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定关停？')">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">关停</button>
+                                    </form>
+                                    <form th:if="${m.status == 'closed'}" th:action="@{/admin/merchant/reopen/{id}(id=${m.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定重新开启？')">
+                                        <button type="submit" class="btn btn-sm btn-outline-success">重新开启</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr th:if="${merchants == null or merchants.isEmpty()}">
+                                <td colspan="8" class="text-center text-secondary py-4">暂无商家</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

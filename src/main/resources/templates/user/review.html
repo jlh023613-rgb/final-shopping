@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}"></head>
+<body class="bg-light">
+<style>
+    body { font-family: 'Noto Sans SC', sans-serif; background-color: #f3f4f6; }
+    .review-card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); padding: 2rem; max-width: 600px; margin: 0 auto; }
+    .star-rating { display: flex; gap: 8px; }
+    .star-rating .star { font-size: 2rem; cursor: pointer; color: #dee2e6; transition: color 0.2s; }
+    .star-rating .star.active, .star-rating .star:hover { color: #ffc107; }
+</style>
+
+<nav th:replace="~{layout :: nav}"></nav>
+
+<main class="container py-4">
+    <h4 class="fw-bold mb-4"><i class="bi bi-star me-2"></i>评价商品</h4>
+    <div class="review-card">
+        <div class="d-flex align-items-center mb-3">
+            <img th:if="${order.productImage != null}" th:src="${order.productImage}" style="width:60px;height:60px;object-fit:contain;border-radius:8px;margin-right:1rem;">
+            <div>
+                <h6 class="mb-0" th:text="${order.productName}"></h6>
+                <small class="text-secondary" th:text="'¥' + ${order.totalPrice}"></small>
+            </div>
+        </div>
+        <form method="post" action="/user/review/submit">
+            <input type="hidden" name="orderId" th:value="${order.id}">
+            <input type="hidden" name="productId" th:value="${order.productId}">
+            <input type="hidden" name="rating" id="ratingInput" value="5">
+            <div class="mb-3">
+                <label class="form-label fw-bold">评分</label>
+                <div class="star-rating" id="starRating">
+                    <span class="star active" data-value="1">★</span>
+                    <span class="star active" data-value="2">★</span>
+                    <span class="star active" data-value="3">★</span>
+                    <span class="star active" data-value="4">★</span>
+                    <span class="star active" data-value="5">★</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">评价内容</label>
+                <textarea name="content" class="form-control" rows="4" placeholder="分享你的购物体验..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">提交评价</button>
+        </form>
+    </div>
+</main>
+
+<script th:replace="~{layout :: scripts}"></script>
+<script>
+    document.querySelectorAll('#starRating .star').forEach(function(star) {
+        star.addEventListener('click', function() {
+            var value = parseInt(this.getAttribute('data-value'));
+            document.getElementById('ratingInput').value = value;
+            document.querySelectorAll('#starRating .star').forEach(function(s, i) {
+                s.classList.toggle('active', i < value);
+            });
+        });
+    });
+</script>
+</body>
+</html>

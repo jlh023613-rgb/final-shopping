@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shopping.mapper.OrderMapper">
+    <insert id="insert" parameterType="com.example.shopping.entity.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO orders (order_no, user_id, merchant_id, product_id, product_name, product_image,
+                           quantity, unit_price, total_price, status, receiver_name, receiver_phone, receiver_address)
+        VALUES (#{orderNo}, #{userId}, #{merchantId}, #{productId}, #{productName}, #{productImage},
+                #{quantity}, #{unitPrice}, #{totalPrice}, #{status}, #{receiverName}, #{receiverPhone}, #{receiverAddress})
+    </insert>
+
+    <select id="findById" resultType="com.example.shopping.entity.Order">
+        SELECT o.*, m.shop_name as merchantShopName, u.username FROM orders o
+        LEFT JOIN merchants m ON o.merchant_id = m.id
+        LEFT JOIN users u ON o.user_id = u.id
+        WHERE o.id = #{id}
+    </select>
+
+    <select id="findByOrderNo" resultType="com.example.shopping.entity.Order">
+        SELECT o.*, m.shop_name as merchantShopName FROM orders o
+        LEFT JOIN merchants m ON o.merchant_id = m.id
+        WHERE o.order_no = #{orderNo}
+    </select>
+
+    <select id="findByUserId" resultType="com.example.shopping.entity.Order">
+        SELECT o.*, m.shop_name as merchantShopName FROM orders o
+        LEFT JOIN merchants m ON o.merchant_id = m.id
+        WHERE o.user_id = #{userId} ORDER BY o.created_at DESC
+    </select>
+
+    <select id="findByMerchantId" resultType="com.example.shopping.entity.Order">
+        SELECT o.*, u.username FROM orders o
+        LEFT JOIN users u ON o.user_id = u.id
+        WHERE o.merchant_id = #{merchantId} ORDER BY o.created_at DESC
+    </select>
+
+    <select id="findPendingOrders" resultType="com.example.shopping.entity.Order">
+        SELECT * FROM orders WHERE status = 'pending'
+    </select>
+
+    <update id="updateStatus" parameterType="com.example.shopping.entity.Order">
+        UPDATE orders SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <update id="update" parameterType="com.example.shopping.entity.Order">
+        UPDATE orders SET
+            status = #{status},
+            accepted_at = #{acceptedAt},
+            delivered_at = #{deliveredAt},
+            completed_at = #{completedAt}
+        WHERE id = #{id}
+    </update>
+</mapper>

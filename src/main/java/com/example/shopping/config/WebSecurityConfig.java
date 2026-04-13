@@ -22,22 +22,10 @@ public class WebSecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/index", "/product/**", "/user/login", "/user/register", "/debug/**", "/css/**", "/js/**", "/images/**", "/image/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             )
-            .formLogin(form -> form
-                .loginPage("/user/login")
-                .loginProcessingUrl("/user/login")
-                .usernameParameter("phone")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/user/login?error")
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/user/login?logout")
-                .permitAll()
+            .sessionManagement(session -> session
+                .sessionFixation().migrateSession()
             );
         return http.build();
     }

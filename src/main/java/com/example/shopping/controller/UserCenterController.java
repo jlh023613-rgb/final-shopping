@@ -5,14 +5,13 @@ import com.example.shopping.entity.User;
 import com.example.shopping.mapper.AddressMapper;
 import com.example.shopping.mapper.CartMapper;
 import com.example.shopping.mapper.UserMapper;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,10 +32,16 @@ public class UserCenterController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    private User getCurrentUser(HttpSession session) {
+        return (User) session.getAttribute("user");
+    }
+
     @GetMapping("/center")
-    public String userCenter(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        String phone = userDetails.getUsername();
-        User user = userMapper.findByPhone(phone);
+    public String userCenter(HttpSession session, Model model) {
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return "redirect:/user/login";
+        }
         List<Address> addresses = addressMapper.findByUserId(user.getId());
         
         model.addAttribute("user", user);
@@ -45,7 +50,7 @@ public class UserCenterController {
     }
 
     @PostMapping("/address/add")
-    public String addAddress(@AuthenticationPrincipal UserDetails userDetails,
+    public String addAddress(HttpSession session,
                             @RequestParam String receiverName,
                             @RequestParam String receiverPhone,
                             @RequestParam String province,
@@ -53,8 +58,10 @@ public class UserCenterController {
                             @RequestParam String district,
                             @RequestParam String detailAddress,
                             @RequestParam(defaultValue = "false") Boolean isDefault) {
-        String phone = userDetails.getUsername();
-        User user = userMapper.findByPhone(phone);
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return "redirect:/user/login";
+        }
         
         if (isDefault) {
             addressMapper.clearDefault(user.getId());
@@ -75,9 +82,11 @@ public class UserCenterController {
     }
 
     @PostMapping("/address/delete/{id}")
-    public String deleteAddress(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {
-        String phone = userDetails.getUsername();
-        User user = userMapper.findByPhone(phone);
+    public String deleteAddress(@PathVariable Long id, HttpSession session) {
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return "redirect:/user/login";
+        }
         
         Address address = addressMapper.findById(id);
         if (address != null && address.getUserId().equals(user.getId())) {
@@ -88,9 +97,11 @@ public class UserCenterController {
     }
 
     @PostMapping("/address/default/{id}")
-    public String setDefaultAddress(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {
-        String phone = userDetails.getUsername();
-        User user = userMapper.findByPhone(phone);
+    public String setDefaultAddress(@PathVariable Long id, HttpSession session) {
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return "redirect:/user/login";
+        }
         
         Address address = addressMapper.findById(id);
         if (address != null && address.getUserId().equals(user.getId())) {
@@ -104,10 +115,12 @@ public class UserCenterController {
     @PostMapping("/delete")
     public String deleteAccount(@RequestParam String confirmPhone,
                                @RequestParam String confirmPassword,
-                               @AuthenticationPrincipal UserDetails userDetails,
+                               HttpSession session,
                                RedirectAttributes redirectAttributes) {
-        String phone = userDetails.getUsername();
-        User user = userMapper.findByPhone(phone);
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return "redirect:/user/login";
+        }
         
         if (!confirmPhone.equals(user.getPhone())) {
             redirectAttributes.addFlashAttribute("error", "手机号不匹配");
@@ -122,17 +135,22 @@ public class UserCenterController {
         cartMapper.deleteByUserId(user.getId());
         addressMapper.deleteByUserId(user.getId());
         userMapper.delete(user.getId());
+        session.invalidate();
         
-        return "redirect:/logout";
+        return "redirect:/user/login";
     }
 
     @PostMapping("/verify-password")
     @ResponseBody
     public Map<String, Object> verifyPassword(@RequestParam String password,
-                                              @AuthenticationPrincipal UserDetails userDetails) {
+                                              HttpSession session) {
         Map<String, Object> result = new HashMap<>();
-        String phone = userDetails.getUsername();
-        User user = userMapper.findByPhone(phone);
+        User user = getCurrentUser(session);
+        if (user == null) {
+            result.put("success", false);
+            result.put("message", "请先登录");
+            return result;
+        }
         
         if (passwordEncoder.matches(password, user.getPassword())) {
             result.put("success", true);

@@ -26,4 +26,7 @@ public interface ProductMapper {
     void update(Product product);
     
     void delete(Long id);
+
+    @Select("SELECT * FROM products WHERE status = 1 AND merchant_id IN (SELECT id FROM merchants WHERE status = 'approved')")
+    List<Product> findActiveAll();
 }

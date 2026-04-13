@@ -1,0 +1,37 @@
+SET NAMES utf8mb4;
+
+DELETE FROM merchants;
+
+INSERT INTO merchants (username, password, shop_name, shop_description, shop_image, category, status, created_at, updated_at) VALUES
+('shop1', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '华为手机专营店', '华为手机官方授权店，正品保障', NULL, 'phone', 'approved', NOW(), NOW()),
+('shop2', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', 'iPhone专营店', '苹果iPhone官方授权经销商', NULL, 'phone', 'approved', NOW(), NOW()),
+('shop3', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', 'iQOO手机专营店', 'iQOO手机官方旗舰店', NULL, 'phone', 'approved', NOW(), NOW()),
+('shop4', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '一加手机专营店', '一加手机官方授权店', NULL, 'phone', 'approved', NOW(), NOW()),
+('shop5', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', 'OPPO手机专营店', 'OPPO手机官方旗舰店', NULL, 'phone', 'approved', NOW(), NOW()),
+('shop6', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', 'realme手机专营店', 'realme真我手机官方店', NULL, 'phone', 'approved', NOW(), NOW()),
+('shop7', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '三星手机专营店', '三星手机官方授权经销商', NULL, 'phone', 'approved', NOW(), NOW()),
+('shop8', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', 'vivo手机专营店', 'vivo手机官方旗舰店', NULL, 'phone', 'approved', NOW(), NOW()),
+('shop9', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '小米手机专营店', '小米手机官方授权店', NULL, 'phone', 'approved', NOW(), NOW()),
+('shop10', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '宏碁电脑专营店', '宏碁电脑官方授权店', NULL, 'computer', 'approved', NOW(), NOW()),
+('shop11', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '苹果电脑专营店', 'Apple Mac官方授权经销商', NULL, 'computer', 'approved', NOW(), NOW()),
+('shop12', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '华硕电脑专营店', '华硕电脑官方旗舰店', NULL, 'computer', 'approved', NOW(), NOW()),
+('shop13', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '戴尔电脑专营店', '戴尔电脑官方授权店', NULL, 'computer', 'approved', NOW(), NOW()),
+('shop14', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '惠普电脑专营店', '惠普电脑官方旗舰店', NULL, 'computer', 'approved', NOW(), NOW()),
+('shop15', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '华为电脑专营店', '华为电脑官方授权店', NULL, 'computer', 'approved', NOW(), NOW()),
+('shop16', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '联想电脑专营店', '联想电脑官方旗舰店', NULL, 'computer', 'approved', NOW(), NOW()),
+('shop17', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '微软电脑专营店', '微软Surface官方授权店', NULL, 'computer', 'approved', NOW(), NOW()),
+('shop18', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '小米电脑专营店', '小米电脑官方授权店', NULL, 'computer', 'approved', NOW(), NOW()),
+('shop19', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '空调专营店', '品牌空调，品质保障，专业安装', NULL, 'appliances', 'approved', NOW(), NOW()),
+('shop20', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '洗地机专营店', '智能洗地机，清洁好帮手', NULL, 'appliances', 'approved', NOW(), NOW()),
+('shop21', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '冰箱专营店', '品牌冰箱，保鲜生活', NULL, 'appliances', 'approved', NOW(), NOW()),
+('shop22', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '电视专营店', '智能电视，视听盛宴', NULL, 'appliances', 'approved', NOW(), NOW()),
+('shop23', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '洗衣机专营店', '品牌洗衣机，洁净生活', NULL, 'appliances', 'approved', NOW(), NOW()),
+('shop24', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '箱包专营店', '奢侈品箱包，品质之选', NULL, 'cloth-shoes', 'approved', NOW(), NOW()),
+('shop25', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '运动鞋专营店', 'Nike AJ正品鞋，潮流之选', NULL, 'cloth-shoes', 'approved', NOW(), NOW()),
+('shop26', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '薯片专营店', '美味薯片，休闲零食', NULL, 'food', 'approved', NOW(), NOW()),
+('shop27', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '辣条专营店', '经典辣条，童年味道', NULL, 'food', 'approved', NOW(), NOW()),
+('shop28', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '游泳装备专营店', '专业游泳装备，畅游无忧', NULL, 'sports', 'approved', NOW(), NOW()),
+('shop29', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '登山装备专营店', '专业登山装备，探索自然', NULL, 'sports', 'approved', NOW(), NOW()),
+('shop30', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '骑行装备专营店', '骑行装备，绿色出行', NULL, 'sports', 'approved', NOW(), NOW()),
+('shop31', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '美妆护肤专营店', '正品美妆，护肤专家', NULL, 'cosmetics', 'approved', NOW(), NOW()),
+('shop32', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '图书音像专营店', '正版图书，知识海洋', NULL, 'book', 'approved', NOW(), NOW());

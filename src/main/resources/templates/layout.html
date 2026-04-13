@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +27,13 @@
                 </div>
             </form>
             <div class="d-flex align-items-center">
-                <span sec:authorize="isAuthenticated()" class="d-flex align-items-center">
+                <a href="/merchant/login" class="btn btn-outline-secondary btn-sm me-2">
+                    <i class="bi bi-shop me-1"></i>商家
+                </a>
+                <a href="/admin/login" class="btn btn-outline-dark btn-sm me-2">
+                    <i class="bi bi-shield-lock me-1"></i>管理
+                </a>
+                <span th:if="${user != null}" class="d-flex align-items-center">
                     <a href="/cart" class="btn btn-outline-success btn-sm me-2 position-relative">
                         <i class="bi bi-cart3 me-1"></i>购物车
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge" style="display:none;">
@@ -37,11 +43,12 @@
                     <a href="/user/center" class="btn btn-outline-primary btn-sm me-2">
                         <i class="bi bi-person-circle me-1"></i>用户中心
                     </a>
-                    <form th:action="@{/logout}" method="post" style="display:inline;">
-                        <button type="submit" class="btn btn-link btn-sm text-decoration-none">退出</button>
-                    </form>
+                    <a href="/user/orders" class="btn btn-outline-info btn-sm me-2">
+                        <i class="bi bi-receipt me-1"></i>我的订单
+                    </a>
+                    <a href="/user/logout" class="btn btn-link btn-sm text-decoration-none">退出</a>
                 </span>
-                <a sec:authorize="!isAuthenticated()" href="/user/login" class="btn btn-primary btn-sm">登录</a>
+                <a th:if="${user == null}" href="/user/login" class="btn btn-primary btn-sm">登录</a>
             </div>
         </div>
     </div>
