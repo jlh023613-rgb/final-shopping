@@ -49,6 +49,16 @@ public class UserCenterController {
         return "user/center";
     }
 
+    @GetMapping({"/address", "/addresses"})
+    public String addressEntry(HttpSession session) {
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return "redirect:/user/login";
+        }
+        // Address management is embedded in user center.
+        return "redirect:/user/center";
+    }
+
     @PostMapping("/address/add")
     public String addAddress(HttpSession session,
                             @RequestParam String receiverName,

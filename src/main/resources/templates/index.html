@@ -5,20 +5,45 @@
 </head>
 <body>
 <style>
-    .carousel-custom { border-radius: 4px; overflow: hidden; }
-    .banner-gradient-1 { background: linear-gradient(135deg, #1a237e 0%, #283593 100%); }
-    .banner-gradient-2 { background: linear-gradient(135deg, #004d40 0%, #00695c 100%); }
-    .banner-gradient-3 { background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 100%); }
+    .carousel-custom {
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 16px 36px rgba(16, 36, 62, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .banner-slide {
+        height: 350px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding: 20px;
+    }
+    .banner-slide::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at 20% 24%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 35%),
+            radial-gradient(circle at 82% 72%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 38%);
+        pointer-events: none;
+    }
+    .banner-gradient-1 { background: linear-gradient(132deg, #0b2a6f 0%, #1f6feb 52%, #0f4fb4 100%); }
+    .banner-gradient-2 { background: linear-gradient(132deg, #064e62 0%, #0e7490 52%, #14b8a6 100%); }
+    .banner-gradient-3 { background: linear-gradient(132deg, #1e1b4b 0%, #4338ca 52%, #3b82f6 100%); }
 
     .category-sidebar {
         background: white;
-        border-radius: 4px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-soft);
         overflow: hidden;
         position: sticky;
-        top: 90px;
+        top: 98px;
     }
     .category-title {
-        background: var(--primary-dark);
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
         color: white;
         font-size: 14px;
         font-weight: 600;
@@ -76,14 +101,15 @@
     .product-card {
         background: white;
         border: 1px solid var(--border);
-        border-radius: 4px;
+        border-radius: 16px;
         transition: all 0.2s ease;
         overflow: hidden;
+        box-shadow: 0 8px 24px rgba(16, 36, 62, 0.06);
     }
     .product-card:hover {
-        border-color: var(--primary);
+        border-color: #95bff6;
         transform: translateY(-3px);
-        box-shadow: 0 4px 12px rgba(228, 57, 60, 0.15);
+        box-shadow: 0 14px 28px rgba(31, 111, 235, 0.18);
     }
     .product-card:hover .product-img {
         transform: scale(1.05);
@@ -160,29 +186,85 @@
     }
 
     .carousel-indicators [data-bs-target] {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
         border-radius: 50%;
-        background-color: rgba(255,255,255,0.5);
+        background-color: rgba(255,255,255,0.48);
         border: none;
+        margin: 0 4px;
     }
     .carousel-indicators .active {
         background-color: #fff;
     }
-    .banner-text { text-align: left; padding-left: 50px; }
-    .banner-text h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
-    .banner-text p { font-size: 16px; margin: 0; opacity: 0.9; }
-    .btn-banner {
-        background: white;
-        color: var(--primary);
-        border: none;
-        padding: 8px 24px;
-        font-size: 14px;
-        font-weight: 600;
-        border-radius: 4px;
-        margin-top: 16px;
+    .banner-text {
+        text-align: center;
+        color: #fff;
+        max-width: 560px;
+        width: 100%;
+        padding: 28px 34px;
+        border-radius: 20px;
+        background: rgba(11, 18, 32, 0.26);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        backdrop-filter: blur(10px) saturate(120%);
+        box-shadow: 0 14px 28px rgba(10, 26, 52, 0.28);
+        position: relative;
+        z-index: 1;
     }
-    .btn-banner:hover { background: #fff5f0; color: var(--primary-dark); }
+    .banner-text h2 {
+        font-size: 32px;
+        line-height: 1.2;
+        font-weight: 800;
+        margin-bottom: 10px;
+        letter-spacing: 0.5px;
+    }
+    .banner-text p {
+        font-size: 16px;
+        margin: 0;
+        opacity: 0.94;
+    }
+    .btn-banner {
+        background: linear-gradient(135deg, #ffffff 0%, #e8f1ff 100%);
+        color: #114193;
+        border: 1px solid rgba(255, 255, 255, 0.65);
+        padding: 9px 26px;
+        font-size: 14px;
+        font-weight: 700;
+        border-radius: 999px;
+        margin-top: 18px;
+        transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .btn-banner:hover {
+        color: #0c3278;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 18px rgba(8, 33, 86, 0.24);
+        filter: brightness(1.02);
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-size: 56% 56%;
+        background-color: rgba(8, 24, 56, 0.5);
+        border-radius: 50%;
+        width: 46px;
+        height: 46px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(6px);
+    }
+    @media (max-width: 768px) {
+        .banner-slide { height: 260px; }
+        .banner-text {
+            max-width: 92%;
+            padding: 18px 16px;
+            border-radius: 14px;
+        }
+        .banner-text h2 { font-size: 22px; margin-bottom: 8px; }
+        .banner-text p { font-size: 13px; }
+        .btn-banner { margin-top: 12px; padding: 7px 18px; font-size: 13px; }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            width: 38px;
+            height: 38px;
+        }
+    }
 
     .sold-count {
         font-size: 12px;
@@ -307,7 +389,7 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div class="d-flex align-items-center banner-gradient-1" style="height: 350px;">
+                        <div class="banner-slide banner-gradient-1">
                             <div class="banner-text text-white">
                                 <h2>春季新品发布</h2>
                                 <p>精选好物 限时优惠 5折起</p>
@@ -316,7 +398,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="d-flex align-items-center banner-gradient-2" style="height: 350px;">
+                        <div class="banner-slide banner-gradient-2">
                             <div class="banner-text text-white">
                                 <h2>数码狂欢节</h2>
                                 <p>最新数码产品 现货速发</p>
@@ -325,7 +407,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="d-flex align-items-center banner-gradient-3" style="height: 350px;">
+                        <div class="banner-slide banner-gradient-3">
                             <div class="banner-text text-white">
                                 <h2>品质生活指南</h2>
                                 <p>提升幸福感的100件好物</p>
@@ -347,6 +429,7 @@
     <div class="section-header" style="margin-top: 16px;">
         <h5 class="section-title">
             <span th:if="${keyword != null and !keyword.isEmpty()}" th:text="'搜索: ' + ${keyword}">搜索结果</span>
+            <span th:if="${selectedShop != null and (keyword == null or keyword.isEmpty())}" th:text="${selectedShop.name}">店铺名称</span>
             <span th:if="${category != null and !category.isEmpty() and (keyword == null or keyword.isEmpty())}">
                 <span th:switch="${category}">
                     <span th:case="'phone'">手机数码</span>
@@ -405,7 +488,8 @@
 
     <div class="text-center py-5" th:if="${products == null or products.isEmpty()}">
         <div class="bg-white p-5 d-inline-block" style="border: 1px solid var(--border); border-radius: 4px;">
-            <p class="text-secondary mb-0">该分类暂无商品</p>
+            <p class="text-secondary mb-0" th:if="${shopId != null}">该店铺暂无商品</p>
+            <p class="text-secondary mb-0" th:if="${shopId == null}">该分类暂无商品</p>
         </div>
     </div>
 

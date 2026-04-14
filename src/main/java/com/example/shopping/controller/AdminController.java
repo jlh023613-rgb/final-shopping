@@ -68,7 +68,7 @@ public class AdminController {
         List<Complaint> allComplaints = complaintMapper.findAll();
         List<Refund> allRefunds = refundMapper.findAll();
         List<Refund> pendingRefunds = allRefunds.stream()
-                .filter(r -> "pending".equals(r.getStatus()))
+                .filter(r -> "pending".equals(r.getStatus()) || "escalated".equals(r.getStatus()))
                 .collect(Collectors.toList());
 
         long activeMerchants = allMerchants.stream().filter(m -> "approved".equals(m.getStatus())).count();
@@ -216,7 +216,13 @@ public class AdminController {
         Complaint complaint = complaintMapper.findById(id);
         if (complaint != null && "pending".equals(complaint.getStatus())) {
             complaint.setStatus("handled");
-            complaint.setResult(result);
+            String finalResult = (result == null || result.isBlank()) ? "管理员已处理投诉" : result.trim();
+            if (closeShop) {
+                finalResult = finalResult + "（店铺已关停）";
+            } else {
+                finalResult = finalResult + "（店铺未关停）";
+            }
+            complaint.setResult(finalResult);
             complaintMapper.updateResult(complaint);
 
             if (closeShop) {
@@ -239,7 +245,7 @@ public class AdminController {
 
         List<Refund> refunds = refundMapper.findAll();
         List<Refund> pendingRefunds = refunds.stream()
-                .filter(r -> "pending".equals(r.getStatus()))
+                .filter(r -> "pending".equals(r.getStatus()) || "escalated".equals(r.getStatus()))
                 .collect(Collectors.toList());
 
         model.addAttribute("admin", admin);

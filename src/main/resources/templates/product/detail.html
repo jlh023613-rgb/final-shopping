@@ -256,6 +256,9 @@
                         <div>
                             <span class="fw-bold" style="font-size: 13px;" th:text="${shop.name}">店铺名称</span>
                             <span th:if="${shop.description != null}" class="text-secondary d-block" style="font-size: 12px;" th:text="${shop.description}">店铺描述</span>
+                            <a th:href="@{/(shopId=${shop.id})}" class="d-inline-block mt-1" style="font-size: 12px; color: var(--primary); font-weight: 600;">
+                                进入店铺
+                            </a>
                         </div>
                     </div>
                 </div>

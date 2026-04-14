@@ -42,7 +42,7 @@
                 <div class="section-title">收货地址</div>
                 <div th:if="${addresses == null or addresses.isEmpty()}" class="text-center py-3">
                     <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">暂无收货地址</p>
-                    <a href="/user/address" style="color: var(--primary); font-size: 13px;">添加地址</a>
+                    <a href="/user/center" style="color: var(--primary); font-size: 13px;">添加地址</a>
                 </div>
                 <div th:if="${addresses != null and !addresses.isEmpty()}" class="row g-2">
                     <div th:each="addr, stat : ${addresses}" class="col-md-6">

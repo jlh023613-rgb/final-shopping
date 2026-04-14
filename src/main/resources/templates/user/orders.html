@@ -37,6 +37,12 @@
     .empty-state p { margin-top: 12px; font-size: 14px; }
     .btn-goshop { background: var(--primary); color: white; border: none; padding: 6px 20px; border-radius: 2px; font-size: 13px; }
     .btn-goshop:hover { background: var(--primary-dark); color: white; }
+    .after-sale-box { margin-top: 8px; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: #fafcff; font-size: 12px; }
+    .after-sale-title { font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
+    .after-sale-meta { color: var(--text-secondary); line-height: 1.6; white-space: pre-line; }
+    .after-sale-success { background: #f3fff6; border-color: #cdeed8; }
+    .after-sale-danger { background: #fff6f6; border-color: #ffd7d7; }
+    .after-sale-warning { background: #fffdf3; border-color: #ffe8b0; }
 </style>
 
 <nav th:replace="~{layout :: nav}"></nav>
@@ -44,6 +50,12 @@
 <main class="container py-3">
     <div class="page-title">我的订单</div>
     <div th:if="${error}" class="alert alert-warning py-2" style="font-size: 13px; border-radius: 2px;" th:text="${error}"></div>
+    <div th:if="${notice == 'refund_escalated'}" class="alert alert-info py-2" style="font-size: 13px; border-radius: 2px;">
+        已提交管理员介入申请，请等待平台处理结果。
+    </div>
+    <div th:if="${notice == 'refund_escalate_failed'}" class="alert alert-warning py-2" style="font-size: 13px; border-radius: 2px;">
+        当前退款状态不支持再次申请管理员介入。
+    </div>
     <div th:if="${orders == null or orders.isEmpty()}" class="empty-state">
         <p>暂无订单</p>
         <a href="/" class="btn btn-goshop">去购物</a>
@@ -75,6 +87,34 @@
                     <span class="order-qty" th:text="'x' + ${order.quantity}"></span>
                 </div>
                 <div class="order-addr" th:text="'收货地址: ' + ${order.receiverAddress}"></div>
+
+                <div th:if="${order.hasComplaint}" class="after-sale-box"
+                     th:classappend="${order.complaintStatus == 'handled'} ? ' after-sale-success' : ' after-sale-warning'">
+                    <div class="after-sale-title">投诉处理结果</div>
+                    <div class="after-sale-meta">
+                        <div>状态：<span th:text="${order.complaintStatus == 'handled' ? '已处理' : '处理中'}"></span></div>
+                        <div th:if="${order.complaintResult != null and !order.complaintResult.isEmpty()}"
+                             th:text="'结果：' + ${order.complaintResult}"></div>
+                    </div>
+                </div>
+
+                <div th:if="${order.hasRefund}" class="after-sale-box"
+                     th:classappend="${order.refundStatus == 'approved'} ? ' after-sale-success' : (${order.refundStatus == 'rejected'} ? ' after-sale-danger' : ' after-sale-warning')">
+                    <div class="after-sale-title">退款处理结果</div>
+                    <div class="after-sale-meta">
+                        <div>
+                            状态：
+                            <span th:if="${order.refundStatus == 'pending'}">商家处理中</span>
+                            <span th:if="${order.refundStatus == 'escalated'}">管理员介入处理中</span>
+                            <span th:if="${order.refundStatus == 'approved'}">退款成功</span>
+                            <span th:if="${order.refundStatus == 'rejected'}">退款失败</span>
+                        </div>
+                        <div th:if="${order.refundResult != null and !order.refundResult.isEmpty()}"
+                             th:text="'原因：' + ${order.refundResult}"></div>
+                        <div th:if="${order.refundProcessedAt != null}"
+                             th:text="'处理时间：' + ${#temporals.format(order.refundProcessedAt, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
+                </div>
             </div>
             <div class="order-actions">
                 <form th:if="${order.status == 'pending'}" th:action="@{/user/order/cancel/{id}(id=${order.id})}" method="post" style="display:inline;">
@@ -87,7 +127,13 @@
                 <a th:if="${(order.status == 'completed' or order.status == 'reviewed') and !order.hasComplaint}" th:href="@{/user/complaint/{orderId}(orderId=${order.id})}" class="action-btn">投诉</a>
                 <span th:if="${order.hasComplaint}" class="action-btn" style="color: var(--text-muted); cursor: default; border-color: #eee;">已投诉</span>
                 <a th:if="${order.canRefund}" th:href="@{/user/refund/{orderId}(orderId=${order.id})}" class="action-btn">申请退款</a>
-                <span th:if="${order.hasRefund}" class="action-btn" style="color: var(--text-muted); cursor: default; border-color: #eee;">已退款</span>
+                <span th:if="${order.hasRefund and order.refundStatus == 'pending'}" class="action-btn" style="color: #b26a00; cursor: default; border-color: #ffd18b;">退款处理中</span>
+                <span th:if="${order.hasRefund and order.refundStatus == 'escalated'}" class="action-btn" style="color: #1f6feb; cursor: default; border-color: #9ec5ff;">管理员介入中</span>
+                <span th:if="${order.hasRefund and order.refundStatus == 'approved'}" class="action-btn" style="color: #2e7d32; cursor: default; border-color: #a5d6a7;">退款成功</span>
+                <span th:if="${order.hasRefund and order.refundStatus == 'rejected'}" class="action-btn" style="color: #d32f2f; cursor: default; border-color: #ef9a9a;">退款失败</span>
+                <form th:if="${order.canEscalateRefund}" th:action="@{/user/refund/escalate/{orderId}(orderId=${order.id})}" method="post" style="display:inline;">
+                    <button type="submit" class="action-btn action-btn-primary" onclick="return confirm('确认申请管理员介入该退款？')">申请管理员介入</button>
+                </form>
             </div>
         </div>
     </div>

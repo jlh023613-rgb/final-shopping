@@ -1,0 +1,969 @@
+[INFO] Scanning for projects...
+Downloading from central: https://repo.maven.apache.org/maven2/org/cyclonedx/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/io/github/git-commit-id/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/flywaydb/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/maven-metadata.xml
+Progress (1): 249 BProgress (2): 249 B | 234 B                           Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/maven-metadata.xml (249 B at 189 B/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/jooq/maven-metadata.xml
+Progress (2): 234 B | 255 B                           Downloaded from central: https://repo.maven.apache.org/maven2/io/github/git-commit-id/maven-metadata.xml (255 B at 176 B/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/maven-metadata.xml
+Downloaded from central: https://repo.maven.apache.org/maven2/org/flywaydb/maven-metadata.xml (234 B at 156 B/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/liquibase/maven-metadata.xml
+Progress (1): 398 B                   Downloaded from central: https://repo.maven.apache.org/maven2/org/jooq/maven-metadata.xml (398 B at 1.9 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/graalvm/buildtools/maven-metadata.xml
+Progress (1): 375 B                   Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/maven-metadata.xml (375 B at 1.7 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+Progress (1): 394 B                   Downloaded from central: https://repo.maven.apache.org/maven2/org/liquibase/maven-metadata.xml (394 B at 1.7 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml
+Progress (1): 242 B                   Downloaded from central: https://repo.maven.apache.org/maven2/org/graalvm/buildtools/maven-metadata.xml (242 B at 987 B/s)
+Progress (1): 4.6 kBProgress (1): 12 kB Progress (1): 14 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml (14 kB at 62 kB/s)
+Progress (1): 3.1 kBProgress (1): 7.5 kBProgress (1): 12 kB Progress (1): 17 kBProgress (1): 20 kBProgress (1): 21 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml (21 kB at 33 kB/s)
+Progress (1): 243 B                   Downloaded from central: https://repo.maven.apache.org/maven2/org/cyclonedx/maven-metadata.xml (243 B at 79 B/s)
+[INFO] 
+[INFO] ------------------------< com.example:shopping >------------------------
+[INFO] Building shopping 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.3.0:run (default-cli) > test-compile @ shopping >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ shopping ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 655 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ shopping ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ shopping ---
+[INFO] skip non existing resourceDirectory C:\Users\35373\Desktop\lhh\shopping\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ shopping ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.3.0:run (default-cli) < test-compile @ shopping <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.0:run (default-cli) @ shopping ---
+[INFO] Attaching agents: []
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.0)
+
+2026-04-15T01:10:14.386+08:00  INFO 55724 --- [           main] c.example.shopping.ShoppingApplication   : Starting ShoppingApplication using Java 22.0.2 with PID 55724 (C:\Users\35373\Desktop\lhh\shopping\target\classes started by 35373 in C:\Users\35373\Desktop\lhh\shopping)
+2026-04-15T01:10:14.387+08:00  INFO 55724 --- [           main] c.example.shopping.ShoppingApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-04-15T01:10:15.467+08:00  INFO 55724 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-04-15T01:10:15.480+08:00  INFO 55724 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-15T01:10:15.482+08:00  INFO 55724 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.24]
+2026-04-15T01:10:15.538+08:00  INFO 55724 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-04-15T01:10:15.538+08:00  INFO 55724 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1117 ms
+2026-04-15T01:10:15.889+08:00  INFO 55724 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-15T01:10:16.002+08:00  INFO 55724 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3be3e76c
+2026-04-15T01:10:16.003+08:00  INFO 55724 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-15T01:10:16.706+08:00  INFO 55724 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-04-15T01:10:16.760+08:00  INFO 55724 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-04-15T01:10:17.249+08:00  INFO 55724 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-04-15T01:10:17.358+08:00  INFO 55724 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2d73e8c4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6ce2e079, org.springframework.security.web.context.SecurityContextHolderFilter@5ed65e4b, org.springframework.security.web.header.HeaderWriterFilter@438aaa9f, org.springframework.web.filter.CorsFilter@3e39e0fb, org.springframework.security.web.authentication.logout.LogoutFilter@464400b3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@40cf6254, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@f4f843f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@260d48f5, org.springframework.security.web.access.ExceptionTranslationFilter@455da438, org.springframework.security.web.access.intercept.AuthorizationFilter@34beadce]
+2026-04-15T01:10:18.068+08:00  INFO 55724 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-04-15T01:10:18.100+08:00  INFO 55724 --- [           main] c.example.shopping.ShoppingApplication   : Started ShoppingApplication in 4.049 seconds (process running for 4.304)
+2026-04-15T01:10:18.378+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.findAll       : ==>  Preparing: SELECT * FROM products WHERE status = 1 AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
+2026-04-15T01:10:18.425+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.findAll       : ==> Parameters: 
+2026-04-15T01:10:18.557+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.findAll       : <==      Total: 149
+2026-04-15T01:10:18.572+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ShopMapper.findByFolder     : ==>  Preparing: SELECT id, name, folder, description, sort_order as sortOrder FROM shops WHERE folder = ?
+2026-04-15T01:10:18.576+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ShopMapper.findByFolder     : ==> Parameters: cosmetics(String)
+2026-04-15T01:10:18.582+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ShopMapper.findByFolder     : <==      Total: 0
+2026-04-15T01:10:18.586+08:00 DEBUG 55724 --- [           main] c.e.shopping.mapper.ShopMapper.insert    : ==>  Preparing: INSERT INTO shops (name, folder, description, sort_order) VALUES (?, ?, ?, ?)
+2026-04-15T01:10:18.591+08:00 DEBUG 55724 --- [           main] c.e.shopping.mapper.ShopMapper.insert    : ==> Parameters: Cosmetics(String), cosmetics(String), Auto imported image category: cosmetics(String), 0(Integer)
+2026-04-15T01:10:18.600+08:00 DEBUG 55724 --- [           main] c.e.shopping.mapper.ShopMapper.insert    : <==    Updates: 1
+2026-04-15T01:10:18.632+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.638+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10009(String), cosmetics(String), 6237.00(BigDecimal), 6737.00(BigDecimal), 100(Integer), /image/cosmetics/10009.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.645+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.647+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.649+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 150(Long), /image/cosmetics/10009.webp(String), 0(Integer)
+2026-04-15T01:10:18.655+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.657+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.661+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10010(String), cosmetics(String), 7735.00(BigDecimal), 8235.00(BigDecimal), 100(Integer), /image/cosmetics/10010.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.668+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.671+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.673+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 151(Long), /image/cosmetics/10010.webp(String), 0(Integer)
+2026-04-15T01:10:18.680+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.681+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.685+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10011(String), cosmetics(String), 6584.00(BigDecimal), 7084.00(BigDecimal), 100(Integer), /image/cosmetics/10011.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.692+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.693+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.695+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 152(Long), /image/cosmetics/10011.webp(String), 0(Integer)
+2026-04-15T01:10:18.702+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.704+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.707+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10012(String), cosmetics(String), 5433.00(BigDecimal), 5933.00(BigDecimal), 100(Integer), /image/cosmetics/10012.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.713+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.713+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.715+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 153(Long), /image/cosmetics/10012.webp(String), 0(Integer)
+2026-04-15T01:10:18.723+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.723+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.725+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10013(String), cosmetics(String), 4282.00(BigDecimal), 4782.00(BigDecimal), 100(Integer), /image/cosmetics/10013.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.732+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.732+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.734+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 154(Long), /image/cosmetics/10013.webp(String), 0(Integer)
+2026-04-15T01:10:18.741+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.743+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.745+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10014(String), cosmetics(String), 7131.00(BigDecimal), 7631.00(BigDecimal), 100(Integer), /image/cosmetics/10014.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.750+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.752+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.755+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 155(Long), /image/cosmetics/10014.webp(String), 0(Integer)
+2026-04-15T01:10:18.761+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.763+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.765+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10015(String), cosmetics(String), 5980.00(BigDecimal), 6480.00(BigDecimal), 100(Integer), /image/cosmetics/10015.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.773+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.775+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.776+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 156(Long), /image/cosmetics/10015.webp(String), 0(Integer)
+2026-04-15T01:10:18.785+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.787+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.788+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10016(String), cosmetics(String), 4829.00(BigDecimal), 5329.00(BigDecimal), 100(Integer), /image/cosmetics/10016.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.797+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.799+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.802+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 157(Long), /image/cosmetics/10016.webp(String), 0(Integer)
+2026-04-15T01:10:18.807+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.810+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.812+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10017(String), cosmetics(String), 7678.00(BigDecimal), 8178.00(BigDecimal), 100(Integer), /image/cosmetics/10017.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.818+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.820+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.822+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 158(Long), /image/cosmetics/10017.webp(String), 0(Integer)
+2026-04-15T01:10:18.829+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.830+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.833+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10018(String), cosmetics(String), 6527.00(BigDecimal), 7027.00(BigDecimal), 100(Integer), /image/cosmetics/10018.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.839+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.841+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.842+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 159(Long), /image/cosmetics/10018.webp(String), 0(Integer)
+2026-04-15T01:10:18.849+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.851+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.855+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10019(String), cosmetics(String), 5376.00(BigDecimal), 5876.00(BigDecimal), 100(Integer), /image/cosmetics/10019.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.861+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.865+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.866+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 160(Long), /image/cosmetics/10019.webp(String), 0(Integer)
+2026-04-15T01:10:18.872+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.874+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.876+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10020(String), cosmetics(String), 4054.00(BigDecimal), 4554.00(BigDecimal), 100(Integer), /image/cosmetics/10020.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.883+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.885+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.887+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 161(Long), /image/cosmetics/10020.webp(String), 0(Integer)
+2026-04-15T01:10:18.892+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.894+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.897+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10021(String), cosmetics(String), 6903.00(BigDecimal), 7403.00(BigDecimal), 100(Integer), /image/cosmetics/10021.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.904+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.906+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.908+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 162(Long), /image/cosmetics/10021.webp(String), 0(Integer)
+2026-04-15T01:10:18.913+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.917+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.918+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10022(String), cosmetics(String), 6589.00(BigDecimal), 7089.00(BigDecimal), 100(Integer), /image/cosmetics/10022.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.923+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.925+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.928+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 163(Long), /image/cosmetics/10022.png(String), 0(Integer)
+2026-04-15T01:10:18.932+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.934+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.936+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10023(String), cosmetics(String), 6110.00(BigDecimal), 6610.00(BigDecimal), 100(Integer), /image/cosmetics/10023.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.943+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.943+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.945+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 164(Long), /image/cosmetics/10023.png(String), 0(Integer)
+2026-04-15T01:10:18.952+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.954+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.956+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10024(String), cosmetics(String), 5631.00(BigDecimal), 6131.00(BigDecimal), 100(Integer), /image/cosmetics/10024.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.962+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.964+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.966+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 165(Long), /image/cosmetics/10024.png(String), 0(Integer)
+2026-04-15T01:10:18.973+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.975+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.978+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10025(String), cosmetics(String), 5152.00(BigDecimal), 5652.00(BigDecimal), 100(Integer), /image/cosmetics/10025.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:18.984+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:18.986+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:18.988+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 166(Long), /image/cosmetics/10025.png(String), 0(Integer)
+2026-04-15T01:10:18.993+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:18.996+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:18.999+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10026(String), cosmetics(String), 4673.00(BigDecimal), 5173.00(BigDecimal), 100(Integer), /image/cosmetics/10026.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.006+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.009+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.011+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 167(Long), /image/cosmetics/10026.png(String), 0(Integer)
+2026-04-15T01:10:19.018+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.020+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.022+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10027(String), cosmetics(String), 4194.00(BigDecimal), 4694.00(BigDecimal), 100(Integer), /image/cosmetics/10027.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.028+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.030+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.032+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 168(Long), /image/cosmetics/10027.png(String), 0(Integer)
+2026-04-15T01:10:19.039+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.042+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.044+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10028(String), cosmetics(String), 7715.00(BigDecimal), 8215.00(BigDecimal), 100(Integer), /image/cosmetics/10028.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.051+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.052+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.055+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 169(Long), /image/cosmetics/10028.png(String), 0(Integer)
+2026-04-15T01:10:19.060+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.064+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.065+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10029(String), cosmetics(String), 7236.00(BigDecimal), 7736.00(BigDecimal), 100(Integer), /image/cosmetics/10029.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.075+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.077+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.079+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 170(Long), /image/cosmetics/10029.png(String), 0(Integer)
+2026-04-15T01:10:19.088+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.092+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.096+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10030(String), cosmetics(String), 4698.00(BigDecimal), 5198.00(BigDecimal), 100(Integer), /image/cosmetics/10030.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.106+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.107+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.109+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 171(Long), /image/cosmetics/10030.png(String), 0(Integer)
+2026-04-15T01:10:19.118+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.119+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.121+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10031(String), cosmetics(String), 4219.00(BigDecimal), 4719.00(BigDecimal), 100(Integer), /image/cosmetics/10031.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.130+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.133+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.135+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 172(Long), /image/cosmetics/10031.png(String), 0(Integer)
+2026-04-15T01:10:19.138+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.142+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.144+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10032(String), cosmetics(String), 7740.00(BigDecimal), 8240.00(BigDecimal), 100(Integer), /image/cosmetics/10032.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.152+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.154+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.156+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 173(Long), /image/cosmetics/10032.png(String), 0(Integer)
+2026-04-15T01:10:19.162+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.164+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.167+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10033(String), cosmetics(String), 7261.00(BigDecimal), 7761.00(BigDecimal), 100(Integer), /image/cosmetics/10033.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.174+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.176+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.177+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 174(Long), /image/cosmetics/10033.png(String), 0(Integer)
+2026-04-15T01:10:19.184+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.185+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.187+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10034(String), cosmetics(String), 6782.00(BigDecimal), 7282.00(BigDecimal), 100(Integer), /image/cosmetics/10034.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.194+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.196+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.198+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 175(Long), /image/cosmetics/10034.png(String), 0(Integer)
+2026-04-15T01:10:19.202+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.205+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.207+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10035(String), cosmetics(String), 6303.00(BigDecimal), 6803.00(BigDecimal), 100(Integer), /image/cosmetics/10035.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.214+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.215+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.217+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 176(Long), /image/cosmetics/10035.png(String), 0(Integer)
+2026-04-15T01:10:19.222+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.225+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.225+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10036(String), cosmetics(String), 5824.00(BigDecimal), 6324.00(BigDecimal), 100(Integer), /image/cosmetics/10036.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.231+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.233+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.235+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 177(Long), /image/cosmetics/10036.png(String), 0(Integer)
+2026-04-15T01:10:19.241+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.243+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.244+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10037(String), cosmetics(String), 5345.00(BigDecimal), 5845.00(BigDecimal), 100(Integer), /image/cosmetics/10037.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.247+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.249+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.251+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 178(Long), /image/cosmetics/10037.png(String), 0(Integer)
+2026-04-15T01:10:19.257+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.259+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.261+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10038(String), cosmetics(String), 4833.00(BigDecimal), 5333.00(BigDecimal), 100(Integer), /image/cosmetics/10038.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.266+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.269+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.270+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 179(Long), /image/cosmetics/10038.webp(String), 0(Integer)
+2026-04-15T01:10:19.277+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.278+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.279+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10039(String), cosmetics(String), 4387.00(BigDecimal), 4887.00(BigDecimal), 100(Integer), /image/cosmetics/10039.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.286+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.287+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.289+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 180(Long), /image/cosmetics/10039.png(String), 0(Integer)
+2026-04-15T01:10:19.297+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.299+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.301+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10040(String), cosmetics(String), 5849.00(BigDecimal), 6349.00(BigDecimal), 100(Integer), /image/cosmetics/10040.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.308+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.308+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.310+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 181(Long), /image/cosmetics/10040.png(String), 0(Integer)
+2026-04-15T01:10:19.315+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.317+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.318+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10041(String), cosmetics(String), 5370.00(BigDecimal), 5870.00(BigDecimal), 100(Integer), /image/cosmetics/10041.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.325+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.326+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.326+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 182(Long), /image/cosmetics/10041.png(String), 0(Integer)
+2026-04-15T01:10:19.333+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.334+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.336+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10042(String), cosmetics(String), 4891.00(BigDecimal), 5391.00(BigDecimal), 100(Integer), /image/cosmetics/10042.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.342+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.344+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.345+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 183(Long), /image/cosmetics/10042.png(String), 0(Integer)
+2026-04-15T01:10:19.350+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.352+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.354+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10043(String), cosmetics(String), 4412.00(BigDecimal), 4912.00(BigDecimal), 100(Integer), /image/cosmetics/10043.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.359+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.360+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.360+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 184(Long), /image/cosmetics/10043.png(String), 0(Integer)
+2026-04-15T01:10:19.364+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.366+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.367+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10044(String), cosmetics(String), 7933.00(BigDecimal), 8433.00(BigDecimal), 100(Integer), /image/cosmetics/10044.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.372+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.374+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.374+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 185(Long), /image/cosmetics/10044.png(String), 0(Integer)
+2026-04-15T01:10:19.379+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.379+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.382+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10045(String), cosmetics(String), 7454.00(BigDecimal), 7954.00(BigDecimal), 100(Integer), /image/cosmetics/10045.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.387+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.389+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.390+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 186(Long), /image/cosmetics/10045.png(String), 0(Integer)
+2026-04-15T01:10:19.394+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.395+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.397+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10046(String), cosmetics(String), 6975.00(BigDecimal), 7475.00(BigDecimal), 100(Integer), /image/cosmetics/10046.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.400+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.402+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.403+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 187(Long), /image/cosmetics/10046.png(String), 0(Integer)
+2026-04-15T01:10:19.410+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.412+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.415+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10047(String), cosmetics(String), 6496.00(BigDecimal), 6996.00(BigDecimal), 100(Integer), /image/cosmetics/10047.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.422+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.431+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.433+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 188(Long), /image/cosmetics/10047.png(String), 0(Integer)
+2026-04-15T01:10:19.441+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.443+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.446+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10048(String), cosmetics(String), 4514.00(BigDecimal), 5014.00(BigDecimal), 100(Integer), /image/cosmetics/10048.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.449+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.449+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.451+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 189(Long), /image/cosmetics/10048.webp(String), 0(Integer)
+2026-04-15T01:10:19.454+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.456+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.456+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10049(String), cosmetics(String), 5665.00(BigDecimal), 6165.00(BigDecimal), 100(Integer), /image/cosmetics/10049.webp(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.460+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.460+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.462+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 190(Long), /image/cosmetics/10049.webp(String), 0(Integer)
+2026-04-15T01:10:19.465+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.468+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.469+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10050(String), cosmetics(String), 7000.00(BigDecimal), 7500.00(BigDecimal), 100(Integer), /image/cosmetics/10050.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.471+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.472+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.472+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 191(Long), /image/cosmetics/10050.png(String), 0(Integer)
+2026-04-15T01:10:19.475+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.478+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.479+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: Cosmetics 10051(String), cosmetics(String), 6521.00(BigDecimal), 7021.00(BigDecimal), 100(Integer), /image/cosmetics/10051.png(String), Auto imported from static image assets(String), 1(Integer), 42(Long)
+2026-04-15T01:10:19.482+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.482+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.483+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 192(Long), /image/cosmetics/10051.png(String), 0(Integer)
+2026-04-15T01:10:19.487+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.487+08:00  INFO 55724 --- [           main] c.e.shopping.service.ImageScanService    : Category cosmetics imported 43 products from local images.
+2026-04-15T01:10:19.488+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ShopMapper.findByFolder     : ==>  Preparing: SELECT id, name, folder, description, sort_order as sortOrder FROM shops WHERE folder = ?
+2026-04-15T01:10:19.488+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ShopMapper.findByFolder     : ==> Parameters: sports(String)
+2026-04-15T01:10:19.490+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ShopMapper.findByFolder     : <==      Total: 0
+2026-04-15T01:10:19.490+08:00 DEBUG 55724 --- [           main] c.e.shopping.mapper.ShopMapper.insert    : ==>  Preparing: INSERT INTO shops (name, folder, description, sort_order) VALUES (?, ?, ?, ?)
+2026-04-15T01:10:19.492+08:00 DEBUG 55724 --- [           main] c.e.shopping.mapper.ShopMapper.insert    : ==> Parameters: Sports(String), sports(String), Auto imported image category: sports(String), 0(Integer)
+2026-04-15T01:10:19.494+08:00 DEBUG 55724 --- [           main] c.e.shopping.mapper.ShopMapper.insert    : <==    Updates: 1
+2026-04-15T01:10:19.523+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.524+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 3b1ce84c 16e2 49eb 94b9 9cd9fd9252df(String), sports(String), 5009.00(BigDecimal), 5509.00(BigDecimal), 100(Integer), /image/sports/游泳装备/3b1ce84c-16e2-49eb-94b9-9cd9fd9252df.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.529+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.529+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.531+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 193(Long), /image/sports/游泳装备/3b1ce84c-16e2-49eb-94b9-9cd9fd9252df.jpg(String), 0(Integer)
+2026-04-15T01:10:19.535+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.535+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.537+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 9320efcc a770 4106 9069 dc0cd75344be(String), sports(String), 5016.00(BigDecimal), 5516.00(BigDecimal), 100(Integer), /image/sports/游泳装备/9320efcc-a770-4106-9069-dc0cd75344be.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.543+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.545+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.546+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 194(Long), /image/sports/游泳装备/9320efcc-a770-4106-9069-dc0cd75344be.png(String), 0(Integer)
+2026-04-15T01:10:19.551+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.553+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.553+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 96282ce5 36cd 41cc 8821 89acc37019e5(String), sports(String), 6361.00(BigDecimal), 6861.00(BigDecimal), 100(Integer), /image/sports/游泳装备/96282ce5-36cd-41cc-8821-89acc37019e5.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.556+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.558+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.559+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 195(Long), /image/sports/游泳装备/96282ce5-36cd-41cc-8821-89acc37019e5.jpg(String), 0(Integer)
+2026-04-15T01:10:19.564+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.565+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.567+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 98aab4bd d993 49c6 8f2a a924382d8524(String), sports(String), 5513.00(BigDecimal), 6013.00(BigDecimal), 100(Integer), /image/sports/游泳装备/98aab4bd-d993-49c6-8f2a-a924382d8524.webp(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.570+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.572+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.574+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 196(Long), /image/sports/游泳装备/98aab4bd-d993-49c6-8f2a-a924382d8524.webp(String), 0(Integer)
+2026-04-15T01:10:19.578+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.578+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.580+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 99f29cdd 0336 443d b0de 1ebd0ee408e7(String), sports(String), 7966.00(BigDecimal), 8466.00(BigDecimal), 100(Integer), /image/sports/游泳装备/99f29cdd-0336-443d-b0de-1ebd0ee408e7.webp(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.587+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.588+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.588+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 197(Long), /image/sports/游泳装备/99f29cdd-0336-443d-b0de-1ebd0ee408e7.webp(String), 0(Integer)
+2026-04-15T01:10:19.598+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.599+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.601+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 ee0c5727 7d14 4252 a2c1 aeeaf0496c0d(String), sports(String), 6353.00(BigDecimal), 6853.00(BigDecimal), 100(Integer), /image/sports/游泳装备/ee0c5727-7d14-4252-a2c1-aeeaf0496c0d.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.606+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.606+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.608+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 198(Long), /image/sports/游泳装备/ee0c5727-7d14-4252-a2c1-aeeaf0496c0d.jpg(String), 0(Integer)
+2026-04-15T01:10:19.613+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.613+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.614+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载 (1)(String), sports(String), 7445.00(BigDecimal), 7945.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载 (1).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.617+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.617+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.619+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 199(Long), /image/sports/游泳装备/下载 (1).jpg(String), 0(Integer)
+2026-04-15T01:10:19.622+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.624+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.626+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载 (10)(String), sports(String), 6557.00(BigDecimal), 7057.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载 (10).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.630+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.632+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.634+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 200(Long), /image/sports/游泳装备/下载 (10).jpg(String), 0(Integer)
+2026-04-15T01:10:19.637+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.637+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.639+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载 (2)(String), sports(String), 6294.00(BigDecimal), 6794.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载 (2).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.642+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.643+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.645+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 201(Long), /image/sports/游泳装备/下载 (2).jpg(String), 0(Integer)
+2026-04-15T01:10:19.648+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.651+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.652+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载 (3)(String), sports(String), 5143.00(BigDecimal), 5643.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载 (3).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.655+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.657+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.658+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 202(Long), /image/sports/游泳装备/下载 (3).jpg(String), 0(Integer)
+2026-04-15T01:10:19.663+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.665+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.666+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载 (4)(String), sports(String), 7992.00(BigDecimal), 8492.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载 (4).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.671+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.671+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.673+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 203(Long), /image/sports/游泳装备/下载 (4).jpg(String), 0(Integer)
+2026-04-15T01:10:19.678+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.680+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.681+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载 (5)(String), sports(String), 6841.00(BigDecimal), 7341.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载 (5).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.686+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.686+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.688+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 204(Long), /image/sports/游泳装备/下载 (5).jpg(String), 0(Integer)
+2026-04-15T01:10:19.693+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.695+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.696+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载 (6)(String), sports(String), 5690.00(BigDecimal), 6190.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载 (6).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.701+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.703+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.703+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 205(Long), /image/sports/游泳装备/下载 (6).jpg(String), 0(Integer)
+2026-04-15T01:10:19.707+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.709+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.711+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载 (7)(String), sports(String), 4539.00(BigDecimal), 5039.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载 (7).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.715+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.717+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.718+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 206(Long), /image/sports/游泳装备/下载 (7).jpg(String), 0(Integer)
+2026-04-15T01:10:19.724+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.726+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.727+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载 (8)(String), sports(String), 7388.00(BigDecimal), 7888.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载 (8).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.735+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.737+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.738+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 207(Long), /image/sports/游泳装备/下载 (8).jpg(String), 0(Integer)
+2026-04-15T01:10:19.747+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.749+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.749+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载 (9)(String), sports(String), 6237.00(BigDecimal), 6737.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载 (9).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.756+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.758+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.760+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 208(Long), /image/sports/游泳装备/下载 (9).jpg(String), 0(Integer)
+2026-04-15T01:10:19.766+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.768+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.772+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 游泳装备 下载(String), sports(String), 4469.00(BigDecimal), 4969.00(BigDecimal), 100(Integer), /image/sports/游泳装备/下载.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.779+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.781+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.781+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 209(Long), /image/sports/游泳装备/下载.jpg(String), 0(Integer)
+2026-04-15T01:10:19.788+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.791+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.793+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10003(String), sports(String), 7450.00(BigDecimal), 7950.00(BigDecimal), 100(Integer), /image/sports/登山装备/10003.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.800+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.803+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.805+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 210(Long), /image/sports/登山装备/10003.png(String), 0(Integer)
+2026-04-15T01:10:19.811+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.816+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.819+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10004(String), sports(String), 7929.00(BigDecimal), 8429.00(BigDecimal), 100(Integer), /image/sports/登山装备/10004.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.828+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.833+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.833+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 211(Long), /image/sports/登山装备/10004.png(String), 0(Integer)
+2026-04-15T01:10:19.840+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.844+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.845+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10005(String), sports(String), 4408.00(BigDecimal), 4908.00(BigDecimal), 100(Integer), /image/sports/登山装备/10005.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.852+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.853+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.855+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 212(Long), /image/sports/登山装备/10005.png(String), 0(Integer)
+2026-04-15T01:10:19.860+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.864+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.865+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10006(String), sports(String), 4887.00(BigDecimal), 5387.00(BigDecimal), 100(Integer), /image/sports/登山装备/10006.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.875+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.876+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.878+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 213(Long), /image/sports/登山装备/10006.png(String), 0(Integer)
+2026-04-15T01:10:19.883+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.883+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.885+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10007(String), sports(String), 5366.00(BigDecimal), 5866.00(BigDecimal), 100(Integer), /image/sports/登山装备/10007.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.890+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.892+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.892+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 214(Long), /image/sports/登山装备/10007.png(String), 0(Integer)
+2026-04-15T01:10:19.897+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.899+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.900+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10008(String), sports(String), 5845.00(BigDecimal), 6345.00(BigDecimal), 100(Integer), /image/sports/登山装备/10008.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.903+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.905+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.907+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 215(Long), /image/sports/登山装备/10008.png(String), 0(Integer)
+2026-04-15T01:10:19.910+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.912+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.914+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10009(String), sports(String), 6324.00(BigDecimal), 6824.00(BigDecimal), 100(Integer), /image/sports/登山装备/10009.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.918+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.920+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.922+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 216(Long), /image/sports/登山装备/10009.png(String), 0(Integer)
+2026-04-15T01:10:19.925+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.927+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.928+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10010(String), sports(String), 7136.00(BigDecimal), 7636.00(BigDecimal), 100(Integer), /image/sports/登山装备/10010.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.933+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.935+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.935+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 217(Long), /image/sports/登山装备/10010.png(String), 0(Integer)
+2026-04-15T01:10:19.940+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.942+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.942+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10011(String), sports(String), 6657.00(BigDecimal), 7157.00(BigDecimal), 100(Integer), /image/sports/登山装备/10011.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.948+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.948+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.950+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 218(Long), /image/sports/登山装备/10011.png(String), 0(Integer)
+2026-04-15T01:10:19.955+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.957+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.958+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10012(String), sports(String), 6178.00(BigDecimal), 6678.00(BigDecimal), 100(Integer), /image/sports/登山装备/10012.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.964+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.965+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.966+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 219(Long), /image/sports/登山装备/10012.png(String), 0(Integer)
+2026-04-15T01:10:19.971+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.973+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.974+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10013(String), sports(String), 5699.00(BigDecimal), 6199.00(BigDecimal), 100(Integer), /image/sports/登山装备/10013.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.981+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.982+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:19.984+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 220(Long), /image/sports/登山装备/10013.png(String), 0(Integer)
+2026-04-15T01:10:19.989+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:19.991+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:19.992+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10014(String), sports(String), 5067.00(BigDecimal), 5567.00(BigDecimal), 100(Integer), /image/sports/登山装备/10014.jpeg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:19.997+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:19.999+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.000+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 221(Long), /image/sports/登山装备/10014.jpeg(String), 0(Integer)
+2026-04-15T01:10:20.005+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.006+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.008+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10015(String), sports(String), 6218.00(BigDecimal), 6718.00(BigDecimal), 100(Integer), /image/sports/登山装备/10015.jpeg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.013+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.015+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.016+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 222(Long), /image/sports/登山装备/10015.jpeg(String), 0(Integer)
+2026-04-15T01:10:20.022+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.023+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.025+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10016(String), sports(String), 7369.00(BigDecimal), 7869.00(BigDecimal), 100(Integer), /image/sports/登山装备/10016.jpeg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.031+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.032+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.034+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 223(Long), /image/sports/登山装备/10016.jpeg(String), 0(Integer)
+2026-04-15T01:10:20.039+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.041+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.043+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10017(String), sports(String), 4520.00(BigDecimal), 5020.00(BigDecimal), 100(Integer), /image/sports/登山装备/10017.jpeg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.048+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.050+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.051+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 224(Long), /image/sports/登山装备/10017.jpeg(String), 0(Integer)
+2026-04-15T01:10:20.057+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.060+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.061+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10018(String), sports(String), 5671.00(BigDecimal), 6171.00(BigDecimal), 100(Integer), /image/sports/登山装备/10018.jpeg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.068+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.070+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.072+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 225(Long), /image/sports/登山装备/10018.jpeg(String), 0(Integer)
+2026-04-15T01:10:20.078+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.081+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.083+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10019(String), sports(String), 6822.00(BigDecimal), 7322.00(BigDecimal), 100(Integer), /image/sports/登山装备/10019.jpeg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.089+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.091+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.092+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 226(Long), /image/sports/登山装备/10019.jpeg(String), 0(Integer)
+2026-04-15T01:10:20.098+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.100+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.101+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10020(String), sports(String), 4287.00(BigDecimal), 4787.00(BigDecimal), 100(Integer), /image/sports/登山装备/10020.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.105+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.108+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.109+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 227(Long), /image/sports/登山装备/10020.png(String), 0(Integer)
+2026-04-15T01:10:20.113+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.116+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.116+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10021(String), sports(String), 7808.00(BigDecimal), 8308.00(BigDecimal), 100(Integer), /image/sports/登山装备/10021.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.121+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.123+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.124+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 228(Long), /image/sports/登山装备/10021.png(String), 0(Integer)
+2026-04-15T01:10:20.128+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.130+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.132+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10022(String), sports(String), 7329.00(BigDecimal), 7829.00(BigDecimal), 100(Integer), /image/sports/登山装备/10022.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.138+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.138+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.140+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 229(Long), /image/sports/登山装备/10022.png(String), 0(Integer)
+2026-04-15T01:10:20.144+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.146+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.148+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10023(String), sports(String), 6850.00(BigDecimal), 7350.00(BigDecimal), 100(Integer), /image/sports/登山装备/10023.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.152+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.153+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.155+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 230(Long), /image/sports/登山装备/10023.png(String), 0(Integer)
+2026-04-15T01:10:20.160+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.162+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.162+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10024(String), sports(String), 6371.00(BigDecimal), 6871.00(BigDecimal), 100(Integer), /image/sports/登山装备/10024.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.167+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.168+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.168+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 231(Long), /image/sports/登山装备/10024.png(String), 0(Integer)
+2026-04-15T01:10:20.173+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.175+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.176+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10025(String), sports(String), 5892.00(BigDecimal), 6392.00(BigDecimal), 100(Integer), /image/sports/登山装备/10025.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.180+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.181+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.183+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 232(Long), /image/sports/登山装备/10025.png(String), 0(Integer)
+2026-04-15T01:10:20.186+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.189+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.190+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10026(String), sports(String), 5413.00(BigDecimal), 5913.00(BigDecimal), 100(Integer), /image/sports/登山装备/10026.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.195+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.196+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.196+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 233(Long), /image/sports/登山装备/10026.png(String), 0(Integer)
+2026-04-15T01:10:20.201+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.202+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.204+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10027(String), sports(String), 4934.00(BigDecimal), 5434.00(BigDecimal), 100(Integer), /image/sports/登山装备/10027.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.209+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.211+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.211+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 234(Long), /image/sports/登山装备/10027.png(String), 0(Integer)
+2026-04-15T01:10:20.216+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.218+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.220+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10028(String), sports(String), 4455.00(BigDecimal), 4955.00(BigDecimal), 100(Integer), /image/sports/登山装备/10028.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.224+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.226+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.228+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 235(Long), /image/sports/登山装备/10028.png(String), 0(Integer)
+2026-04-15T01:10:20.233+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.234+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.236+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10029(String), sports(String), 7976.00(BigDecimal), 8476.00(BigDecimal), 100(Integer), /image/sports/登山装备/10029.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.241+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.243+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.245+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 236(Long), /image/sports/登山装备/10029.png(String), 0(Integer)
+2026-04-15T01:10:20.250+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.252+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.253+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10030(String), sports(String), 7825.00(BigDecimal), 8325.00(BigDecimal), 100(Integer), /image/sports/登山装备/10030.jpeg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.260+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.262+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.263+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 237(Long), /image/sports/登山装备/10030.jpeg(String), 0(Integer)
+2026-04-15T01:10:20.270+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.272+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.273+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10031(String), sports(String), 4959.00(BigDecimal), 5459.00(BigDecimal), 100(Integer), /image/sports/登山装备/10031.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.278+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.280+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.282+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 238(Long), /image/sports/登山装备/10031.png(String), 0(Integer)
+2026-04-15T01:10:20.287+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.288+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.290+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10032(String), sports(String), 4480.00(BigDecimal), 4980.00(BigDecimal), 100(Integer), /image/sports/登山装备/10032.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.295+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.296+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.296+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 239(Long), /image/sports/登山装备/10032.png(String), 0(Integer)
+2026-04-15T01:10:20.301+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.303+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.304+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10033(String), sports(String), 4001.00(BigDecimal), 4501.00(BigDecimal), 100(Integer), /image/sports/登山装备/10033.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.309+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.311+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.311+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 240(Long), /image/sports/登山装备/10033.png(String), 0(Integer)
+2026-04-15T01:10:20.316+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.317+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.319+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10034(String), sports(String), 5057.00(BigDecimal), 5557.00(BigDecimal), 100(Integer), /image/sports/登山装备/10034.webp(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.322+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.322+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.323+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 241(Long), /image/sports/登山装备/10034.webp(String), 0(Integer)
+2026-04-15T01:10:20.327+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.329+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.330+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10035(String), sports(String), 7043.00(BigDecimal), 7543.00(BigDecimal), 100(Integer), /image/sports/登山装备/10035.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.333+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.335+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.337+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 242(Long), /image/sports/登山装备/10035.png(String), 0(Integer)
+2026-04-15T01:10:20.344+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.346+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.348+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10036(String), sports(String), 6564.00(BigDecimal), 7064.00(BigDecimal), 100(Integer), /image/sports/登山装备/10036.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.354+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.354+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.356+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 243(Long), /image/sports/登山装备/10036.png(String), 0(Integer)
+2026-04-15T01:10:20.361+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.362+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.364+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10037(String), sports(String), 6085.00(BigDecimal), 6585.00(BigDecimal), 100(Integer), /image/sports/登山装备/10037.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.370+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.372+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.372+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 244(Long), /image/sports/登山装备/10037.png(String), 0(Integer)
+2026-04-15T01:10:20.379+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.380+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.383+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10038(String), sports(String), 5606.00(BigDecimal), 6106.00(BigDecimal), 100(Integer), /image/sports/登山装备/10038.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.388+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.389+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.391+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 245(Long), /image/sports/登山装备/10038.png(String), 0(Integer)
+2026-04-15T01:10:20.398+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.399+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.399+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10039(String), sports(String), 5127.00(BigDecimal), 5627.00(BigDecimal), 100(Integer), /image/sports/登山装备/10039.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.404+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.406+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.406+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 246(Long), /image/sports/登山装备/10039.png(String), 0(Integer)
+2026-04-15T01:10:20.411+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.413+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.413+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10040(String), sports(String), 6589.00(BigDecimal), 7089.00(BigDecimal), 100(Integer), /image/sports/登山装备/10040.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.418+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.420+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.420+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 247(Long), /image/sports/登山装备/10040.png(String), 0(Integer)
+2026-04-15T01:10:20.426+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.426+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.428+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10041(String), sports(String), 6009.00(BigDecimal), 6509.00(BigDecimal), 100(Integer), /image/sports/登山装备/10041.webp(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.433+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.435+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.436+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 248(Long), /image/sports/登山装备/10041.webp(String), 0(Integer)
+2026-04-15T01:10:20.441+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.443+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.443+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 登山装备 10042(String), sports(String), 5631.00(BigDecimal), 6131.00(BigDecimal), 100(Integer), /image/sports/登山装备/10042.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.450+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.450+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.451+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 249(Long), /image/sports/登山装备/10042.png(String), 0(Integer)
+2026-04-15T01:10:20.456+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.458+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.460+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 1e86b382 2ea6 4eb6 b837 393d93750fb6(String), sports(String), 6544.00(BigDecimal), 7044.00(BigDecimal), 100(Integer), /image/sports/骑行装备/1e86b382-2ea6-4eb6-b837-393d93750fb6.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.465+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.466+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.466+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 250(Long), /image/sports/骑行装备/1e86b382-2ea6-4eb6-b837-393d93750fb6.jpg(String), 0(Integer)
+2026-04-15T01:10:20.473+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.474+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.476+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 3af77889 a234 44c3 aecb 0bff1849ba4a(String), sports(String), 7838.00(BigDecimal), 8338.00(BigDecimal), 100(Integer), /image/sports/骑行装备/3af77889-a234-44c3-aecb-0bff1849ba4a.webp(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.481+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.482+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.483+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 251(Long), /image/sports/骑行装备/3af77889-a234-44c3-aecb-0bff1849ba4a.webp(String), 0(Integer)
+2026-04-15T01:10:20.487+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.489+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.490+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 3b87f460 4dfe 4a8e 8f5e 289edde579d6(String), sports(String), 6926.00(BigDecimal), 7426.00(BigDecimal), 100(Integer), /image/sports/骑行装备/3b87f460-4dfe-4a8e-8f5e-289edde579d6.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.495+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.497+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.497+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 252(Long), /image/sports/骑行装备/3b87f460-4dfe-4a8e-8f5e-289edde579d6.jpg(String), 0(Integer)
+2026-04-15T01:10:20.501+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.503+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.505+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 56fddbf4 06b8 4303 8e13 8e82a4a2fd25(String), sports(String), 7429.00(BigDecimal), 7929.00(BigDecimal), 100(Integer), /image/sports/骑行装备/56fddbf4-06b8-4303-8e13-8e82a4a2fd25.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.510+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.510+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.511+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 253(Long), /image/sports/骑行装备/56fddbf4-06b8-4303-8e13-8e82a4a2fd25.jpg(String), 0(Integer)
+2026-04-15T01:10:20.516+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.518+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.520+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 58c351ab e964 4f50 9e12 cfaf29f219ce(String), sports(String), 5092.00(BigDecimal), 5592.00(BigDecimal), 100(Integer), /image/sports/骑行装备/58c351ab-e964-4f50-9e12-cfaf29f219ce.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.525+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.525+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.527+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 254(Long), /image/sports/骑行装备/58c351ab-e964-4f50-9e12-cfaf29f219ce.jpg(String), 0(Integer)
+2026-04-15T01:10:20.531+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.533+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.534+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 64347dcf 7625 4b26 9fa1 8fabb725d83a(String), sports(String), 7914.00(BigDecimal), 8414.00(BigDecimal), 100(Integer), /image/sports/骑行装备/64347dcf-7625-4b26-9fa1-8fabb725d83a.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.539+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.541+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.541+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 255(Long), /image/sports/骑行装备/64347dcf-7625-4b26-9fa1-8fabb725d83a.png(String), 0(Integer)
+2026-04-15T01:10:20.545+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.547+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.548+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 66a4de3b 8660 472c 922d c2bc92af58ab(String), sports(String), 6302.00(BigDecimal), 6802.00(BigDecimal), 100(Integer), /image/sports/骑行装备/66a4de3b-8660-472c-922d-c2bc92af58ab.webp(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.553+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.555+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.555+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 256(Long), /image/sports/骑行装备/66a4de3b-8660-472c-922d-c2bc92af58ab.webp(String), 0(Integer)
+2026-04-15T01:10:20.559+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.561+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.561+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 7c0a0513 fb5e 4f14 a64c 10f1f7cc9c4d(String), sports(String), 6645.00(BigDecimal), 7145.00(BigDecimal), 100(Integer), /image/sports/骑行装备/7c0a0513-fb5e-4f14-a64c-10f1f7cc9c4d.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.566+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.567+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.567+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 257(Long), /image/sports/骑行装备/7c0a0513-fb5e-4f14-a64c-10f1f7cc9c4d.jpg(String), 0(Integer)
+2026-04-15T01:10:20.572+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.574+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.575+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 7f24d9e5 57df 48f4 8ecc 9b2a27b36fae(String), sports(String), 7726.00(BigDecimal), 8226.00(BigDecimal), 100(Integer), /image/sports/骑行装备/7f24d9e5-57df-48f4-8ecc-9b2a27b36fae.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.580+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.581+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.581+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 258(Long), /image/sports/骑行装备/7f24d9e5-57df-48f4-8ecc-9b2a27b36fae.jpg(String), 0(Integer)
+2026-04-15T01:10:20.588+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.588+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.590+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 8ad14d13 9888 4da2 9c73 4806646eadde(String), sports(String), 5534.00(BigDecimal), 6034.00(BigDecimal), 100(Integer), /image/sports/骑行装备/8ad14d13-9888-4da2-9c73-4806646eadde.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.594+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.596+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.598+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 259(Long), /image/sports/骑行装备/8ad14d13-9888-4da2-9c73-4806646eadde.png(String), 0(Integer)
+2026-04-15T01:10:20.602+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.604+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.604+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 94d14e14 8abc 4481 9bda 068b424db1e1(String), sports(String), 7785.00(BigDecimal), 8285.00(BigDecimal), 100(Integer), /image/sports/骑行装备/94d14e14-8abc-4481-9bda-068b424db1e1.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.609+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.610+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.610+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 260(Long), /image/sports/骑行装备/94d14e14-8abc-4481-9bda-068b424db1e1.jpg(String), 0(Integer)
+2026-04-15T01:10:20.615+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.617+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.617+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 9bf3348c 7b39 4663 bd2c e41b4da2efad(String), sports(String), 6786.00(BigDecimal), 7286.00(BigDecimal), 100(Integer), /image/sports/骑行装备/9bf3348c-7b39-4663-bd2c-e41b4da2efad.webp(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.622+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.623+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.623+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 261(Long), /image/sports/骑行装备/9bf3348c-7b39-4663-bd2c-e41b4da2efad.webp(String), 0(Integer)
+2026-04-15T01:10:20.628+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.630+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.632+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 9db7a6ba ee29 4fd9 b505 8b5fa03851e5(String), sports(String), 4686.00(BigDecimal), 5186.00(BigDecimal), 100(Integer), /image/sports/骑行装备/9db7a6ba-ee29-4fd9-b505-8b5fa03851e5.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.637+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.637+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.639+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 262(Long), /image/sports/骑行装备/9db7a6ba-ee29-4fd9-b505-8b5fa03851e5.jpg(String), 0(Integer)
+2026-04-15T01:10:20.643+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.645+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.646+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 a411e4ad fc18 4c17 952c 720d0cedf814(String), sports(String), 5598.00(BigDecimal), 6098.00(BigDecimal), 100(Integer), /image/sports/骑行装备/a411e4ad-fc18-4c17-952c-720d0cedf814.png(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.651+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.651+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.653+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 263(Long), /image/sports/骑行装备/a411e4ad-fc18-4c17-952c-720d0cedf814.png(String), 0(Integer)
+2026-04-15T01:10:20.657+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.657+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.659+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 d1f7068c de3c 42f6 8848 6b9dc032397f(String), sports(String), 5735.00(BigDecimal), 6235.00(BigDecimal), 100(Integer), /image/sports/骑行装备/d1f7068c-de3c-42f6-8848-6b9dc032397f.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.664+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.664+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.666+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 264(Long), /image/sports/骑行装备/d1f7068c-de3c-42f6-8848-6b9dc032397f.jpg(String), 0(Integer)
+2026-04-15T01:10:20.671+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.671+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.673+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 e6d78afc 2b30 47ac 8436 b092c3005085(String), sports(String), 6412.00(BigDecimal), 6912.00(BigDecimal), 100(Integer), /image/sports/骑行装备/e6d78afc-2b30-47ac-8436-b092c3005085.webp(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.678+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.679+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.679+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 265(Long), /image/sports/骑行装备/e6d78afc-2b30-47ac-8436-b092c3005085.webp(String), 0(Integer)
+2026-04-15T01:10:20.685+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.686+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.688+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 ef05e855 9306 41fc af94 e4420ce3d71d(String), sports(String), 6464.00(BigDecimal), 6964.00(BigDecimal), 100(Integer), /image/sports/骑行装备/ef05e855-9306-41fc-af94-e4420ce3d71d.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.693+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.695+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.696+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 266(Long), /image/sports/骑行装备/ef05e855-9306-41fc-af94-e4420ce3d71d.jpg(String), 0(Integer)
+2026-04-15T01:10:20.702+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.704+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.706+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 下载 (1)(String), sports(String), 4149.00(BigDecimal), 4649.00(BigDecimal), 100(Integer), /image/sports/骑行装备/下载 (1).jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.713+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.713+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.714+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 267(Long), /image/sports/骑行装备/下载 (1).jpg(String), 0(Integer)
+2026-04-15T01:10:20.720+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.721+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==>  Preparing: INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-04-15T01:10:20.723+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : ==> Parameters: 骑行装备 下载(String), sports(String), 4981.00(BigDecimal), 5481.00(BigDecimal), 100(Integer), /image/sports/骑行装备/下载.jpg(String), Auto imported from static image assets(String), 1(Integer), 43(Long)
+2026-04-15T01:10:20.728+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductMapper.insert        : <==    Updates: 1
+2026-04-15T01:10:20.732+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==>  Preparing: INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)
+2026-04-15T01:10:20.732+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : ==> Parameters: 268(Long), /image/sports/骑行装备/下载.jpg(String), 0(Integer)
+2026-04-15T01:10:20.737+08:00 DEBUG 55724 --- [           main] c.e.s.mapper.ProductImageMapper.insert   : <==    Updates: 1
+2026-04-15T01:10:20.740+08:00  INFO 55724 --- [           main] c.e.shopping.service.ImageScanService    : Category sports imported 76 products from local images.
+2026-04-15T01:10:20.742+08:00  INFO 55724 --- [           main] c.e.shopping.service.ImageScanService    : Image scan import completed. 119 products imported.
+2026-04-15T01:10:44.902+08:00  INFO 55724 --- [nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-15T01:10:44.902+08:00  INFO 55724 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-15T01:10:44.906+08:00  INFO 55724 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-04-15T01:10:45.081+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.shopping.mapper.ShopMapper.findAll   : ==>  Preparing: SELECT id, name, folder, description, sort_order as sortOrder FROM shops ORDER BY sort_order, id
+2026-04-15T01:10:45.083+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.shopping.mapper.ShopMapper.findAll   : ==> Parameters: 
+2026-04-15T01:10:45.092+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.shopping.mapper.ShopMapper.findAll   : <==      Total: 43
+2026-04-15T01:10:45.135+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.ProductMapper.countByCategory    : ==>  Preparing: SELECT COUNT(*) FROM products WHERE status = 1 AND category IN ('phone', 'computer') AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
+2026-04-15T01:10:45.137+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.ProductMapper.countByCategory    : ==> Parameters: 
+2026-04-15T01:10:45.143+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.ProductMapper.countByCategory    : <==      Total: 1
+2026-04-15T01:10:45.146+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.mapper.ProductMapper.findByPage    : ==>  Preparing: SELECT * FROM products WHERE status = 1 AND category IN ('phone', 'computer') AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops)) ORDER BY id DESC LIMIT ?, ?
+2026-04-15T01:10:45.148+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.mapper.ProductMapper.findByPage    : ==> Parameters: 0(Integer), 15(Integer)
+2026-04-15T01:10:45.154+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.mapper.ProductMapper.findByPage    : <==      Total: 15
+2026-04-15T01:10:45.318+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.321+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 68(Long)
+2026-04-15T01:10:45.323+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.325+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.325+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 67(Long)
+2026-04-15T01:10:45.327+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.329+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.329+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 66(Long)
+2026-04-15T01:10:45.330+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.332+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.332+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 65(Long)
+2026-04-15T01:10:45.334+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.335+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.335+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 64(Long)
+2026-04-15T01:10:45.339+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.339+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.341+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 63(Long)
+2026-04-15T01:10:45.342+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.344+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.344+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 62(Long)
+2026-04-15T01:10:45.346+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.347+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.349+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 61(Long)
+2026-04-15T01:10:45.351+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.352+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.352+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 60(Long)
+2026-04-15T01:10:45.356+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.357+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.358+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 59(Long)
+2026-04-15T01:10:45.361+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.362+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.362+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 58(Long)
+2026-04-15T01:10:45.364+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.366+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.366+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 57(Long)
+2026-04-15T01:10:45.367+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.369+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.371+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 56(Long)
+2026-04-15T01:10:45.371+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.373+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.373+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 55(Long)
+2026-04-15T01:10:45.374+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:10:45.376+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:10:45.376+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : ==> Parameters: 54(Long)
+2026-04-15T01:10:45.378+08:00 DEBUG 55724 --- [nio-8080-exec-2] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.719+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.shopping.mapper.ShopMapper.findAll   : ==>  Preparing: SELECT id, name, folder, description, sort_order as sortOrder FROM shops ORDER BY sort_order, id
+2026-04-15T01:11:37.723+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.shopping.mapper.ShopMapper.findAll   : ==> Parameters: 
+2026-04-15T01:11:37.726+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.shopping.mapper.ShopMapper.findAll   : <==      Total: 43
+2026-04-15T01:11:37.736+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.ProductMapper.countByCategory    : ==>  Preparing: SELECT COUNT(*) FROM products WHERE status = 1 AND ( category IN ('sports', 'sport', 'sports-outdoor', 'outdoor') OR image_url LIKE '/image/sports/%' OR merchant_id IN (SELECT id FROM shops WHERE folder LIKE 'sports%') ) AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
+2026-04-15T01:11:37.738+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.ProductMapper.countByCategory    : ==> Parameters: 
+2026-04-15T01:11:37.739+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.ProductMapper.countByCategory    : <==      Total: 1
+2026-04-15T01:11:37.741+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.mapper.ProductMapper.findByPage    : ==>  Preparing: SELECT * FROM products WHERE status = 1 AND ( category IN ('sports', 'sport', 'sports-outdoor', 'outdoor') OR image_url LIKE '/image/sports/%' OR merchant_id IN (SELECT id FROM shops WHERE folder LIKE 'sports%') ) AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops)) ORDER BY id DESC LIMIT ?, ?
+2026-04-15T01:11:37.742+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.mapper.ProductMapper.findByPage    : ==> Parameters: 0(Integer), 15(Integer)
+2026-04-15T01:11:37.747+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.mapper.ProductMapper.findByPage    : <==      Total: 15
+2026-04-15T01:11:37.748+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.748+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 268(Long)
+2026-04-15T01:11:37.752+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.753+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.755+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 267(Long)
+2026-04-15T01:11:37.757+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.757+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.758+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 266(Long)
+2026-04-15T01:11:37.760+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.760+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.762+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 265(Long)
+2026-04-15T01:11:37.763+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.765+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.767+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 264(Long)
+2026-04-15T01:11:37.768+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.768+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.771+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 263(Long)
+2026-04-15T01:11:37.772+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.773+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.773+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 262(Long)
+2026-04-15T01:11:37.775+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.775+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.777+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 261(Long)
+2026-04-15T01:11:37.778+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.778+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.780+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 260(Long)
+2026-04-15T01:11:37.782+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.782+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.782+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 259(Long)
+2026-04-15T01:11:37.783+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.783+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.785+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 258(Long)
+2026-04-15T01:11:37.785+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.785+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.787+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 257(Long)
+2026-04-15T01:11:37.787+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.788+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.788+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 256(Long)
+2026-04-15T01:11:37.790+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.791+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.791+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 255(Long)
+2026-04-15T01:11:37.793+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:37.793+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:37.795+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : ==> Parameters: 254(Long)
+2026-04-15T01:11:37.797+08:00 DEBUG 55724 --- [nio-8080-exec-9] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.554+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.shopping.mapper.ShopMapper.findAll   : ==>  Preparing: SELECT id, name, folder, description, sort_order as sortOrder FROM shops ORDER BY sort_order, id
+2026-04-15T01:11:40.554+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.shopping.mapper.ShopMapper.findAll   : ==> Parameters: 
+2026-04-15T01:11:40.563+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.shopping.mapper.ShopMapper.findAll   : <==      Total: 43
+2026-04-15T01:11:40.564+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.ProductMapper.countByCategory    : ==>  Preparing: SELECT COUNT(*) FROM products WHERE status = 1 AND category IN ('phone', 'computer') AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
+2026-04-15T01:11:40.566+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.ProductMapper.countByCategory    : ==> Parameters: 
+2026-04-15T01:11:40.568+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.ProductMapper.countByCategory    : <==      Total: 1
+2026-04-15T01:11:40.569+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.mapper.ProductMapper.findByPage    : ==>  Preparing: SELECT * FROM products WHERE status = 1 AND category IN ('phone', 'computer') AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops)) ORDER BY id DESC LIMIT ?, ?
+2026-04-15T01:11:40.570+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.mapper.ProductMapper.findByPage    : ==> Parameters: 0(Integer), 15(Integer)
+2026-04-15T01:11:40.576+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.mapper.ProductMapper.findByPage    : <==      Total: 15
+2026-04-15T01:11:40.577+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.577+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 68(Long)
+2026-04-15T01:11:40.581+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.581+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.583+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 67(Long)
+2026-04-15T01:11:40.584+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.584+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.586+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 66(Long)
+2026-04-15T01:11:40.588+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.590+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.590+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 65(Long)
+2026-04-15T01:11:40.591+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.593+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.593+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 64(Long)
+2026-04-15T01:11:40.594+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.594+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.596+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 63(Long)
+2026-04-15T01:11:40.596+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.598+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.598+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 62(Long)
+2026-04-15T01:11:40.600+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.600+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.600+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 61(Long)
+2026-04-15T01:11:40.601+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.603+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.605+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 60(Long)
+2026-04-15T01:11:40.605+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.607+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.607+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 59(Long)
+2026-04-15T01:11:40.609+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.611+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.611+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 58(Long)
+2026-04-15T01:11:40.612+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.612+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.614+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 57(Long)
+2026-04-15T01:11:40.616+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.616+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.618+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 56(Long)
+2026-04-15T01:11:40.620+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.622+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.622+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 55(Long)
+2026-04-15T01:11:40.623+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1
+2026-04-15T01:11:40.625+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==>  Preparing: SELECT id, product_id as productId, image_url as imageUrl, sort_order as sortOrder FROM product_images WHERE product_id = ? ORDER BY sort_order, id
+2026-04-15T01:11:40.625+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : ==> Parameters: 54(Long)
+2026-04-15T01:11:40.627+08:00 DEBUG 55724 --- [nio-8080-exec-6] c.e.s.m.P.findByProductId                : <==      Total: 1

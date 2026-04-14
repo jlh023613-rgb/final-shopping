@@ -174,7 +174,7 @@ public class UserOrderController {
     }
 
     @GetMapping("/orders")
-    public String orders(HttpSession session, Model model) {
+    public String orders(@RequestParam(required = false) String notice, HttpSession session, Model model) {
         User user = getCurrentUser(session);
         if (user == null) {
             return "redirect:/user/login";
@@ -184,6 +184,7 @@ public class UserOrderController {
             List<Order> orders = orderService.findByUserId(user.getId());
             model.addAttribute("user", user);
             model.addAttribute("orders", orders);
+            model.addAttribute("notice", notice);
         } catch (Exception e) {
             model.addAttribute("user", user);
             model.addAttribute("orders", java.util.Collections.emptyList());
@@ -382,6 +383,22 @@ public class UserOrderController {
         }
 
         return "redirect:/user/orders";
+    }
+
+    @PostMapping("/refund/escalate/{orderId}")
+    public String escalateRefund(@PathVariable Long orderId,
+                                 @RequestParam(required = false) String reason,
+                                 HttpSession session) {
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return "redirect:/user/login";
+        }
+
+        boolean success = orderService.escalateRefundByUser(orderId, user.getId(), reason);
+        if (success) {
+            return "redirect:/user/orders?notice=refund_escalated";
+        }
+        return "redirect:/user/orders?notice=refund_escalate_failed";
     }
 
     private String generateOrderNo() {

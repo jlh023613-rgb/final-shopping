@@ -91,7 +91,14 @@
     <select id="findByPage" resultType="com.example.shopping.entity.Product">
         SELECT * FROM products 
         WHERE status = 1 
-        <include refid="categoryFilter"/>
+        <choose>
+            <when test="category == null or category == ''">
+                AND category IN ('phone', 'computer')
+            </when>
+            <otherwise>
+                <include refid="categoryFilter"/>
+            </otherwise>
+        </choose>
         AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
         ORDER BY id DESC
         LIMIT #{offset}, #{pageSize}
@@ -100,7 +107,14 @@
     <select id="countByCategory" resultType="int">
         SELECT COUNT(*) FROM products 
         WHERE status = 1 
-        <include refid="categoryFilter"/>
+        <choose>
+            <when test="category == null or category == ''">
+                AND category IN ('phone', 'computer')
+            </when>
+            <otherwise>
+                <include refid="categoryFilter"/>
+            </otherwise>
+        </choose>
         AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
     </select>
 </mapper>

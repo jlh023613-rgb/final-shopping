@@ -1,196 +1,27 @@
+
 -- ============================================================
--- 完整初始化脚本
--- 首次执行前请确保数据库已存在
--- 使用 CREATE TABLE IF NOT EXISTS，不会删除已有数据
--- 如需重新初始化，请先手动 DROP TABLE 或清空数据库
+-- 数据初始化脚本（每次启动执行）
+-- 先清空旧数据，避免每次启动叠加
 -- ============================================================
 
 SET NAMES utf8mb4;
 SET CHARACTER SET utf8mb4;
 
--- ============================================================
--- 第一部分：创建所有表（按外键依赖顺序，IF NOT EXISTS）
--- ============================================================
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE refunds;
+TRUNCATE TABLE complaints;
+TRUNCATE TABLE reviews;
+TRUNCATE TABLE orders;
+TRUNCATE TABLE cart_items;
+TRUNCATE TABLE product_images;
+TRUNCATE TABLE products;
+TRUNCATE TABLE shops;
+TRUNCATE TABLE merchants;
+TRUNCATE TABLE addresses;
+TRUNCATE TABLE admins;
+TRUNCATE TABLE users;
+SET FOREIGN_KEY_CHECKS = 1;
 
--- 用户表
-CREATE TABLE users (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    phone VARCHAR(20) NOT NULL UNIQUE,
-    gender CHAR(1) DEFAULT 'M',
-    role VARCHAR(20) DEFAULT 'ROLE_USER',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 地址表
-CREATE TABLE addresses (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    receiver_name VARCHAR(30) NOT NULL,
-    receiver_phone VARCHAR(20) NOT NULL,
-    province VARCHAR(30) NOT NULL,
-    city VARCHAR(30) NOT NULL,
-    district VARCHAR(30) NOT NULL,
-    detail_address VARCHAR(200) NOT NULL,
-    is_default TINYINT(1) DEFAULT 0,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_user_id (user_id),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 商家表
-CREATE TABLE merchants (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    shop_name VARCHAR(100) NOT NULL,
-    shop_description TEXT,
-    shop_image VARCHAR(500),
-    category VARCHAR(50),
-    status VARCHAR(20) NOT NULL DEFAULT 'pending',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 店铺表
-CREATE TABLE shops (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    folder VARCHAR(80) NOT NULL UNIQUE,
-    description VARCHAR(500),
-    sort_order INT DEFAULT 0,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 商品表
-CREATE TABLE products (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    category VARCHAR(50),
-    price DECIMAL(10, 2) NOT NULL,
-    original_price DECIMAL(10, 2),
-    stock INT NOT NULL DEFAULT 0,
-    image_url VARCHAR(512),
-    description TEXT,
-    status TINYINT DEFAULT 1,
-    merchant_id BIGINT DEFAULT 0,
-    brand VARCHAR(100),
-    model VARCHAR(100),
-    color VARCHAR(100),
-    material VARCHAR(200),
-    specifications TEXT,
-    features TEXT,
-    packaging_list TEXT,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 商品图片表
-CREATE TABLE product_images (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    product_id BIGINT NOT NULL,
-    image_url VARCHAR(512) NOT NULL,
-    sort_order INT DEFAULT 0,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_product_id (product_id),
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 购物车表
-CREATE TABLE cart_items (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    product_id BIGINT NOT NULL,
-    quantity INT NOT NULL DEFAULT 1,
-    selected_color VARCHAR(50),
-    selected_storage VARCHAR(50),
-    insurance_type VARCHAR(50) DEFAULT 'none',
-    insurance_price DECIMAL(10,2) DEFAULT 0.00,
-    unit_price DECIMAL(10,2),
-    added_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    UNIQUE KEY uk_user_product_options (user_id, product_id, selected_color, selected_storage, insurance_type),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 订单表
-CREATE TABLE orders (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    order_no VARCHAR(64) NOT NULL UNIQUE,
-    user_id BIGINT NOT NULL,
-    merchant_id BIGINT NOT NULL,
-    product_id BIGINT NOT NULL,
-    product_name VARCHAR(200),
-    product_image VARCHAR(500),
-    quantity INT NOT NULL DEFAULT 1,
-    unit_price DECIMAL(10,2) NOT NULL,
-    total_price DECIMAL(10,2) NOT NULL,
-    status VARCHAR(20) NOT NULL DEFAULT 'pending',
-    receiver_name VARCHAR(50),
-    receiver_phone VARCHAR(20),
-    receiver_address VARCHAR(500),
-    accepted_at DATETIME,
-    delivered_at DATETIME,
-    completed_at DATETIME,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 评价表
-CREATE TABLE reviews (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    product_id BIGINT NOT NULL,
-    order_id BIGINT NOT NULL,
-    rating INT NOT NULL DEFAULT 5,
-    content TEXT,
-    merchant_reply TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 投诉表
-CREATE TABLE complaints (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    merchant_id BIGINT NOT NULL,
-    order_id BIGINT,
-    content TEXT NOT NULL,
-    status VARCHAR(20) NOT NULL DEFAULT 'pending',
-    result TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 退款表
-CREATE TABLE refunds (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    order_id BIGINT NOT NULL,
-    user_id BIGINT NOT NULL,
-    merchant_id BIGINT NOT NULL,
-    reason TEXT,
-    status VARCHAR(20) NOT NULL DEFAULT 'pending',
-    result TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    processed_at DATETIME
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 管理员表
-CREATE TABLE admins (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ============================================================
--- 第三部分：基础数据（用户账号）
--- ============================================================
 INSERT IGNORE INTO users (username, password, phone, gender, role) VALUES ('测试用户', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '18606518660', 'M', 'ROLE_USER');
 
 -- ============================================================
@@ -201,7 +32,7 @@ INSERT IGNORE INTO admins (username, password) VALUES ('lhh', '$2a$10$Kff8lRDm6X
 -- ============================================================
 -- 第五部分：商家数据
 -- ============================================================
-INSERT INTO merchants (username, password, shop_name, shop_description, shop_image, category, status, created_at, updated_at) VALUES
+INSERT IGNORE INTO merchants (username, password, shop_name, shop_description, shop_image, category, status, created_at, updated_at) VALUES
 ('shop1', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '华为手机专营店', '华为手机官方授权店，正品保障', NULL, 'phone', 'approved', NOW(), NOW()),
 ('shop2', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', 'iPhone专营店', '苹果iPhone官方授权经销商', NULL, 'phone', 'approved', NOW(), NOW()),
 ('shop3', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', 'iQOO手机专营店', 'iQOO手机官方旗舰店', NULL, 'phone', 'approved', NOW(), NOW()),
@@ -238,7 +69,7 @@ INSERT INTO merchants (username, password, shop_name, shop_description, shop_ima
 -- ============================================================
 -- 第五部分：店铺数据
 -- ============================================================
-INSERT INTO shops (name, folder, description, sort_order) VALUES
+INSERT IGNORE INTO shops (name, folder, description, sort_order) VALUES
 ('华为官方旗舰店', 'huawei', '华为官方授权店铺，正品保障', 1),
 ('Apple官方旗舰店', 'apple', 'Apple官方授权店铺，正品保障', 2),
 ('一加官方旗舰店', 'oneplus', '一加官方授权店铺，正品保障', 3),
@@ -285,7 +116,7 @@ INSERT INTO shops (name, folder, description, sort_order) VALUES
 -- 第六部分：手机数码商品数据 (category = 'phone')
 -- ============================================================
 
-INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES
+INSERT IGNORE INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES
 ('华为 Mate 80', 'phone', 5999.00, 6499.00, 100, '/image/phone/huawei/Mate80/68692be190c474408.png_e1080.webp', '华为Mate 80，麒麟芯片，卫星通信', 1, (SELECT id FROM shops WHERE folder = 'huawei' LIMIT 1)),
 ('华为 Pura 80', 'phone', 6999.00, 7499.00, 80, '/image/phone/huawei/Pura80/67a46e928d1284071.jpg_e1080.webp', '华为Pura 80，影像旗舰，超感知影像系统', 1, (SELECT id FROM shops WHERE folder = 'huawei' LIMIT 1)),
 ('iPhone 14', 'phone', 4999.00, 5999.00, 50, '/image/phone/iphone/iphone14/111850_iphone-14_1.png', 'iPhone 14，A15芯片，超视网膜显示屏', 1, (SELECT id FROM shops WHERE folder = 'apple' LIMIT 1)),
@@ -317,7 +148,7 @@ INSERT INTO products (name, category, price, original_price, stock, image_url, d
 -- 手机数码商品图片数据
 -- ============================================================
 
-INSERT INTO product_images (product_id, image_url, sort_order) VALUES
+INSERT IGNORE INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = '华为 Mate 80' AND category = 'phone' LIMIT 1), '/image/phone/huawei/Mate80/68692be190c474408.png_e1080.webp', 1),
 ((SELECT id FROM products WHERE name = '华为 Mate 80' AND category = 'phone' LIMIT 1), '/image/phone/huawei/Mate80/68f6e37e11082615.jpg_e1080.webp', 2),
 ((SELECT id FROM products WHERE name = '华为 Mate 80' AND category = 'phone' LIMIT 1), '/image/phone/huawei/Mate80/691ad5da45aa35639.jpg_e1080.webp', 3),
@@ -394,7 +225,7 @@ INSERT INTO product_images (product_id, image_url, sort_order) VALUES
 -- 第七部分：电脑办公商品数据 (category = 'computer')
 -- ============================================================
 
-INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES
+INSERT IGNORE INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id) VALUES
 ('MacBook Air 13', 'computer', 8999.00, 9999.00, 100, '/image/computer/Apple/MacBook Air 13/MacBook_Air_13_in_M3_Midnight_PDP_Image_Position_1__GBEN_e200e9d6-f6bf-4856-9cec-a60e76860ec7_500x.webp', 'MacBook Air 13，M3芯片，轻薄便携', 1, (SELECT id FROM shops WHERE folder = 'apple' LIMIT 1)),
 ('MacBook Air 15', 'computer', 12999.00, 13999.00, 80, '/image/computer/Apple/MacBook Air 15/Apple-WWDC23-MacBook-Air-15-in-hero-230605_big.jpg.large.jpg', 'MacBook Air 15，M3芯片，大屏体验', 1, (SELECT id FROM shops WHERE folder = 'apple' LIMIT 1)),
 ('MacBook Pro 14', 'computer', 16999.00, 18999.00, 60, '/image/computer/Apple/MacBook Pro 14/hero_endframe__e4ls9pihykya_xlarge.jpg', 'MacBook Pro 14，M3 Pro芯片，专业性能', 1, (SELECT id FROM shops WHERE folder = 'apple' LIMIT 1)),
@@ -442,9 +273,9 @@ INSERT INTO products (name, category, price, original_price, stock, image_url, d
 -- 电脑办公商品图片数据
 -- ============================================================
 
-INSERT INTO product_images (product_id, image_url, sort_order) VALUES
+INSERT IGNORE INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = 'MacBook Air 13' AND category = 'computer' LIMIT 1), '/image/computer/Apple/MacBook Air 13/MacBook_Air_13_in_M3_Midnight_PDP_Image_Position_1__GBEN_e200e9d6-f6bf-4856-9cec-a60e76860ec7_500x.webp', 1),
-((SELECT id FROM products WHERE name = 'MacBook Air 13' AND category = 'computer' LIMIT 1), '/image/computer/Apple/MacBook Air 13/MacBook_Air_13_in_M3_Midnight_PDP_Image_Position_2__GBEN_e200e9d6-f6bf-4856-9cec-a60e76860ec7_500x.webp', 2),
+((SELECT id FROM products WHERE name = 'MacBook Air 13' AND category = 'computer' LIMIT 1), '/image/computer/Apple/MacBook Air 13/air13teaser.jpg', 2),
 ((SELECT id FROM products WHERE name = 'MacBook Air 15' AND category = 'computer' LIMIT 1), '/image/computer/Apple/MacBook Air 15/Apple-WWDC23-MacBook-Air-15-in-hero-230605_big.jpg.large.jpg', 1),
 ((SELECT id FROM products WHERE name = 'MacBook Pro 14' AND category = 'computer' LIMIT 1), '/image/computer/Apple/MacBook Pro 14/hero_endframe__e4ls9pihykya_xlarge.jpg', 1),
 ((SELECT id FROM products WHERE name = 'MacBook Pro 16' AND category = 'computer' LIMIT 1), '/image/computer/Apple/MacBook Pro 16/apple-macbook-pro-16-inch-2023-m3-max_cah1.jpg', 1),
@@ -491,43 +322,43 @@ INSERT INTO product_images (product_id, image_url, sort_order) VALUES
 -- 第八部分：家电商品数据 (category = 'appliance')
 -- ============================================================
 
-INSERT INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
+INSERT IGNORE INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
 ('格力 云锦Ⅱ 1.5匹变频空调', 'appliance', '格力', 'KFR-35GW/NhAd1BAj', '白色', '{"制冷量":"3500W","制热量":"4600W","能效等级":"一级能效","噪音":"18-41dB","适用面积":"15-23㎡","电源":"220V/50Hz"}', '["新一级能效，省电节能","56℃净菌自洁，健康出风","7档风速，舒适随心","WiFi智能控制，远程操控","独立除湿，干爽舒适"]', '["空调主机 x1","遥控器 x1","电池 x2","说明书 x1","保修卡 x1","安装配件 x1套"]', 3299.00, 3699.00, 150, '/image/appliances/aircondition/10001.webp', '格力云锦Ⅱ系列，新一级能效变频空调，56℃净菌自洁，WiFi智能控制', 1, (SELECT id FROM shops WHERE folder = 'gree' LIMIT 1)),
 ('格力 云佳 1.5匹变频空调', 'appliance', '格力', 'KFR-35GW/NhGc1B', '白色', '{"制冷量":"3500W","制热量":"4600W","能效等级":"一级能效","噪音":"18-41dB","适用面积":"15-23㎡","电源":"220V/50Hz"}', '["新一级能效，省电节能","自清洁功能，健康出风","7档风速，舒适随心","独立除湿，干爽舒适","简约设计，百搭家居"]', '["空调主机 x1","遥控器 x1","电池 x2","说明书 x1","保修卡 x1","安装配件 x1套"]', 2999.00, 3399.00, 200, '/image/appliances/aircondition/10002.webp', '格力云佳系列，新一级能效变频空调，自清洁功能', 1, (SELECT id FROM shops WHERE folder = 'gree' LIMIT 1)),
 ('格力 京爽 1.5匹变频空调', 'appliance', '格力', 'KFR-35GW/NhKe1BAj', '白色', '{"制冷量":"3500W","制热量":"4600W","能效等级":"一级能效","噪音":"18-41dB","适用面积":"15-23㎡","电源":"220V/50Hz"}', '["新一级能效，省电节能","56℃净菌自洁，健康出风","7档风速，舒适随心","WiFi智能控制，远程操控","独立除湿，干爽舒适"]', '["空调主机 x1","遥控器 x1","电池 x2","说明书 x1","保修卡 x1","安装配件 x1套"]', 3499.00, 3899.00, 120, '/image/appliances/aircondition/10003.webp', '格力京爽系列，新一级能效变频空调，WiFi智能控制', 1, (SELECT id FROM shops WHERE folder = 'gree' LIMIT 1)),
 ('海尔 BCD-470WDPG 对开门冰箱', 'appliance', '海尔', 'BCD-470WDPG', '银色', '{"总容积":"470L","冷藏室容积":"310L","冷冻室容积":"160L","能效等级":"一级能效","制冷方式":"风冷无霜","噪音":"38dB"}', '["470L大容量，满足全家需求","风冷无霜，告别除霜烦恼","智能变频，节能省电","干湿分储，食材保鲜","独立双循环，不串味"]', '["冰箱主机 x1","说明书 x1","保修卡 x1","搁架 x若干","果菜盒 x1"]', 4999.00, 5499.00, 100, '/image/appliances/fridge/10001.webp', '海尔470L对开门冰箱，风冷无霜，一级能效', 1, (SELECT id FROM shops WHERE folder = 'haier' LIMIT 1)),
 ('海尔 BCD-535WLHFD58SGU1 对开门冰箱', 'appliance', '海尔', 'BCD-535WLHFD58SGU1', '星辉银', '{"总容积":"535L","冷藏室容积":"339L","冷冻室容积":"196L","能效等级":"一级能效","制冷方式":"风冷无霜","噪音":"37dB"}', '["535L超大容量，囤货无忧","风冷无霜，告别除霜烦恼","智能变频，节能省电","干湿分储，食材保鲜","独立双循环，不串味"]', '["冰箱主机 x1","说明书 x1","保修卡 x1","搁架 x若干","果菜盒 x1"]', 5999.00, 6599.00, 80, '/image/appliances/fridge/10002.webp', '海尔535L对开门冰箱，风冷无霜，智能变频', 1, (SELECT id FROM shops WHERE folder = 'haier' LIMIT 1)),
 ('海尔 BCD-335WLHFD58DSU1 多门冰箱', 'appliance', '海尔', 'BCD-335WLHFD58DSU1', '星辉银', '{"总容积":"335L","冷藏室容积":"188L","冷冻室容积":"117L","变温室容积":"30L","能效等级":"一级能效","制冷方式":"风冷无霜"}', '["335L容量，小户型首选","风冷无霜，告别除霜烦恼","智能变频，节能省电","变温空间，灵活存储","独立双循环，不串味"]', '["冰箱主机 x1","说明书 x1","保修卡 x1","搁架 x若干","果菜盒 x1"]', 3999.00, 4499.00, 120, '/image/appliances/fridge/10003.webp', '海尔335L多门冰箱，风冷无霜，变温空间', 1, (SELECT id FROM shops WHERE folder = 'haier' LIMIT 1)),
-('海尔 EG100MATE71S 滚筒洗衣机', 'appliance', '海尔', 'EG100MATE71S', '极夜灰', '{"洗涤容量":"10kg","脱水容量":"10kg","能效等级":"一级能效","洗涤噪音":"52dB","脱水噪音":"68dB","电机类型":"直驱变频电机"}', '["10kg大容量，全家衣物一次洗","直驱变频电机，静音耐用","智能投放，精准省心","95℃高温煮洗，除菌除螨","16种洗涤程序，满足不同需求"]', '["洗衣机主机 x1","说明书 x1","保修卡 x1","进水管 x1","排水管 x1"]', 2999.00, 3499.00, 150, '/image/appliances/washing/10001.webp', '海尔10kg滚筒洗衣机，直驱变频，智能投放', 1, (SELECT id FROM shops WHERE folder = 'haier' LIMIT 1)),
-('海尔 EG100HPRO6S 滚筒洗衣机', 'appliance', '海尔', 'EG100HPRO6S', '极夜灰', '{"洗涤容量":"10kg","脱水容量":"10kg","能效等级":"一级能效","洗涤噪音":"48dB","脱水噪音":"65dB","电机类型":"直驱变频电机"}', '["10kg大容量，全家衣物一次洗","直驱变频电机，超静音","智能投放，精准省心","微蒸汽空气洗，护衣除味","18种洗涤程序，满足不同需求"]', '["洗衣机主机 x1","说明书 x1","保修卡 x1","进水管 x1","排水管 x1"]', 3999.00, 4499.00, 100, '/image/appliances/washing/10002.webp', '海尔10kg滚筒洗衣机，微蒸汽空气洗，超静音', 1, (SELECT id FROM shops WHERE folder = 'haier' LIMIT 1)),
+('海尔 EG100MATE71S 滚筒洗衣机', 'appliance', '海尔', 'EG100MATE71S', '极夜灰', '{"洗涤容量":"10kg","脱水容量":"10kg","能效等级":"一级能效","洗涤噪音":"52dB","脱水噪音":"68dB","电机类型":"直驱变频电机"}', '["10kg大容量，全家衣物一次洗","直驱变频电机，静音耐用","智能投放，精准省心","95℃高温煮洗，除菌除螨","16种洗涤程序，满足不同需求"]', '["洗衣机主机 x1","说明书 x1","保修卡 x1","进水管 x1","排水管 x1"]', 2999.00, 3499.00, 150, '/image/appliances/washingMachine/10001.webp', '海尔10kg滚筒洗衣机，直驱变频，智能投放', 1, (SELECT id FROM shops WHERE folder = 'haier' LIMIT 1)),
+('海尔 EG100HPRO6S 滚筒洗衣机', 'appliance', '海尔', 'EG100HPRO6S', '极夜灰', '{"洗涤容量":"10kg","脱水容量":"10kg","能效等级":"一级能效","洗涤噪音":"48dB","脱水噪音":"65dB","电机类型":"直驱变频电机"}', '["10kg大容量，全家衣物一次洗","直驱变频电机，超静音","智能投放，精准省心","微蒸汽空气洗，护衣除味","18种洗涤程序，满足不同需求"]', '["洗衣机主机 x1","说明书 x1","保修卡 x1","进水管 x1","排水管 x1"]', 3999.00, 4499.00, 100, '/image/appliances/washingMachine/10002.webp', '海尔10kg滚筒洗衣机，微蒸汽空气洗，超静音', 1, (SELECT id FROM shops WHERE folder = 'haier' LIMIT 1)),
 ('海信 75E5K 75英寸智能电视', 'appliance', '海信', '75E5K', '黑色', '{"屏幕尺寸":"75英寸","分辨率":"4K超高清","刷新率":"120Hz","HDR支持":"支持","智能系统":"VIDAA系统","接口":"HDMI x3, USB x2"}', '["75英寸巨幕，沉浸观影","4K超高清，画质细腻","120Hz高刷，流畅无拖影","杜比全景声，震撼音效","AI语音控制，操作便捷"]', '["电视主机 x1","遥控器 x1","电池 x2","说明书 x1","保修卡 x1","底座 x2"]', 4999.00, 5999.00, 80, '/image/appliances/tv/10001.webp', '海信75英寸4K智能电视，120Hz高刷，杜比全景声', 1, (SELECT id FROM shops WHERE folder = 'hisense' LIMIT 1)),
 ('海信 65E5K 65英寸智能电视', 'appliance', '海信', '65E5K', '黑色', '{"屏幕尺寸":"65英寸","分辨率":"4K超高清","刷新率":"120Hz","HDR支持":"支持","智能系统":"VIDAA系统","接口":"HDMI x3, USB x2"}', '["65英寸大屏，客厅首选","4K超高清，画质细腻","120Hz高刷，流畅无拖影","杜比全景声，震撼音效","AI语音控制，操作便捷"]', '["电视主机 x1","遥控器 x1","电池 x2","说明书 x1","保修卡 x1","底座 x2"]', 3499.00, 3999.00, 120, '/image/appliances/tv/10002.webp', '海信65英寸4K智能电视，120Hz高刷', 1, (SELECT id FROM shops WHERE folder = 'hisense' LIMIT 1)),
 ('TCL 75T7G 75英寸智能电视', 'appliance', 'TCL', '75T7G', '黑色', '{"屏幕尺寸":"75英寸","分辨率":"4K超高清","刷新率":"144Hz","HDR支持":"支持","智能系统":"安卓系统","接口":"HDMI x3, USB x2"}', '["75英寸巨幕，沉浸观影","4K超高清，画质细腻","144Hz高刷，游戏利器","杜比全景声，震撼音效","AI语音控制，操作便捷"]', '["电视主机 x1","遥控器 x1","电池 x2","说明书 x1","保修卡 x1","底座 x2"]', 5499.00, 6499.00, 60, '/image/appliances/tv/10003.webp', 'TCL75英寸4K智能电视，144Hz高刷，游戏利器', 1, (SELECT id FROM shops WHERE folder = 'tcl' LIMIT 1)),
-('美的 GX5 Pro 洗地机', 'appliance', '美的', 'GX5 Pro', '白色', '{"清洁方式":"吸拖一体","水箱容量":"清水箱800ml/污水箱700ml","续航时间":"35分钟","噪音":"78dB","充电时间":"4小时"}', '["吸拖一体，一步到位","热风烘干，滚刷不发臭","智能感应，自动调节吸力","LED照明，角落清洁无死角","一键自清洁，解放双手"]', '["洗地机主机 x1","充电底座 x1","清洁刷 x1","说明书 x1","保修卡 x1"]', 2999.00, 3499.00, 100, '/image/appliances/floorwasher/10001.webp', '美的GX5 Pro洗地机，吸拖一体，热风烘干', 1, (SELECT id FROM shops WHERE folder = 'midea' LIMIT 1)),
-('美的 G7 洗地机', 'appliance', '美的', 'G7', '白色', '{"清洁方式":"吸拖一体","水箱容量":"清水箱900ml/污水箱800ml","续航时间":"40分钟","噪音":"75dB","充电时间":"4小时"}', '["吸拖一体，一步到位","双向助力，推拉轻松","智能感应，自动调节吸力","LED照明，角落清洁无死角","一键自清洁，解放双手"]', '["洗地机主机 x1","充电底座 x1","清洁刷 x1","说明书 x1","保修卡 x1"]', 3999.00, 4499.00, 80, '/image/appliances/floorwasher/10002.webp', '美的G7洗地机，双向助力，一键自清洁', 1, (SELECT id FROM shops WHERE folder = 'midea' LIMIT 1)),
-('小米米家无线吸尘器2', 'appliance', '小米', '小米无线吸尘器2', '白色', '{"吸力":"150AW","续航时间":"60分钟","尘杯容量":"0.5L","噪音":"72dB","充电时间":"3.5小时"}', '["150AW强劲吸力","60分钟长续航","5重过滤系统","轻量化设计，仅1.6kg","多刷头配置，全屋清洁"]', '["吸尘器主机 x1","充电底座 x1","电动地刷 x1","缝隙吸头 x1","毛刷吸头 x1","说明书 x1"]', 1999.00, 2499.00, 150, '/image/appliances/floorwasher/10003.webp', '小米无线吸尘器2，150AW强劲吸力，60分钟续航', 1, (SELECT id FROM shops WHERE folder = 'xiaomi' LIMIT 1));
+('美的 GX5 Pro 洗地机', 'appliance', '美的', 'GX5 Pro', '白色', '{"清洁方式":"吸拖一体","水箱容量":"清水箱800ml/污水箱700ml","续航时间":"35分钟","噪音":"78dB","充电时间":"4小时"}', '["吸拖一体，一步到位","热风烘干，滚刷不发臭","智能感应，自动调节吸力","LED照明，角落清洁无死角","一键自清洁，解放双手"]', '["洗地机主机 x1","充电底座 x1","清洁刷 x1","说明书 x1","保修卡 x1"]', 2999.00, 3499.00, 100, '/image/appliances/floorWasher/10001.png', '美的GX5 Pro洗地机，吸拖一体，热风烘干', 1, (SELECT id FROM shops WHERE folder = 'midea' LIMIT 1)),
+('美的 G7 洗地机', 'appliance', '美的', 'G7', '白色', '{"清洁方式":"吸拖一体","水箱容量":"清水箱900ml/污水箱800ml","续航时间":"40分钟","噪音":"75dB","充电时间":"4小时"}', '["吸拖一体，一步到位","双向助力，推拉轻松","智能感应，自动调节吸力","LED照明，角落清洁无死角","一键自清洁，解放双手"]', '["洗地机主机 x1","充电底座 x1","清洁刷 x1","说明书 x1","保修卡 x1"]', 3999.00, 4499.00, 80, '/image/appliances/floorWasher/10002.png', '美的G7洗地机，双向助力，一键自清洁', 1, (SELECT id FROM shops WHERE folder = 'midea' LIMIT 1)),
+('小米米家无线吸尘器2', 'appliance', '小米', '小米无线吸尘器2', '白色', '{"吸力":"150AW","续航时间":"60分钟","尘杯容量":"0.5L","噪音":"72dB","充电时间":"3.5小时"}', '["150AW强劲吸力","60分钟长续航","5重过滤系统","轻量化设计，仅1.6kg","多刷头配置，全屋清洁"]', '["吸尘器主机 x1","充电底座 x1","电动地刷 x1","缝隙吸头 x1","毛刷吸头 x1","说明书 x1"]', 1999.00, 2499.00, 150, '/image/appliances/floorWasher/10003.png', '小米无线吸尘器2，150AW强劲吸力，60分钟续航', 1, (SELECT id FROM shops WHERE folder = 'xiaomi-jd' LIMIT 1));
 
-INSERT INTO product_images (product_id, image_url, sort_order) VALUES
+INSERT IGNORE INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = '格力 云锦Ⅱ 1.5匹变频空调' AND category = 'appliance' LIMIT 1), '/image/appliances/aircondition/10001.webp', 1),
 ((SELECT id FROM products WHERE name = '格力 云佳 1.5匹变频空调' AND category = 'appliance' LIMIT 1), '/image/appliances/aircondition/10002.webp', 1),
 ((SELECT id FROM products WHERE name = '格力 京爽 1.5匹变频空调' AND category = 'appliance' LIMIT 1), '/image/appliances/aircondition/10003.webp', 1),
 ((SELECT id FROM products WHERE name = '海尔 BCD-470WDPG 对开门冰箱' AND category = 'appliance' LIMIT 1), '/image/appliances/fridge/10001.webp', 1),
 ((SELECT id FROM products WHERE name = '海尔 BCD-535WLHFD58SGU1 对开门冰箱' AND category = 'appliance' LIMIT 1), '/image/appliances/fridge/10002.webp', 1),
 ((SELECT id FROM products WHERE name = '海尔 BCD-335WLHFD58DSU1 多门冰箱' AND category = 'appliance' LIMIT 1), '/image/appliances/fridge/10003.webp', 1),
-((SELECT id FROM products WHERE name = '海尔 EG100MATE71S 滚筒洗衣机' AND category = 'appliance' LIMIT 1), '/image/appliances/washing/10001.webp', 1),
-((SELECT id FROM products WHERE name = '海尔 EG100HPRO6S 滚筒洗衣机' AND category = 'appliance' LIMIT 1), '/image/appliances/washing/10002.webp', 1),
+((SELECT id FROM products WHERE name = '海尔 EG100MATE71S 滚筒洗衣机' AND category = 'appliance' LIMIT 1), '/image/appliances/washingMachine/10001.webp', 1),
+((SELECT id FROM products WHERE name = '海尔 EG100HPRO6S 滚筒洗衣机' AND category = 'appliance' LIMIT 1), '/image/appliances/washingMachine/10002.webp', 1),
 ((SELECT id FROM products WHERE name = '海信 75E5K 75英寸智能电视' AND category = 'appliance' LIMIT 1), '/image/appliances/tv/10001.webp', 1),
 ((SELECT id FROM products WHERE name = '海信 65E5K 65英寸智能电视' AND category = 'appliance' LIMIT 1), '/image/appliances/tv/10002.webp', 1),
 ((SELECT id FROM products WHERE name = 'TCL 75T7G 75英寸智能电视' AND category = 'appliance' LIMIT 1), '/image/appliances/tv/10003.webp', 1),
-((SELECT id FROM products WHERE name = '美的 GX5 Pro 洗地机' AND category = 'appliance' LIMIT 1), '/image/appliances/floorwasher/10001.webp', 1),
-((SELECT id FROM products WHERE name = '美的 G7 洗地机' AND category = 'appliance' LIMIT 1), '/image/appliances/floorwasher/10002.webp', 1),
-((SELECT id FROM products WHERE name = '小米米家无线吸尘器2' AND category = 'appliance' LIMIT 1), '/image/appliances/floorwasher/10003.webp', 1);
+((SELECT id FROM products WHERE name = '美的 GX5 Pro 洗地机' AND category = 'appliance' LIMIT 1), '/image/appliances/floorWasher/10001.png', 1),
+((SELECT id FROM products WHERE name = '美的 G7 洗地机' AND category = 'appliance' LIMIT 1), '/image/appliances/floorWasher/10002.png', 1),
+((SELECT id FROM products WHERE name = '小米米家无线吸尘器2' AND category = 'appliance' LIMIT 1), '/image/appliances/floorWasher/10003.png', 1);
 
 -- ============================================================
 -- 第九部分：服装鞋帽商品数据 (category = 'cloth-shoes')
 -- ============================================================
 
-INSERT INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
+INSERT IGNORE INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
 ('Nike Air Max 270 黑白配色', 'cloth-shoes', 'Nike', 'Air Max 270', '黑白', '{"类型":"运动鞋","尺码":"36-45","鞋底":"气垫"}', '["经典气垫设计","舒适缓震","百搭时尚","透气网面"]', '["鞋子 x1","鞋盒 x1","防尘袋 x1"]', 899.00, 1199.00, 200, '/image/cloth-shoes/shoes/10001.png', 'Nike Air Max 270 经典黑白配色，舒适缓震', 1, (SELECT id FROM shops WHERE folder = 'nike' LIMIT 1)),
 ('Nike Air Max 270 白红配色', 'cloth-shoes', 'Nike', 'Air Max 270', '白红', '{"类型":"运动鞋","尺码":"36-45","鞋底":"气垫"}', '["经典气垫设计","舒适缓震","百搭时尚","透气网面"]', '["鞋子 x1","鞋盒 x1","防尘袋 x1"]', 899.00, 1199.00, 180, '/image/cloth-shoes/shoes/10002.png', 'Nike Air Max 270 白红配色，活力时尚', 1, (SELECT id FROM shops WHERE folder = 'nike' LIMIT 1)),
 ('Nike Air Max 270 全黑配色', 'cloth-shoes', 'Nike', 'Air Max 270', '全黑', '{"类型":"运动鞋","尺码":"36-45","鞋底":"气垫"}', '["经典气垫设计","舒适缓震","百搭时尚","透气网面"]', '["鞋子 x1","鞋盒 x1","防尘袋 x1"]', 899.00, 1199.00, 150, '/image/cloth-shoes/shoes/10003.png', 'Nike Air Max 270 全黑配色，低调百搭', 1, (SELECT id FROM shops WHERE folder = 'nike' LIMIT 1)),
@@ -536,21 +367,21 @@ INSERT INTO products (name, category, brand, model, color, specifications, featu
 ('AJ1 黑白配色', 'cloth-shoes', 'Jordan', 'AJ1', '黑白', '{"类型":"篮球鞋","尺码":"36-46","鞋底":"橡胶"}', '["经典AJ1设计","复古潮流","限量发售","收藏价值高"]', '["鞋子 x1","鞋盒 x1","防尘袋 x1","吊牌 x1"]', 1599.00, 1999.00, 80, '/image/cloth-shoes/shoes/10006.png', 'AJ1 黑白配色，经典熊猫配色', 1, (SELECT id FROM shops WHERE folder = 'aj' LIMIT 1)),
 ('AJ1 芝加哥配色', 'cloth-shoes', 'Jordan', 'AJ1', '芝加哥', '{"类型":"篮球鞋","尺码":"36-46","鞋底":"橡胶"}', '["经典AJ1设计","复古潮流","限量发售","收藏价值高"]', '["鞋子 x1","鞋盒 x1","防尘袋 x1","吊牌 x1"]', 1899.00, 2299.00, 50, '/image/cloth-shoes/shoes/10007.png', 'AJ1 芝加哥配色，经典复刻', 1, (SELECT id FROM shops WHERE folder = 'aj' LIMIT 1)),
 ('AJ1 皇家蓝配色', 'cloth-shoes', 'Jordan', 'AJ1', '皇家蓝', '{"类型":"篮球鞋","尺码":"36-46","鞋底":"橡胶"}', '["经典AJ1设计","复古潮流","限量发售","收藏价值高"]', '["鞋子 x1","鞋盒 x1","防尘袋 x1","吊牌 x1"]', 1799.00, 2199.00, 60, '/image/cloth-shoes/shoes/10008.png', 'AJ1 皇家蓝配色，经典配色', 1, (SELECT id FROM shops WHERE folder = 'aj' LIMIT 1)),
-('LV Neverfull 手提包', 'cloth-shoes', 'Louis Vuitton', 'Neverfull', '棕色', '{"类型":"手提包","尺寸":"中号","材质":"帆布/皮革"}', '["经典老花设计","大容量实用","百搭时尚","品质保证"]', '["手提包 x1","防尘袋 x1","说明书 x1"]', 12999.00, 14999.00, 30, '/image/cloth-shoes/bag/10011.png', 'LV Neverfull 中号手提包，经典老花设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
-('LV Speedy 斜挎包', 'cloth-shoes', 'Louis Vuitton', 'Speedy', '棕色', '{"类型":"斜挎包","尺寸":"中号","材质":"帆布/皮革"}', '["经典老花设计","百搭时尚","品质保证","限量发售"]', '["斜挎包 x1","防尘袋 x1","说明书 x1"]', 10999.00, 12999.00, 20, '/image/cloth-shoes/bag/10012.png', 'LV Speedy 中号斜挎包，经典老花设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
-('Gucci Marmont 链条包', 'cloth-shoes', 'Gucci', 'Marmont', '黑色', '{"类型":"链条包","尺寸":"小号","材质":"皮革"}', '["经典双G设计","百搭时尚","品质保证","限量发售"]', '["链条包 x1","防尘袋 x1","说明书 x1"]', 15999.00, 17999.00, 15, '/image/cloth-shoes/bag/10013.png', 'Gucci Marmont 小号链条包，经典双G设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
-('Gucci Dionysus 酒神包', 'cloth-shoes', 'Gucci', 'Dionysus', '黑色', '{"类型":"链条包","尺寸":"小号","材质":"皮革"}', '["经典酒神设计","百搭时尚","品质保证","限量发售"]', '["链条包 x1","防尘袋 x1","说明书 x1"]', 18999.00, 20999.00, 10, '/image/cloth-shoes/bag/10014.png', 'Gucci Dionysus 小号酒神包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
-('Chanel Classic Flap 经典款', 'cloth-shoes', 'Chanel', 'Classic Flap', '黑色', '{"类型":"链条包","尺寸":"中号","材质":"羊皮"}', '["经典菱格设计","百搭时尚","品质保证","限量发售"]', '["链条包 x1","防尘袋 x1","说明书 x1","身份卡 x1"]', 59999.00, 64999.00, 5, '/image/cloth-shoes/bag/10015.png', 'Chanel Classic Flap 中号经典款，永恒经典', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
-('Chanel Boy 链条包', 'cloth-shoes', 'Chanel', 'Boy', '黑色', '{"类型":"链条包","尺寸":"中号","材质":"羊皮"}', '["经典Boy设计","百搭时尚","品质保证","限量发售"]', '["链条包 x1","防尘袋 x1","说明书 x1","身份卡 x1"]', 45999.00, 49999.00, 8, '/image/cloth-shoes/bag/10016.png', 'Chanel Boy 中号链条包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
-('Hermes Birkin 铂金包', 'cloth-shoes', 'Hermes', 'Birkin', '橙色', '{"类型":"手提包","尺寸":"30cm","材质":"Togo皮"}', '["经典Birkin设计","顶级工艺","限量发售","收藏价值高"]', '["手提包 x1","防尘袋 x1","说明书 x1","身份卡 x1"]', 129999.00, 149999.00, 2, '/image/cloth-shoes/bag/10017.png', 'Hermes Birkin 30cm 铂金包，顶级工艺', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
-('Hermes Kelly 凯莉包', 'cloth-shoes', 'Hermes', 'Kelly', '黑色', '{"类型":"手提包","尺寸":"28cm","材质":"Epsom皮"}', '["经典Kelly设计","顶级工艺","限量发售","收藏价值高"]', '["手提包 x1","防尘袋 x1","说明书 x1","身份卡 x1"]', 119999.00, 139999.00, 3, '/image/cloth-shoes/bag/10018.png', 'Hermes Kelly 28cm 凯莉包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
-('Dior Lady Dior 戴妃包', 'cloth-shoes', 'Dior', 'Lady Dior', '黑色', '{"类型":"链条包","尺寸":"中号","材质":"羊皮"}', '["经典戴妃包设计","百搭时尚","品质保证","限量发售"]', '["链条包 x1","防尘袋 x1","说明书 x1"]', 35999.00, 39999.00, 10, '/image/cloth-shoes/bag/10019.png', 'Dior Lady Dior 中号戴妃包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
-('Dior Saddle 马鞍包', 'cloth-shoes', 'Dior', 'Saddle', '蓝色', '{"类型":"斜挎包","尺寸":"中号","材质":"帆布/皮革"}', '["经典马鞍设计","百搭时尚","品质保证","限量发售"]', '["斜挎包 x1","防尘袋 x1","说明书 x1"]', 28999.00, 32999.00, 12, '/image/cloth-shoes/bag/10020.png', 'Dior Saddle 中号马鞍包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
+('LV Neverfull 手提包', 'cloth-shoes', 'Louis Vuitton', 'Neverfull', '棕色', '{"类型":"手提包","尺寸":"中号","材质":"帆布/皮革"}', '["经典老花设计","大容量实用","百搭时尚","品质保证"]', '["手提包 x1","防尘袋 x1","说明书 x1"]', 12999.00, 14999.00, 30, '/image/cloth-shoes/bag/10011.webp', 'LV Neverfull 中号手提包，经典老花设计', 1, (SELECT id FROM shops WHERE folder = 'bag' LIMIT 1)),
+('LV Speedy 斜挎包', 'cloth-shoes', 'Louis Vuitton', 'Speedy', '棕色', '{"类型":"斜挎包","尺寸":"中号","材质":"帆布/皮革"}', '["经典老花设计","百搭时尚","品质保证","限量发售"]', '["斜挎包 x1","防尘袋 x1","说明书 x1"]', 10999.00, 12999.00, 20, '/image/cloth-shoes/bag/10012.webp', 'LV Speedy 中号斜挎包，经典老花设计', 1, (SELECT id FROM shops WHERE folder = 'bag' LIMIT 1)),
+('Gucci Marmont 链条包', 'cloth-shoes', 'Gucci', 'Marmont', '黑色', '{"类型":"链条包","尺寸":"小号","材质":"皮革"}', '["经典双G设计","百搭时尚","品质保证","限量发售"]', '["链条包 x1","防尘袋 x1","说明书 x1"]', 15999.00, 17999.00, 15, '/image/cloth-shoes/bag/10013.webp', 'Gucci Marmont 小号链条包，经典双G设计', 1, (SELECT id FROM shops WHERE folder = 'bag' LIMIT 1)),
+('Gucci Dionysus 酒神包', 'cloth-shoes', 'Gucci', 'Dionysus', '黑色', '{"类型":"链条包","尺寸":"小号","材质":"皮革"}', '["经典酒神设计","百搭时尚","品质保证","限量发售"]', '["链条包 x1","防尘袋 x1","说明书 x1"]', 18999.00, 20999.00, 10, '/image/cloth-shoes/bag/10014.webp', 'Gucci Dionysus 小号酒神包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'bag' LIMIT 1)),
+('Chanel Classic Flap 经典款', 'cloth-shoes', 'Chanel', 'Classic Flap', '黑色', '{"类型":"链条包","尺寸":"中号","材质":"羊皮"}', '["经典菱格设计","百搭时尚","品质保证","限量发售"]', '["链条包 x1","防尘袋 x1","说明书 x1","身份卡 x1"]', 59999.00, 64999.00, 5, '/image/cloth-shoes/bag/10015.webp', 'Chanel Classic Flap 中号经典款，永恒经典', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
+('Chanel Boy 链条包', 'cloth-shoes', 'Chanel', 'Boy', '黑色', '{"类型":"链条包","尺寸":"中号","材质":"羊皮"}', '["经典Boy设计","百搭时尚","品质保证","限量发售"]', '["链条包 x1","防尘袋 x1","说明书 x1","身份卡 x1"]', 45999.00, 49999.00, 8, '/image/cloth-shoes/bag/10016.webp', 'Chanel Boy 中号链条包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
+('Hermes Birkin 铂金包', 'cloth-shoes', 'Hermes', 'Birkin', '橙色', '{"类型":"手提包","尺寸":"30cm","材质":"Togo皮"}', '["经典Birkin设计","顶级工艺","限量发售","收藏价值高"]', '["手提包 x1","防尘袋 x1","说明书 x1","身份卡 x1"]', 129999.00, 149999.00, 2, '/image/cloth-shoes/bag/10017.webp', 'Hermes Birkin 30cm 铂金包，顶级工艺', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
+('Hermes Kelly 凯莉包', 'cloth-shoes', 'Hermes', 'Kelly', '黑色', '{"类型":"手提包","尺寸":"28cm","材质":"Epsom皮"}', '["经典Kelly设计","顶级工艺","限量发售","收藏价值高"]', '["手提包 x1","防尘袋 x1","说明书 x1","身份卡 x1"]', 119999.00, 139999.00, 3, '/image/cloth-shoes/bag/10018.webp', 'Hermes Kelly 28cm 凯莉包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
+('Dior Lady Dior 戴妃包', 'cloth-shoes', 'Dior', 'Lady Dior', '黑色', '{"类型":"链条包","尺寸":"中号","材质":"羊皮"}', '["经典戴妃包设计","百搭时尚","品质保证","限量发售"]', '["链条包 x1","防尘袋 x1","说明书 x1"]', 35999.00, 39999.00, 10, '/image/cloth-shoes/bag/10019.webp', 'Dior Lady Dior 中号戴妃包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
+('Dior Saddle 马鞍包', 'cloth-shoes', 'Dior', 'Saddle', '蓝色', '{"类型":"斜挎包","尺寸":"中号","材质":"帆布/皮革"}', '["经典马鞍设计","百搭时尚","品质保证","限量发售"]', '["斜挎包 x1","防尘袋 x1","说明书 x1"]', 28999.00, 32999.00, 12, '/image/cloth-shoes/bag/10020.webp', 'Dior Saddle 中号马鞍包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
 ('Prada Galleria 杀手包', 'cloth-shoes', 'Prada', 'Galleria', '黑色', '{"类型":"手提包","尺寸":"中号","材质":"Saffiano皮革"}', '["经典杀手包设计","百搭时尚","品质保证","限量发售"]', '["手提包 x1","防尘袋 x1","说明书 x1"]', 21999.00, 24999.00, 15, '/image/cloth-shoes/bag/10021.png', 'Prada Galleria 中号杀手包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
 ('Prada Re-Edition 尼龙包', 'cloth-shoes', 'Prada', 'Re-Edition', '黑色', '{"类型":"斜挎包","尺寸":"小号","材质":"尼龙/皮革"}', '["经典尼龙设计","百搭时尚","品质保证","限量发售"]', '["斜挎包 x1","防尘袋 x1","说明书 x1"]', 12999.00, 14999.00, 20, '/image/cloth-shoes/bag/10022.png', 'Prada Re-Edition 小号尼龙包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1)),
 ('Celine Luggage 笑脸包', 'cloth-shoes', 'Celine', 'Luggage', '黑色', '{"类型":"手提包","尺寸":"中号","材质":"皮革"}', '["经典笑脸包设计","百搭时尚","品质保证","限量发售"]', '["手提包 x1","防尘袋 x1","说明书 x1"]', 25999.00, 29999.00, 10, '/image/cloth-shoes/bag/10023.png', 'Celine Luggage 中号笑脸包，经典设计', 1, (SELECT id FROM shops WHERE folder = 'luxury' LIMIT 1));
 
-INSERT INTO product_images (product_id, image_url, sort_order) VALUES
+INSERT IGNORE INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = 'Nike Air Max 270 黑白配色' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/shoes/10001.png', 1),
 ((SELECT id FROM products WHERE name = 'Nike Air Max 270 白红配色' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/shoes/10002.png', 1),
 ((SELECT id FROM products WHERE name = 'Nike Air Max 270 全黑配色' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/shoes/10003.png', 1),
@@ -559,16 +390,16 @@ INSERT INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = 'AJ1 黑白配色' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/shoes/10006.png', 1),
 ((SELECT id FROM products WHERE name = 'AJ1 芝加哥配色' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/shoes/10007.png', 1),
 ((SELECT id FROM products WHERE name = 'AJ1 皇家蓝配色' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/shoes/10008.png', 1),
-((SELECT id FROM products WHERE name = 'LV Neverfull 手提包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10011.png', 1),
-((SELECT id FROM products WHERE name = 'LV Speedy 斜挎包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10012.png', 1),
-((SELECT id FROM products WHERE name = 'Gucci Marmont 链条包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10013.png', 1),
-((SELECT id FROM products WHERE name = 'Gucci Dionysus 酒神包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10014.png', 1),
-((SELECT id FROM products WHERE name = 'Chanel Classic Flap 经典款' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10015.png', 1),
-((SELECT id FROM products WHERE name = 'Chanel Boy 链条包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10016.png', 1),
-((SELECT id FROM products WHERE name = 'Hermes Birkin 铂金包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10017.png', 1),
-((SELECT id FROM products WHERE name = 'Hermes Kelly 凯莉包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10018.png', 1),
-((SELECT id FROM products WHERE name = 'Dior Lady Dior 戴妃包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10019.png', 1),
-((SELECT id FROM products WHERE name = 'Dior Saddle 马鞍包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10020.png', 1),
+((SELECT id FROM products WHERE name = 'LV Neverfull 手提包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10011.webp', 1),
+((SELECT id FROM products WHERE name = 'LV Speedy 斜挎包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10012.webp', 1),
+((SELECT id FROM products WHERE name = 'Gucci Marmont 链条包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10013.webp', 1),
+((SELECT id FROM products WHERE name = 'Gucci Dionysus 酒神包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10014.webp', 1),
+((SELECT id FROM products WHERE name = 'Chanel Classic Flap 经典款' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10015.webp', 1),
+((SELECT id FROM products WHERE name = 'Chanel Boy 链条包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10016.webp', 1),
+((SELECT id FROM products WHERE name = 'Hermes Birkin 铂金包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10017.webp', 1),
+((SELECT id FROM products WHERE name = 'Hermes Kelly 凯莉包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10018.webp', 1),
+((SELECT id FROM products WHERE name = 'Dior Lady Dior 戴妃包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10019.webp', 1),
+((SELECT id FROM products WHERE name = 'Dior Saddle 马鞍包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10020.webp', 1),
 ((SELECT id FROM products WHERE name = 'Prada Galleria 杀手包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10021.png', 1),
 ((SELECT id FROM products WHERE name = 'Prada Re-Edition 尼龙包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10022.png', 1),
 ((SELECT id FROM products WHERE name = 'Celine Luggage 笑脸包' AND category = 'cloth-shoes' LIMIT 1), '/image/cloth-shoes/bag/10023.png', 1);
@@ -577,7 +408,7 @@ INSERT INTO product_images (product_id, image_url, sort_order) VALUES
 -- 第十部分：食品商品数据 (category = 'food')
 -- ============================================================
 
-INSERT INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
+INSERT IGNORE INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
 ('香辣辣条 100g', 'food', '零食品牌', '香辣味', '红色', '{"类型":"辣条","规格":"100g/袋","口味":"香辣"}', '["香辣可口","Q弹有嚼劲","独立包装","追剧必备"]', '["辣条 100g","包装袋 x1"]', 5.00, 8.00, 1000, '/image/food/辣条/10001.png', '香辣辣条，Q弹有嚼劲', 1, (SELECT id FROM shops WHERE folder = 'lingshi1' LIMIT 1)),
 ('麻辣辣条 100g', 'food', '零食品牌', '麻辣味', '红色', '{"类型":"辣条","规格":"100g/袋","口味":"麻辣"}', '["麻辣过瘾","Q弹有嚼劲","独立包装","追剧必备"]', '["辣条 100g","包装袋 x1"]', 5.00, 8.00, 1000, '/image/food/辣条/10002.png', '麻辣辣条，麻辣过瘾', 1, (SELECT id FROM shops WHERE folder = 'lingshi1' LIMIT 1)),
 ('甜辣辣条 100g', 'food', '零食品牌', '甜辣味', '红色', '{"类型":"辣条","规格":"100g/袋","口味":"甜辣"}', '["甜辣适中","Q弹有嚼劲","独立包装","追剧必备"]', '["辣条 100g","包装袋 x1"]', 5.00, 8.00, 1000, '/image/food/辣条/10003.png', '甜辣辣条，甜辣适中', 1, (SELECT id FROM shops WHERE folder = 'lingshi1' LIMIT 1)),
@@ -593,7 +424,7 @@ INSERT INTO products (name, category, brand, model, color, specifications, featu
 ('桶装薯片 150g', 'food', '零食品牌', '桶装', '红色', '{"类型":"薯片","规格":"150g/桶","口味":"原味"}', '["原味经典","酥脆可口","桶装包装","追剧必备"]', '["薯片 150g","包装桶 x1"]', 15.00, 18.00, 300, '/image/food/薯片/10035.png', '桶装薯片，原味经典', 1, (SELECT id FROM shops WHERE folder = 'lingshi1' LIMIT 1)),
 ('桶装薯片 150g', 'food', '零食品牌', '桶装', '绿色', '{"类型":"薯片","规格":"150g/桶","口味":"黄瓜"}', '["黄瓜清香","酥脆可口","桶装包装","追剧必备"]', '["薯片 150g","包装桶 x1"]', 15.00, 18.00, 300, '/image/food/薯片/10036.png', '桶装薯片，黄瓜清香', 1, (SELECT id FROM shops WHERE folder = 'lingshi2' LIMIT 1));
 
-INSERT INTO product_images (product_id, image_url, sort_order) VALUES
+INSERT IGNORE INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = '香辣辣条 100g' AND category = 'food' LIMIT 1), '/image/food/辣条/10001.png', 1),
 ((SELECT id FROM products WHERE name = '麻辣辣条 100g' AND category = 'food' LIMIT 1), '/image/food/辣条/10002.png', 1),
 ((SELECT id FROM products WHERE name = '甜辣辣条 100g' AND category = 'food' LIMIT 1), '/image/food/辣条/10003.png', 1),
@@ -613,7 +444,7 @@ INSERT INTO product_images (product_id, image_url, sort_order) VALUES
 -- 第十一部分：图书文具商品数据 (category = 'book')
 -- ============================================================
 
-INSERT INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
+INSERT IGNORE INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
 ('文学小说精选套装1', 'book', '出版社', '文学类', '平装', '{"类型":"文学小说","页数":"约300页","开本":"32开"}', '["经典文学作品","语言朴实情感真挚","中国当代文学经典","值得收藏阅读"]', '["图书 x1","塑封包装"]', 35.00, 45.00, 500, '/image/book/10001.png', '经典文学小说作品', 1, (SELECT id FROM shops WHERE folder = 'jdbook' LIMIT 1)),
 ('文学小说精选套装2', 'book', '出版社', '文学类', '平装', '{"类型":"文学小说","页数":"约300页","开本":"32开"}', '["经典文学作品","语言朴实情感真挚","中国当代文学经典","值得收藏阅读"]', '["图书 x1","塑封包装"]', 35.00, 45.00, 500, '/image/book/10002.png', '经典文学小说作品', 1, (SELECT id FROM shops WHERE folder = 'jdbook' LIMIT 1)),
 ('文学小说精选套装3', 'book', '出版社', '文学类', '平装', '{"类型":"文学小说","页数":"约300页","开本":"32开"}', '["经典文学作品","语言朴实情感真挚","中国当代文学经典","值得收藏阅读"]', '["图书 x1","塑封包装"]', 35.00, 45.00, 500, '/image/book/10003.png', '经典文学小说作品', 1, (SELECT id FROM shops WHERE folder = 'taobaobook' LIMIT 1)),
@@ -628,12 +459,12 @@ INSERT INTO products (name, category, brand, model, color, specifications, featu
 ('笔记本 A5', 'book', '文具品牌', '笔记本', '蓝色', '{"类型":"笔记本","规格":"A5","页数":"100页"}', '["优质纸张","书写流畅","精美封面","学习办公必备"]', '["笔记本 x1"]', 15.00, 20.00, 1000, '/image/book/10024.png', '精美笔记本', 1, (SELECT id FROM shops WHERE folder = 'dangdangbook' LIMIT 1)),
 ('笔记本 A5', 'book', '文具品牌', '笔记本', '粉色', '{"类型":"笔记本","规格":"A5","页数":"100页"}', '["优质纸张","书写流畅","精美封面","学习办公必备"]', '["笔记本 x1"]', 15.00, 20.00, 1000, '/image/book/10025.png', '精美笔记本', 1, (SELECT id FROM shops WHERE folder = 'jdbook' LIMIT 1)),
 ('笔记本 B5', 'book', '文具品牌', '笔记本', '绿色', '{"类型":"笔记本","规格":"B5","页数":"120页"}', '["优质纸张","书写流畅","精美封面","学习办公必备"]', '["笔记本 x1"]', 18.00, 25.00, 800, '/image/book/10026.png', '精美笔记本', 1, (SELECT id FROM shops WHERE folder = 'taobaobook' LIMIT 1)),
-('笔记本 B5', 'book', '文具品牌', '笔记本', '黄色', '{"类型":"笔记本","规格":"B5","页数":"120页"}', '["优质纸张","书写流畅","精美封面","学习办公必备"]', '["笔记本 x1"]', 18.00, 25.00, 800, '/image/book/10027.png', '精美笔记本', 1, (SELECT id FROM shops WHERE folder = 'tianmaobook' LIMIT 1)),
-('活页本 A5', 'book', '文具品牌', '活页本', '白色', '{"类型":"活页本","规格":"A5","页数":"可替换"}', '["活页设计","可替换内芯","精美封面","学习办公必备"]', '["活页本 x1","内芯 x1"]', 25.00, 35.00, 600, '/image/book/10028.png', '精美活页本', 1, (SELECT id FROM shops WHERE folder = 'dangdangbook' LIMIT 1)),
+('笔记本 B5', 'book', '文具品牌', '笔记本', '黄色', '{"类型":"笔记本","规格":"B5","页数":"120页"}', '["优质纸张","书写流畅","精美封面","学习办公必备"]', '["笔记本 x1"]', 18.00, 25.00, 800, '/image/book/10027.jpeg', '精美笔记本', 1, (SELECT id FROM shops WHERE folder = 'tianmaobook' LIMIT 1)),
+('活页本 A5', 'book', '文具品牌', '活页本', '白色', '{"类型":"活页本","规格":"A5","页数":"可替换"}', '["活页设计","可替换内芯","精美封面","学习办公必备"]', '["活页本 x1","内芯 x1"]', 25.00, 35.00, 600, '/image/book/10028.jpeg', '精美活页本', 1, (SELECT id FROM shops WHERE folder = 'dangdangbook' LIMIT 1)),
 ('活页本 A5', 'book', '文具品牌', '活页本', '黑色', '{"类型":"活页本","规格":"A5","页数":"可替换"}', '["活页设计","可替换内芯","精美封面","学习办公必备"]', '["活页本 x1","内芯 x1"]', 25.00, 35.00, 600, '/image/book/10029.png', '精美活页本', 1, (SELECT id FROM shops WHERE folder = 'jdbook' LIMIT 1)),
 ('活页本 B5', 'book', '文具品牌', '活页本', '灰色', '{"类型":"活页本","规格":"B5","页数":"可替换"}', '["活页设计","可替换内芯","精美封面","学习办公必备"]', '["活页本 x1","内芯 x1"]', 28.00, 38.00, 500, '/image/book/10030.png', '精美活页本', 1, (SELECT id FROM shops WHERE folder = 'taobaobook' LIMIT 1));
 
-INSERT INTO product_images (product_id, image_url, sort_order) VALUES
+INSERT IGNORE INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = '文学小说精选套装1' AND category = 'book' LIMIT 1), '/image/book/10001.png', 1),
 ((SELECT id FROM products WHERE name = '文学小说精选套装2' AND category = 'book' LIMIT 1), '/image/book/10002.png', 1),
 ((SELECT id FROM products WHERE name = '文学小说精选套装3' AND category = 'book' LIMIT 1), '/image/book/10003.png', 1),
@@ -648,8 +479,8 @@ INSERT INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = '笔记本 A5' AND category = 'book' AND color = '蓝色' LIMIT 1), '/image/book/10024.png', 1),
 ((SELECT id FROM products WHERE name = '笔记本 A5' AND category = 'book' AND color = '粉色' LIMIT 1), '/image/book/10025.png', 1),
 ((SELECT id FROM products WHERE name = '笔记本 B5' AND category = 'book' AND color = '绿色' LIMIT 1), '/image/book/10026.png', 1),
-((SELECT id FROM products WHERE name = '笔记本 B5' AND category = 'book' AND color = '黄色' LIMIT 1), '/image/book/10027.png', 1),
-((SELECT id FROM products WHERE name = '活页本 A5' AND category = 'book' AND color = '白色' LIMIT 1), '/image/book/10028.png', 1),
+((SELECT id FROM products WHERE name = '笔记本 B5' AND category = 'book' AND color = '黄色' LIMIT 1), '/image/book/10027.jpeg', 1),
+((SELECT id FROM products WHERE name = '活页本 A5' AND category = 'book' AND color = '白色' LIMIT 1), '/image/book/10028.jpeg', 1),
 ((SELECT id FROM products WHERE name = '活页本 A5' AND category = 'book' AND color = '黑色' LIMIT 1), '/image/book/10029.png', 1),
 ((SELECT id FROM products WHERE name = '活页本 B5' AND category = 'book' LIMIT 1), '/image/book/10030.png', 1);
 
@@ -657,27 +488,27 @@ INSERT INTO product_images (product_id, image_url, sort_order) VALUES
 -- 第十二部分：运动户外商品数据 (category = 'sports')
 -- ============================================================
 
-INSERT INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
-('游泳装备套装1', 'sports', '游泳品牌', '套装1', '多色', '{"类型":"游泳装备","尺码":"S-XXL","材质":"涤纶"}', '["专业游泳装备","舒适透气","耐用防水","适合初学者"]', '["游泳装备 x1","包装盒 x1"]', 199.00, 299.00, 150, '/image/sports/游泳装备/2ef05a72-4889-44a6-9026-0abe55c62642.webp', '专业游泳装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports3' LIMIT 1)),
+INSERT IGNORE INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
+('游泳装备套装1', 'sports', '游泳品牌', '套装1', '多色', '{"类型":"游泳装备","尺码":"S-XXL","材质":"涤纶"}', '["专业游泳装备","舒适透气","耐用防水","适合初学者"]', '["游泳装备 x1","包装盒 x1"]', 199.00, 299.00, 150, '/image/sports/游泳装备/2ef05a72-4889-44a6-9026-0abe55c62642.webp', '专业游泳装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports1' LIMIT 1)),
 ('游泳装备套装2', 'sports', '游泳品牌', '套装2', '多色', '{"类型":"游泳装备","尺码":"S-XXL","材质":"涤纶"}', '["专业游泳装备","舒适透气","耐用防水","适合进阶"]', '["游泳装备 x1","包装盒 x1"]', 299.00, 399.00, 120, '/image/sports/游泳装备/2ef05a72-4889-44a6-9026-0abe55c62642.webp', '专业游泳装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports3' LIMIT 1)),
-('登山装备套装1', 'sports', '登山品牌', '套装1', '多色', '{"类型":"登山装备","尺码":"S-XXL","材质":"尼龙"}', '["专业登山装备","耐磨耐用","轻便舒适","适合入门"]', '["登山装备 x1","包装盒 x1"]', 399.00, 599.00, 100, '/image/sports/登山装备/登山装备1.webp', '专业登山装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports2' LIMIT 1)),
-('登山装备套装2', 'sports', '登山品牌', '套装2', '多色', '{"类型":"登山装备","尺码":"S-XXL","材质":"尼龙"}', '["专业登山装备","耐磨耐用","轻便舒适","适合进阶"]', '["登山装备 x1","包装盒 x1"]', 599.00, 799.00, 80, '/image/sports/登山装备/登山装备2.webp', '专业登山装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports2' LIMIT 1)),
-('骑行装备套装1', 'sports', '骑行品牌', '套装1', '多色', '{"类型":"骑行装备","尺码":"S-XXL","材质":"涤纶"}', '["专业骑行装备","透气舒适","耐磨耐用","适合入门"]', '["骑行装备 x1","包装盒 x1"]', 299.00, 399.00, 120, '/image/sports/骑行装备/骑行装备1.webp', '专业骑行装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports4' LIMIT 1)),
-('骑行装备套装2', 'sports', '骑行品牌', '套装2', '多色', '{"类型":"骑行装备","尺码":"S-XXL","材质":"涤纶"}', '["专业骑行装备","透气舒适","耐磨耐用","适合进阶"]', '["骑行装备 x1","包装盒 x1"]', 499.00, 699.00, 100, '/image/sports/骑行装备/骑行装备2.webp', '专业骑行装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports4' LIMIT 1));
+('登山装备套装1', 'sports', '登山品牌', '套装1', '多色', '{"类型":"登山装备","尺码":"S-XXL","材质":"尼龙"}', '["专业登山装备","耐磨耐用","轻便舒适","适合入门"]', '["登山装备 x1","包装盒 x1"]', 399.00, 599.00, 100, '/image/sports/登山装备/10001.png', '专业登山装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports2' LIMIT 1)),
+('登山装备套装2', 'sports', '登山品牌', '套装2', '多色', '{"类型":"登山装备","尺码":"S-XXL","材质":"尼龙"}', '["专业登山装备","耐磨耐用","轻便舒适","适合进阶"]', '["登山装备 x1","包装盒 x1"]', 599.00, 799.00, 80, '/image/sports/登山装备/10002.png', '专业登山装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports2' LIMIT 1)),
+('骑行装备套装1', 'sports', '骑行品牌', '套装1', '多色', '{"类型":"骑行装备","尺码":"S-XXL","材质":"涤纶"}', '["专业骑行装备","透气舒适","耐磨耐用","适合入门"]', '["骑行装备 x1","包装盒 x1"]', 299.00, 399.00, 120, '/image/sports/骑行装备/02a14770-5f63-42c3-b866-80b088ae6bb3.jpg', '专业骑行装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports4' LIMIT 1)),
+('骑行装备套装2', 'sports', '骑行品牌', '套装2', '多色', '{"类型":"骑行装备","尺码":"S-XXL","材质":"涤纶"}', '["专业骑行装备","透气舒适","耐磨耐用","适合进阶"]', '["骑行装备 x1","包装盒 x1"]', 499.00, 699.00, 100, '/image/sports/骑行装备/08416e75-a339-4be5-9025-068587f54d3b.jpg', '专业骑行装备套装', 1, (SELECT id FROM shops WHERE folder = 'sports4' LIMIT 1));
 
-INSERT INTO product_images (product_id, image_url, sort_order) VALUES
+INSERT IGNORE INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = '游泳装备套装1' AND category = 'sports' LIMIT 1), '/image/sports/游泳装备/2ef05a72-4889-44a6-9026-0abe55c62642.webp', 1),
 ((SELECT id FROM products WHERE name = '游泳装备套装2' AND category = 'sports' LIMIT 1), '/image/sports/游泳装备/2ef05a72-4889-44a6-9026-0abe55c62642.webp', 1),
-((SELECT id FROM products WHERE name = '登山装备套装1' AND category = 'sports' LIMIT 1), '/image/sports/登山装备/登山装备1.webp', 1),
-((SELECT id FROM products WHERE name = '登山装备套装2' AND category = 'sports' LIMIT 1), '/image/sports/登山装备/登山装备2.webp', 1),
-((SELECT id FROM products WHERE name = '骑行装备套装1' AND category = 'sports' LIMIT 1), '/image/sports/骑行装备/骑行装备1.webp', 1),
-((SELECT id FROM products WHERE name = '骑行装备套装2' AND category = 'sports' LIMIT 1), '/image/sports/骑行装备/骑行装备2.webp', 1);
+((SELECT id FROM products WHERE name = '登山装备套装1' AND category = 'sports' LIMIT 1), '/image/sports/登山装备/10001.png', 1),
+((SELECT id FROM products WHERE name = '登山装备套装2' AND category = 'sports' LIMIT 1), '/image/sports/登山装备/10002.png', 1),
+((SELECT id FROM products WHERE name = '骑行装备套装1' AND category = 'sports' LIMIT 1), '/image/sports/骑行装备/02a14770-5f63-42c3-b866-80b088ae6bb3.jpg', 1),
+((SELECT id FROM products WHERE name = '骑行装备套装2' AND category = 'sports' LIMIT 1), '/image/sports/骑行装备/08416e75-a339-4be5-9025-068587f54d3b.jpg', 1);
 
 -- ============================================================
 -- 第十三部分：美妆护肤商品数据 (category = 'cosmetics')
 -- ============================================================
 
-INSERT INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
+INSERT IGNORE INTO products (name, category, brand, model, color, specifications, features, packaging_list, price, original_price, stock, image_url, description, status, merchant_id) VALUES
 ('化妆品套装1', 'cosmetics', '美妆品牌', '套装1', '多色', '{"类型":"化妆品","规格":"标准装","保质期":"3年"}', '["精选美妆产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 1299.00, 1540.00, 100, '/image/cosmetics/10001.webp', '精选化妆品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang1' LIMIT 1)),
 ('化妆品套装2', 'cosmetics', '美妆品牌', '套装2', '多色', '{"类型":"化妆品","规格":"标准装","保质期":"3年"}', '["精选美妆产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 1399.00, 1640.00, 80, '/image/cosmetics/10002.webp', '精选化妆品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang1' LIMIT 1)),
 ('化妆品套装3', 'cosmetics', '美妆品牌', '套装3', '多色', '{"类型":"化妆品","规格":"标准装","保质期":"3年"}', '["精选美妆产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 1499.00, 1740.00, 60, '/image/cosmetics/10003.webp', '精选化妆品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang2' LIMIT 1)),
@@ -687,7 +518,7 @@ INSERT INTO products (name, category, brand, model, color, specifications, featu
 ('护肤品套装3', 'cosmetics', '护肤品牌', '套装3', '白色', '{"类型":"护肤品","规格":"标准装","保质期":"3年"}', '["精选护肤产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 1099.00, 1299.00, 80, '/image/cosmetics/10007.webp', '精选护肤品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang4' LIMIT 1)),
 ('护肤品套装4', 'cosmetics', '护肤品牌', '套装4', '白色', '{"类型":"护肤品","规格":"标准装","保质期":"3年"}', '["精选护肤产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 1199.00, 1399.00, 60, '/image/cosmetics/10008.webp', '精选护肤品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang4' LIMIT 1));
 
-INSERT INTO product_images (product_id, image_url, sort_order) VALUES
+INSERT IGNORE INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = '化妆品套装1' AND category = 'cosmetics' LIMIT 1), '/image/cosmetics/10001.webp', 1),
 ((SELECT id FROM products WHERE name = '化妆品套装2' AND category = 'cosmetics' LIMIT 1), '/image/cosmetics/10002.webp', 1),
 ((SELECT id FROM products WHERE name = '化妆品套装3' AND category = 'cosmetics' LIMIT 1), '/image/cosmetics/10003.webp', 1),
@@ -698,5 +529,51 @@ INSERT INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = '护肤品套装4' AND category = 'cosmetics' LIMIT 1), '/image/cosmetics/10008.webp', 1);
 
 -- ============================================================
+-- 手机数码/电脑办公详情字段兜底（规格参数、产品特点、包装清单）
+-- ============================================================
+UPDATE products
+SET specifications = JSON_OBJECT(
+        '品牌', COALESCE(NULLIF(brand, ''), '品牌待补充'),
+        '型号', COALESCE(NULLIF(model, ''), '型号待补充'),
+        '颜色', COALESCE(NULLIF(color, ''), '颜色随机'),
+        '网络', '5G全网通',
+        '版本', '标准版'
+    ),
+    features = CONCAT(
+        '官方正品保障\n',
+        '支持7天无理由退换\n',
+        COALESCE(NULLIF(description, ''), '高性能移动终端，系统流畅，续航稳定')
+    ),
+    packaging_list = CONCAT(name, ' x1\n说明书 x1\n保修卡 x1\n充电配件 x1')
+WHERE category = 'phone'
+  AND (
+      specifications IS NULL OR specifications = ''
+      OR features IS NULL OR features = ''
+      OR packaging_list IS NULL OR packaging_list = ''
+  );
+
+UPDATE products
+SET specifications = JSON_OBJECT(
+        '品牌', COALESCE(NULLIF(brand, ''), '品牌待补充'),
+        '型号', COALESCE(NULLIF(model, ''), '型号待补充'),
+        '颜色', COALESCE(NULLIF(color, ''), '颜色随机'),
+        '类型', '电脑办公',
+        '系统', '预装系统'
+    ),
+    features = CONCAT(
+        '官方正品保障\n',
+        '性能稳定，适合办公学习\n',
+        COALESCE(NULLIF(description, ''), '高性能办公设备，运行流畅，稳定耐用')
+    ),
+    packaging_list = CONCAT(name, ' x1\n电源适配器 x1\n说明书 x1\n保修卡 x1')
+WHERE category = 'computer'
+  AND (
+      specifications IS NULL OR specifications = ''
+      OR features IS NULL OR features = ''
+      OR packaging_list IS NULL OR packaging_list = ''
+  );
+
+-- ============================================================
 -- 初始化完成
 -- ============================================================
+

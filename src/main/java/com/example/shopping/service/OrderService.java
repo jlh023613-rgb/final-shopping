@@ -86,17 +86,33 @@ public class OrderService {
         order.setCanRefund(false);
         order.setHasComplaint(false);
         order.setHasRefund(false);
+        order.setComplaintStatus(null);
+        order.setComplaintResult(null);
+        order.setRefundStatus(null);
+        order.setRefundResult(null);
+        order.setRefundProcessedAt(null);
+        order.setCanEscalateRefund(false);
 
         try {
+            Complaint complaint = complaintMapper.findByOrderId(order.getId());
+            order.setHasComplaint(complaint != null);
+            if (complaint != null) {
+                order.setComplaintStatus(complaint.getStatus());
+                order.setComplaintResult(complaint.getResult());
+            }
+
+            Refund refund = refundMapper.findByOrderId(order.getId());
+            order.setHasRefund(refund != null);
+            if (refund != null) {
+                order.setRefundStatus(refund.getStatus());
+                order.setRefundResult(refund.getResult());
+                order.setRefundProcessedAt(refund.getProcessedAt());
+                order.setCanEscalateRefund("rejected".equals(refund.getStatus()));
+            }
+
             String status = order.getStatus();
             if ("completed".equals(status) || "reviewed".equals(status)) {
-                Complaint complaint = complaintMapper.findByOrderId(order.getId());
-                order.setHasComplaint(complaint != null);
                 order.setCanComplaint(complaint == null);
-
-                Refund refund = refundMapper.findByOrderId(order.getId());
-                order.setHasRefund(refund != null);
-
                 if (refund == null && order.getCompletedAt() != null) {
                     long days = ChronoUnit.DAYS.between(order.getCompletedAt(), LocalDateTime.now());
                     order.setCanRefund(days <= 7);
@@ -188,7 +204,9 @@ public class OrderService {
         }
 
         refund.setStatus(approved ? "approved" : "rejected");
-        refund.setResult(result);
+        String merchantResultPrefix = approved ? "商家同意退款" : "商家拒绝退款";
+        String finalResult = (result == null || result.isBlank()) ? merchantResultPrefix : merchantResultPrefix + "：" + result.trim();
+        refund.setResult(finalResult);
         refund.setProcessedAt(LocalDateTime.now());
         refundMapper.update(refund);
 
@@ -204,12 +222,14 @@ public class OrderService {
     @Transactional
     public void processRefundByAdmin(Long refundId, boolean approved, String result) {
         Refund refund = refundMapper.findById(refundId);
-        if (refund == null || !"pending".equals(refund.getStatus())) {
+        if (refund == null || (!"pending".equals(refund.getStatus()) && !"escalated".equals(refund.getStatus()))) {
             return;
         }
 
         refund.setStatus(approved ? "approved" : "rejected");
-        refund.setResult(result);
+        String adminResultPrefix = approved ? "管理员裁定退款成功" : "管理员裁定退款失败";
+        String finalResult = (result == null || result.isBlank()) ? adminResultPrefix : adminResultPrefix + "：" + result.trim();
+        refund.setResult(finalResult);
         refund.setProcessedAt(LocalDateTime.now());
         refundMapper.update(refund);
 
@@ -220,5 +240,27 @@ public class OrderService {
                 orderMapper.updateStatus(order);
             }
         }
+    }
+
+    @Transactional
+    public boolean escalateRefundByUser(Long orderId, Long userId, String reason) {
+        Refund refund = refundMapper.findByOrderId(orderId);
+        if (refund == null || !refund.getUserId().equals(userId) || !"rejected".equals(refund.getStatus())) {
+            return false;
+        }
+
+        String appendReason = (reason == null || reason.isBlank()) ? "用户申请管理员介入处理" : ("用户申请管理员介入：" + reason.trim());
+        String mergedResult;
+        if (refund.getResult() == null || refund.getResult().isBlank()) {
+            mergedResult = appendReason;
+        } else {
+            mergedResult = refund.getResult() + "\n" + appendReason;
+        }
+
+        refund.setStatus("escalated");
+        refund.setResult(mergedResult);
+        refund.setProcessedAt(null);
+        refundMapper.update(refund);
+        return true;
     }
 }

@@ -32,4 +32,10 @@ public class Order {
     private Boolean canRefund;
     private Boolean hasComplaint;
     private Boolean hasRefund;
+    private String complaintStatus;
+    private String complaintResult;
+    private String refundStatus;
+    private String refundResult;
+    private LocalDateTime refundProcessedAt;
+    private Boolean canEscalateRefund;
 }
