@@ -5,86 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>商品管理</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        :root { --primary: #FF4400; --primary-dark: #E63E00; --primary-light: #FFF5F0; --bg: #F5F5F5; --border: #e8e8e8; --text-dark: #333; --text-secondary: #666; --text-muted: #999; }
-        body { background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 13px; color: var(--text-dark); margin: 0; }
-        .sidebar { background: white; border-right: 1px solid var(--border); min-height: 100vh; padding-top: 0; }
-        .sidebar-header { background: var(--primary); color: white; padding: 16px 16px 12px; }
-        .sidebar-header h5 { margin: 0; font-size: 15px; font-weight: 700; }
-        .sidebar .nav-link { color: var(--text-dark); padding: 10px 16px; border-radius: 0; margin: 0; font-size: 13px; border-left: 3px solid transparent; }
-        .sidebar .nav-link:hover { background: var(--primary-light); color: var(--primary); border-left-color: var(--primary); }
-        .sidebar .nav-link.active { background: var(--primary-light); color: var(--primary); font-weight: 600; border-left-color: var(--primary); }
-        .content-area { padding: 20px; }
-        .page-title { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-        .data-card { background: white; border: 1px solid var(--border); border-radius: 4px; }
-        .data-card .card-body { padding: 0; }
+        :root {
+            --bg-dark: #0D1117;
+            --bg-card: #161B22;
+            --bg-card-hover: #21262D;
+            --primary: #58A6FF;
+            --primary-glow: rgba(88, 166, 255, 0.3);
+            --text-white: #F0F6FC;
+            --text-gray: #8B949E;
+            --text-muted: #6E7681;
+            --border: #30363D;
+            --success: #3FB950;
+            --warning: #D29922;
+            --danger: #F85149;
+        }
+        * { box-sizing: border-box; }
+        body { background: var(--bg-dark); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 13px; color: var(--text-white); margin: 0; min-height: 100vh; }
+        .sidebar { background: var(--bg-card); width: 220px; min-height: 100vh; position: fixed; left: 0; top: 0; border-right: 1px solid var(--border); }
+        .sidebar-header { padding: 20px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+        .shop-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, #1f6feb 100%); display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; }
+        .shop-info h5 { margin: 0; font-size: 14px; font-weight: 600; color: var(--primary); }
+        .shop-info small { color: var(--text-gray); font-size: 11px; }
+        .sidebar-nav { padding: 12px 0; }
+        .nav-item { display: block; padding: 10px 16px; color: var(--text-gray); text-decoration: none; font-size: 13px; border-left: 3px solid transparent; transition: all 0.15s; display: flex; align-items: center; gap: 10px; }
+        .nav-item:hover { background: var(--bg-card-hover); color: var(--text-white); }
+        .nav-item.active { background: rgba(88, 166, 255, 0.15); color: var(--text-white); border-left-color: var(--primary); }
+        .nav-item i { font-size: 16px; width: 20px; text-align: center; }
+        .nav-item.logout { color: var(--danger); margin-top: 20px; }
+        .nav-item.logout:hover { background: rgba(248, 81, 73, 0.15); }
+        .content-area { margin-left: 220px; padding: 24px; min-height: 100vh; }
+        .page-title { font-size: 20px; font-weight: 600; color: var(--text-white); margin-bottom: 24px; }
+        .data-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
         .table { margin-bottom: 0; font-size: 12px; }
-        .table th { font-weight: 600; color: var(--text-secondary); border-bottom-width: 1px; padding: 8px 12px; background: #fafafa; }
-        .table td { padding: 8px 12px; vertical-align: middle; }
-        .btn-add { background: var(--primary); color: white; border: none; border-radius: 2px; font-size: 12px; padding: 6px 14px; font-weight: 600; }
-        .btn-add:hover { background: var(--primary-dark); color: white; }
-        .btn-edit { border: 1px solid var(--primary); color: var(--primary); border-radius: 2px; font-size: 11px; padding: 3px 10px; background: white; }
-        .btn-edit:hover { background: var(--primary-light); color: var(--primary); }
-        .btn-del { border: 1px solid #C62828; color: #C62828; border-radius: 2px; font-size: 11px; padding: 3px 10px; background: white; }
-        .btn-del:hover { background: #FFEBEE; color: #C62828; }
-        .product-img { width: 40px; height: 40px; object-fit: contain; border: 1px solid var(--border); border-radius: 2px; background: #fafafa; }
+        .table th { font-weight: 600; color: var(--primary); border-bottom: 1px solid var(--border); padding: 12px 14px; background: transparent; }
+        .table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; color: var(--text-white); }
+        .table tr:last-child td { border-bottom: none; }
+        .table tbody tr:hover { background: var(--bg-card-hover); }
+        .btn-add { background: var(--primary); color: white; border: none; border-radius: 6px; font-size: 13px; padding: 8px 16px; font-weight: 500; transition: all 0.2s; }
+        .btn-add:hover { background: #1f6feb; color: white; box-shadow: 0 0 15px var(--primary-glow); }
+        .btn-edit { border: 1px solid var(--primary); color: var(--primary); border-radius: 4px; font-size: 11px; padding: 4px 12px; background: transparent; transition: all 0.15s; }
+        .btn-edit:hover { background: rgba(88, 166, 255, 0.15); color: var(--primary); }
+        .btn-del { border: 1px solid var(--danger); color: var(--danger); border-radius: 4px; font-size: 11px; padding: 4px 12px; background: transparent; transition: all 0.15s; }
+        .btn-del:hover { background: rgba(248, 81, 73, 0.15); color: var(--danger); }
+        .product-img { width: 50px; height: 50px; object-fit: contain; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-card-hover); }
+        .price { color: var(--primary); font-weight: 700; }
     </style>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2 sidebar">
-            <div class="sidebar-header">
-                <h5 th:text="${merchant.shopName}">店铺名称</h5>
-            </div>
-            <nav class="nav flex-column">
-                <a class="nav-link" href="/merchant/dashboard">概览</a>
-                <a class="nav-link active" href="/merchant/products">商品管理</a>
-                <a class="nav-link" href="/merchant/orders">订单管理</a>
-                <a class="nav-link" href="/merchant/refunds">退款管理</a>
-                <a class="nav-link" href="/merchant/reviews">评价管理</a>
-                <a class="nav-link" href="/merchant/logout">退出登录</a>
-            </nav>
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="shop-avatar"><i class="bi bi-shop"></i></div>
+        <div class="shop-info">
+            <h5 th:text="${merchant.shopName}">店铺名称</h5>
         </div>
-        <div class="col-md-10 content-area">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="page-title mb-0 pb-0 border-0">商品管理</div>
-                <a href="/merchant/product/add" class="btn-add">+ 添加商品</a>
-            </div>
-            <div class="data-card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr><th>ID</th><th>图片</th><th>名称</th><th>价格</th><th>库存</th><th>操作</th></tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="p : ${products}">
-                                <td th:text="${p.id}"></td>
-                                <td>
-                                    <img th:if="${p.imageUrl != null}" th:src="${p.imageUrl}" class="product-img">
-                                </td>
-                                <td th:text="${p.name}"></td>
-                                <td style="color:var(--primary);font-weight:600" th:text="'¥' + ${p.price}"></td>
-                                <td th:text="${p.stock}"></td>
-                                <td>
-                                    <a th:href="@{/merchant/product/edit/{id}(id=${p.id})}" class="btn-edit">编辑</a>
-                                    <form th:action="@{/merchant/product/delete/{id}(id=${p.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定删除？')">
-                                        <button type="submit" class="btn-del">删除</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <tr th:if="${products == null or products.isEmpty()}">
-                                <td colspan="6" class="text-center text-secondary py-4">暂无商品</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a class="nav-item" href="/merchant/dashboard"><i class="bi bi-grid-1x2"></i>概览</a>
+        <a class="nav-item active" href="/merchant/products"><i class="bi bi-box"></i>商品管理</a>
+        <a class="nav-item" href="/merchant/orders"><i class="bi bi-receipt"></i>订单管理</a>
+        <a class="nav-item" href="/merchant/refunds"><i class="bi bi-arrow-counterclockwise"></i>退款管理</a>
+        <a class="nav-item" href="/merchant/reviews"><i class="bi bi-chat-square-text"></i>评价管理</a>
+        <a class="nav-item logout" href="/merchant/logout"><i class="bi bi-box-arrow-left"></i>退出登录</a>
+    </nav>
+</div>
+
+<div class="content-area">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="page-title mb-0">商品管理</h1>
+        <a href="/merchant/product/add" class="btn-add"><i class="bi bi-plus-lg me-1"></i>添加商品</a>
+    </div>
+    
+    <div class="data-card">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>图片</th>
+                        <th>名称</th>
+                        <th>价格</th>
+                        <th>库存</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${products}">
+                        <td th:text="${p.id}"></td>
+                        <td>
+                            <img th:if="${p.imageUrl != null}" th:src="${p.imageUrl}" class="product-img">
+                        </td>
+                        <td th:text="${p.name}"></td>
+                        <td class="price" th:text="'¥' + ${p.price}"></td>
+                        <td th:text="${p.stock}"></td>
+                        <td>
+                            <a th:href="@{/merchant/product/edit/{id}(id=${p.id})}" class="btn-edit">编辑</a>
+                            <form th:action="@{/merchant/product/delete/{id}(id=${p.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定删除？')">
+                                <button type="submit" class="btn-del">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${products == null or products.isEmpty()}">
+                        <td colspan="6" class="text-center py-5" style="color: var(--text-muted);">暂无商品</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

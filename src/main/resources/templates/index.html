@@ -5,25 +5,32 @@
 </head>
 <body>
 <style>
-    .carousel-custom { border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
-    .banner-gradient-1 { background: linear-gradient(135deg, #FF4400 0%, #FF6600 100%); }
-    .banner-gradient-2 { background: linear-gradient(135deg, #FF4400 0%, #FF8833 100%); }
-    .banner-gradient-3 { background: linear-gradient(135deg, #E63E00 0%, #FF5500 100%); }
+    .carousel-custom { border-radius: 4px; overflow: hidden; }
+    .banner-gradient-1 { background: linear-gradient(135deg, #1a237e 0%, #283593 100%); }
+    .banner-gradient-2 { background: linear-gradient(135deg, #004d40 0%, #00695c 100%); }
+    .banner-gradient-3 { background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 100%); }
 
     .category-sidebar {
         background: white;
-        border: 1px solid var(--border);
         border-radius: 4px;
+        overflow: hidden;
         position: sticky;
-        top: 60px;
+        top: 90px;
     }
     .category-title {
+        background: var(--primary-dark);
+        color: white;
         font-size: 14px;
         font-weight: 600;
-        color: var(--text-dark);
-        padding: 12px 16px 10px;
-        border-bottom: 1px solid var(--border);
+        padding: 12px 16px;
         margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .category-title::before {
+        content: '☰';
+        font-size: 16px;
     }
     .category-list {
         list-style: none;
@@ -31,24 +38,39 @@
         margin: 0;
     }
     .category-item {
-        display: block;
-        padding: 10px 16px;
-        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        color: var(--text-dark);
         text-decoration: none;
         transition: all 0.15s;
         cursor: pointer;
         font-size: 13px;
         border-left: 3px solid transparent;
+        background: white;
     }
     .category-item:hover {
         color: var(--primary);
-        background: #f8f8f8;
+        background: var(--primary-light);
+    }
+    .category-item:hover::after {
+        content: '>';
+        color: var(--primary);
     }
     .category-item.active {
         color: var(--primary);
         background: var(--primary-light);
         border-left-color: var(--primary);
         font-weight: 600;
+    }
+    .category-item.active::after {
+        content: '>';
+        color: var(--primary);
+    }
+    .category-icon {
+        margin-right: 8px;
+        font-size: 14px;
     }
 
     .product-card {
@@ -60,40 +82,45 @@
     }
     .product-card:hover {
         border-color: var(--primary);
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(228, 57, 60, 0.15);
+    }
+    .product-card:hover .product-img {
+        transform: scale(1.05);
     }
     
     .img-wrapper {
-        height: 200px;
+        height: 220px;
         overflow: hidden;
         position: relative;
         background: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 16px;
+        padding: 20px;
     }
     .product-img {
         object-fit: contain;
         width: auto;
         height: auto;
         max-width: 100%;
-        max-height: 170px;
+        max-height: 180px;
+        transition: transform 0.3s ease;
     }
 
     .product-title {
         font-size: 13px;
         color: var(--text-dark);
         font-weight: 400;
-        line-height: 1.4;
+        line-height: 1.5;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        min-height: 36px;
+        min-height: 39px;
     }
     .product-price {
-        font-size: 18px;
+        font-size: 20px;
         color: var(--primary);
         font-weight: 700;
     }
@@ -101,6 +128,7 @@
         font-size: 12px;
         color: var(--text-muted);
         text-decoration: line-through;
+        margin-left: 4px;
     }
     
     .btn-buy {
@@ -108,7 +136,7 @@
         color: white;
         border: none;
         font-size: 12px;
-        padding: 4px 14px;
+        padding: 4px 12px;
         border-radius: 2px;
         transition: all 0.15s;
     }
@@ -132,8 +160,8 @@
     }
 
     .carousel-indicators [data-bs-target] {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
         background-color: rgba(255,255,255,0.5);
         border: none;
@@ -141,18 +169,18 @@
     .carousel-indicators .active {
         background-color: #fff;
     }
-    .banner-text { text-align: left; padding-left: 40px; }
-    .banner-text h2 { font-size: 24px; font-weight: 700; }
-    .banner-text p { font-size: 14px; margin-top: 8px; }
+    .banner-text { text-align: left; padding-left: 50px; }
+    .banner-text h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .banner-text p { font-size: 16px; margin: 0; opacity: 0.9; }
     .btn-banner {
         background: white;
         color: var(--primary);
         border: none;
-        padding: 6px 20px;
-        font-size: 13px;
+        padding: 8px 24px;
+        font-size: 14px;
         font-weight: 600;
-        border-radius: 2px;
-        margin-top: 12px;
+        border-radius: 4px;
+        margin-top: 16px;
     }
     .btn-banner:hover { background: #fff5f0; color: var(--primary-dark); }
 
@@ -175,31 +203,103 @@
         color: var(--primary);
         border-color: var(--primary);
     }
+
+    .hot-products {
+        background: white;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .hot-products-title {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        color: white;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 12px;
+        margin: 0;
+    }
+    .hot-product-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        background: var(--border);
+    }
+    .hot-product-item {
+        background: white;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.15s;
+    }
+    .hot-product-item:hover {
+        background: var(--primary-light);
+    }
+    .hot-product-img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        border-radius: 2px;
+    }
+    .hot-product-info {
+        flex: 1;
+        min-width: 0;
+    }
+    .hot-product-name {
+        font-size: 11px;
+        color: var(--text-dark);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .hot-product-price {
+        font-size: 12px;
+        color: var(--primary);
+        font-weight: 600;
+    }
 </style>
 
+<div th:replace="~{layout :: topbar}"></div>
 <nav th:replace="~{layout :: nav}"></nav>
 
 <main class="container py-3">
     <div class="row g-3">
         <div class="col-lg-2 col-md-3">
             <div class="category-sidebar">
-                <h5 class="category-title">商品分类</h5>
+                <h5 class="category-title">全部商品分类</h5>
                 <ul class="category-list">
-                    <li class="category-item" th:classappend="${category == null or category.isEmpty()} ? 'active'" onclick="filterCategory('')">全部商品</li>
-                    <li class="category-item" th:classappend="${category == 'phone'} ? 'active'" onclick="filterCategory('phone')">手机数码</li>
-                    <li class="category-item" th:classappend="${category == 'computer'} ? 'active'" onclick="filterCategory('computer')">电脑办公</li>
-                    <li class="category-item" th:classappend="${category == 'appliance'} ? 'active'" onclick="filterCategory('appliance')">家用电器</li>
-                    <li class="category-item" th:classappend="${category == 'cloth-shoes'} ? 'active'" onclick="filterCategory('cloth-shoes')">服饰鞋包</li>
-                    <li class="category-item" th:classappend="${category == 'food'} ? 'active'" onclick="filterCategory('food')">食品生鲜</li>
-                    <li class="category-item" th:classappend="${category == 'book'} ? 'active'" onclick="filterCategory('book')">图书文具</li>
-                    <li class="category-item" th:classappend="${category == 'cosmetics'} ? 'active'" onclick="filterCategory('cosmetics')">美妆个护</li>
-                    <li class="category-item" th:classappend="${category == 'sports'} ? 'active'" onclick="filterCategory('sports')">运动户外</li>
+                    <li class="category-item" th:classappend="${category == null or category.isEmpty()} ? 'active'" onclick="filterCategory('')">
+                        <span><span class="category-icon">📱</span>全部商品</span>
+                    </li>
+                    <li class="category-item" th:classappend="${category == 'phone'} ? 'active'" onclick="filterCategory('phone')">
+                        <span><span class="category-icon">📱</span>手机数码</span>
+                    </li>
+                    <li class="category-item" th:classappend="${category == 'computer'} ? 'active'" onclick="filterCategory('computer')">
+                        <span><span class="category-icon">💻</span>电脑办公</span>
+                    </li>
+                    <li class="category-item" th:classappend="${category == 'appliance'} ? 'active'" onclick="filterCategory('appliance')">
+                        <span><span class="category-icon">🏠</span>家用电器</span>
+                    </li>
+                    <li class="category-item" th:classappend="${category == 'cloth-shoes'} ? 'active'" onclick="filterCategory('cloth-shoes')">
+                        <span><span class="category-icon">👕</span>服饰鞋包</span>
+                    </li>
+                    <li class="category-item" th:classappend="${category == 'food'} ? 'active'" onclick="filterCategory('food')">
+                        <span><span class="category-icon">🍎</span>食品生鲜</span>
+                    </li>
+                    <li class="category-item" th:classappend="${category == 'book'} ? 'active'" onclick="filterCategory('book')">
+                        <span><span class="category-icon">📚</span>图书文具</span>
+                    </li>
+                    <li class="category-item" th:classappend="${category == 'cosmetics'} ? 'active'" onclick="filterCategory('cosmetics')">
+                        <span><span class="category-icon">💄</span>美妆个护</span>
+                    </li>
+                    <li class="category-item" th:classappend="${category == 'sports'} ? 'active'" onclick="filterCategory('sports')">
+                        <span><span class="category-icon">⚽</span>运动户外</span>
+                    </li>
                 </ul>
             </div>
         </div>
         
         <div class="col-lg-10 col-md-9">
-            <div id="carouselMain" class="carousel slide carousel-custom mb-3" data-bs-ride="carousel">
+            <div id="carouselMain" class="carousel slide carousel-custom" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselMain" data-bs-slide-to="0" class="active"></button>
                     <button type="button" data-bs-target="#carouselMain" data-bs-slide-to="1"></button>
@@ -207,7 +307,7 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div class="d-flex align-items-center banner-gradient-1" style="height: 200px;">
+                        <div class="d-flex align-items-center banner-gradient-1" style="height: 350px;">
                             <div class="banner-text text-white">
                                 <h2>春季新品发布</h2>
                                 <p>精选好物 限时优惠 5折起</p>
@@ -216,7 +316,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="d-flex align-items-center banner-gradient-2" style="height: 200px;">
+                        <div class="d-flex align-items-center banner-gradient-2" style="height: 350px;">
                             <div class="banner-text text-white">
                                 <h2>数码狂欢节</h2>
                                 <p>最新数码产品 现货速发</p>
@@ -225,7 +325,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="d-flex align-items-center banner-gradient-3" style="height: 200px;">
+                        <div class="d-flex align-items-center banner-gradient-3" style="height: 350px;">
                             <div class="banner-text text-white">
                                 <h2>品质生活指南</h2>
                                 <p>提升幸福感的100件好物</p>
@@ -241,96 +341,96 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 </button>
             </div>
+        </div>
+    </div>
 
-            <div class="section-header">
-                <h5 class="section-title">
-                    <span th:if="${keyword != null and !keyword.isEmpty()}" th:text="'搜索: ' + ${keyword}">搜索结果</span>
-                    <span th:if="${category != null and !category.isEmpty() and (keyword == null or keyword.isEmpty())}">
-                        <span th:switch="${category}">
-                            <span th:case="'phone'">手机数码</span>
-                            <span th:case="'computer'">电脑办公</span>
-                            <span th:case="'appliance'">家用电器</span>
-                            <span th:case="'cloth-shoes'">服饰鞋包</span>
-                            <span th:case="'food'">食品生鲜</span>
-                            <span th:case="'book'">图书文具</span>
-                            <span th:case="'cosmetics'">美妆个护</span>
-                            <span th:case="'sports'">运动户外</span>
-                            <span th:case="*">热门推荐</span>
-                        </span>
-                    </span>
-                    <span th:if="${(category == null or category.isEmpty()) and (keyword == null or keyword.isEmpty())}">热门推荐</span>
-                </h5>
-            </div>
+    <div class="section-header" style="margin-top: 16px;">
+        <h5 class="section-title">
+            <span th:if="${keyword != null and !keyword.isEmpty()}" th:text="'搜索: ' + ${keyword}">搜索结果</span>
+            <span th:if="${category != null and !category.isEmpty() and (keyword == null or keyword.isEmpty())}">
+                <span th:switch="${category}">
+                    <span th:case="'phone'">手机数码</span>
+                    <span th:case="'computer'">电脑办公</span>
+                    <span th:case="'appliance'">家用电器</span>
+                    <span th:case="'cloth-shoes'">服饰鞋包</span>
+                    <span th:case="'food'">食品生鲜</span>
+                    <span th:case="'book'">图书文具</span>
+                    <span th:case="'cosmetics'">美妆个护</span>
+                    <span th:case="'sports'">运动户外</span>
+                    <span th:case="*">热门推荐</span>
+                </span>
+            </span>
+            <span th:if="${(category == null or category.isEmpty()) and (keyword == null or keyword.isEmpty())}">热门推荐</span>
+        </h5>
+    </div>
 
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-2" th:if="${products != null and !products.isEmpty()}">
-                <div th:each="p : ${products}" class="col">
-                    <div class="card product-card h-100">
-                        <a th:href="@{/product/{id}(id=${p.id})}" class="text-decoration-none">
-                            <div class="img-wrapper d-flex align-items-center justify-content-center">
-                                <img th:if="${p.imageUrl != null}" th:src="${p.imageUrl}" class="product-img" alt="商品图">
-                                <div th:unless="${p.imageUrl != null}" class="text-secondary text-center" style="font-size: 12px;">
-                                    暂无图片
-                                </div>
-                            </div>
-                        </a>
-                        
-                        <div class="card-body d-flex flex-column p-2">
-                            <a th:href="@{/product/{id}(id=${p.id})}" class="text-decoration-none">
-                                <h6 class="card-title product-title mb-1" th:text="${p.name}">商品名称</h6>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-2" th:if="${products != null and !products.isEmpty()}">
+        <div th:each="p : ${products}" class="col">
+            <div class="card product-card h-100">
+                <a th:href="@{/product/{id}(id=${p.id})}" class="text-decoration-none">
+                    <div class="img-wrapper d-flex align-items-center justify-content-center">
+                        <img th:if="${p.imageUrl != null}" th:src="${p.imageUrl}" class="product-img" alt="商品图">
+                        <div th:unless="${p.imageUrl != null}" class="text-secondary text-center" style="font-size: 12px;">
+                            暂无图片
+                        </div>
+                    </div>
+                </a>
+                
+                <div class="card-body d-flex flex-column p-3">
+                    <a th:href="@{/product/{id}(id=${p.id})}" class="text-decoration-none">
+                        <h6 class="card-title product-title mb-2" th:text="${p.name}">商品名称</h6>
+                    </a>
+                    
+                    <div class="mt-auto">
+                        <div class="d-flex align-items-baseline mb-2">
+                            <span class="product-price" th:text="'¥' + ${p.price}">¥99.00</span>
+                            <span th:if="${p.originalPrice != null and p.originalPrice > p.price}" class="original-price" th:text="'¥' + ${p.originalPrice}">¥199.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="sold-count" th:text="'已售 ' + (${p.stock != null} ? ${p.stock > 0 ? #numbers.formatInteger(100 - p.stock, 1) : '0'} : '0') + ' 件'">已售 0 件</span>
+                            <a th:href="@{/product/{id}(id=${p.id})}" class="btn btn-buy">
+                                加入购物车
                             </a>
-                            
-                            <div class="mt-auto">
-                                <div class="d-flex align-items-baseline gap-1 mb-1">
-                                    <span class="product-price" th:text="'¥' + ${p.price}">¥99.00</span>
-                                    <span th:if="${p.originalPrice != null and p.originalPrice > p.price}" class="original-price" th:text="'¥' + ${p.originalPrice}">¥199.00</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="sold-count" th:text="'已售 ' + (${p.stock != null} ? ${p.stock > 0 ? #numbers.formatInteger(100 - p.stock, 1) : '0'} : '0') + ' 件'">已售 0 件</span>
-                                    <a th:href="@{/product/{id}(id=${p.id})}" class="btn btn-buy">
-                                        购买
-                                    </a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="text-center py-5" th:if="${products == null or products.isEmpty()}">
-                <div class="bg-white p-5 d-inline-block" style="border: 1px solid var(--border); border-radius: 4px;">
-                    <p class="text-secondary mb-0">该分类暂无商品</p>
-                </div>
-            </div>
-
-            <nav th:if="${totalPages > 1}" class="mt-3">
-                <ul class="pagination justify-content-center mb-0">
-                    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-                        <a class="page-link" th:href="@{/(page=${currentPage - 1}, category=${category})}" th:if="${currentPage > 1}">
-                            上一页
-                        </a>
-                        <span class="page-link" th:if="${currentPage == 1}">
-                            上一页
-                        </span>
-                    </li>
-                    
-                    <li class="page-item disabled">
-                        <span class="page-link">
-                            第 <span th:text="${currentPage}">1</span> 页 / 共 <span th:text="${totalPages}">1</span> 页
-                        </span>
-                    </li>
-                    
-                    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-                        <a class="page-link" th:href="@{/(page=${currentPage + 1}, category=${category})}" th:if="${currentPage < totalPages}">
-                            下一页
-                        </a>
-                        <span class="page-link" th:if="${currentPage == totalPages}">
-                            下一页
-                        </span>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
+
+    <div class="text-center py-5" th:if="${products == null or products.isEmpty()}">
+        <div class="bg-white p-5 d-inline-block" style="border: 1px solid var(--border); border-radius: 4px;">
+            <p class="text-secondary mb-0">该分类暂无商品</p>
+        </div>
+    </div>
+
+    <nav th:if="${totalPages > 1}" class="mt-4">
+        <ul class="pagination justify-content-center mb-0">
+            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                <a class="page-link" th:href="@{/(page=${currentPage - 1}, category=${category})}" th:if="${currentPage > 1}">
+                    上一页
+                </a>
+                <span class="page-link" th:if="${currentPage == 1}">
+                    上一页
+                </span>
+            </li>
+            
+            <li class="page-item disabled">
+                <span class="page-link">
+                    第 <span th:text="${currentPage}">1</span> 页 / 共 <span th:text="${totalPages}">1</span> 页
+                </span>
+            </li>
+            
+            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{/(page=${currentPage + 1}, category=${category})}" th:if="${currentPage < totalPages}">
+                    下一页
+                </a>
+                <span class="page-link" th:if="${currentPage == totalPages}">
+                    下一页
+                </span>
+            </li>
+        </ul>
+    </nav>
 </main>
 
 <footer th:replace="~{layout :: footer}"></footer>

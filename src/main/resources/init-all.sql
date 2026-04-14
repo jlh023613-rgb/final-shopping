@@ -271,7 +271,7 @@ INSERT INTO shops (name, folder, description, sort_order) VALUES
 ('美的官方旗舰店', 'midea', '美的官方授权店铺，正品保障', 20),
 ('海尔官方旗舰店', 'haier', '海尔官方授权店铺，正品保障', 21),
 ('格力官方旗舰店', 'gree', '格力官方授权店铺，正品保障', 22),
-('小米家电旗舰店', 'xiaomi', '小米家电官方授权店铺，正品保障', 23),
+('小米家电旗舰店', 'xiaomi-jd', '小米家电官方授权店铺，正品保障', 23),
 ('海信官方旗舰店', 'hisense', '海信官方授权店铺，正品保障', 24),
 ('TCL官方旗舰店', 'tcl', 'TCL官方授权店铺，正品保障', 25),
 ('耐克官方旗舰店', 'nike', '耐克官方授权店铺，正品保障', 30),
@@ -696,10 +696,10 @@ INSERT INTO products (name, category, brand, model, color, specifications, featu
 ('化妆品套装2', 'cosmetics', '美妆品牌', '套装2', '多色', '{"类型":"化妆品","规格":"标准装","保质期":"3年"}', '["精选美妆产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 1399.00, 1640.00, 80, '/image/cosmetics/10002.webp', '精选化妆品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang1' LIMIT 1)),
 ('化妆品套装3', 'cosmetics', '美妆品牌', '套装3', '多色', '{"类型":"化妆品","规格":"标准装","保质期":"3年"}', '["精选美妆产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 1499.00, 1740.00, 60, '/image/cosmetics/10003.webp', '精选化妆品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang2' LIMIT 1)),
 ('化妆品套装4', 'cosmetics', '美妆品牌', '套装4', '多色', '{"类型":"化妆品","规格":"标准装","保质期":"3年"}', '["精选美妆产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 1599.00, 1840.00, 50, '/image/cosmetics/10004.webp', '精选化妆品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang2' LIMIT 1)),
-('护肤品套装1', 'cosmetics', '护肤品牌', '套装1', '白色', '{"类型":"护肤品","规格":"标准装","保质期":"3年"}', '["精选护肤产品","品质保证","适合日常","性价比高"]', '899.00', 1099.00, 120, '/image/cosmetics/10005.webp', '精选护肤品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang3' LIMIT 1)),
-('护肤品套装2', 'cosmetics', '护肤品牌', '套装2', '白色', '{"类型":"护肤品","规格":"标准装","保质期":"3年"}', '["精选护肤产品","品质保证","适合日常","性价比高"]', '999.00', 1199.00, 100, '/image/cosmetics/10006.webp', '精选护肤品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang3' LIMIT 1)),
-('护肤品套装3', 'cosmetics', '护肤品牌', '套装3', '白色', '{"类型":"护肤品","规格":"标准装","保质期":"3年"}', '["精选护肤产品","品质保证","适合日常","性价比高"]', '1099.00', 1299.00, 80, '/image/cosmetics/10007.webp', '精选护肤品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang4' LIMIT 1)),
-('护肤品套装4', 'cosmetics', '护肤品牌', '套装4', '白色', '{"类型":"护肤品","规格":"标准装","保质期":"3年"}', '["精选护肤产品","品质保证","适合日常","性价比高"]', '1199.00', 1399.00, 60, '/image/cosmetics/10008.webp', '精选护肤品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang4' LIMIT 1));
+('护肤品套装1', 'cosmetics', '护肤品牌', '套装1', '白色', '{"类型":"护肤品","规格":"标准装","保质期":"3年"}', '["精选护肤产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 899.00, 1099.00, 120, '/image/cosmetics/10005.webp', '精选护肤品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang3' LIMIT 1)),
+('护肤品套装2', 'cosmetics', '护肤品牌', '套装2', '白色', '{"类型":"护肤品","规格":"标准装","保质期":"3年"}', '["精选护肤产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 999.00, 1199.00, 100, '/image/cosmetics/10006.webp', '精选护肤品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang3' LIMIT 1)),
+('护肤品套装3', 'cosmetics', '护肤品牌', '套装3', '白色', '{"类型":"护肤品","规格":"标准装","保质期":"3年"}', '["精选护肤产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 1099.00, 1299.00, 80, '/image/cosmetics/10007.webp', '精选护肤品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang4' LIMIT 1)),
+('护肤品套装4', 'cosmetics', '护肤品牌', '套装4', '白色', '{"类型":"护肤品","规格":"标准装","保质期":"3年"}', '["精选护肤产品","品质保证","适合日常","性价比高"]', '["化妆品 x1","包装盒 x1"]', 1199.00, 1399.00, 60, '/image/cosmetics/10008.webp', '精选护肤品套装', 1, (SELECT id FROM shops WHERE folder = 'meizhuang4' LIMIT 1));
 
 INSERT INTO product_images (product_id, image_url, sort_order) VALUES
 ((SELECT id FROM products WHERE name = '化妆品套装1' AND category = 'cosmetics' LIMIT 1), '/image/cosmetics/10001.webp', 1),

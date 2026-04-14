@@ -5,125 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>退款管理</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        :root { --primary: #FF4400; --primary-dark: #E63E00; --primary-light: #FFF5F0; --bg: #F5F5F5; --border: #e8e8e8; --text-dark: #333; --text-secondary: #666; --text-muted: #999; }
-        body { background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 13px; color: var(--text-dark); margin: 0; }
-        .sidebar { background: white; border-right: 1px solid var(--border); min-height: 100vh; padding-top: 0; }
-        .sidebar-header { background: var(--primary); color: white; padding: 16px 16px 12px; }
-        .sidebar-header h5 { margin: 0; font-size: 15px; font-weight: 700; }
-        .sidebar .nav-link { color: var(--text-dark); padding: 10px 16px; border-radius: 0; margin: 0; font-size: 13px; border-left: 3px solid transparent; }
-        .sidebar .nav-link:hover { background: var(--primary-light); color: var(--primary); border-left-color: var(--primary); }
-        .sidebar .nav-link.active { background: var(--primary-light); color: var(--primary); font-weight: 600; border-left-color: var(--primary); }
-        .content-area { padding: 20px; }
-        .page-title { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-        .refund-card { background: white; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 10px; }
-        .refund-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding: 8px 14px; background: #fafafa; }
-        .refund-body { padding: 12px 14px; }
-        .badge { font-size: 11px; font-weight: 500; border-radius: 2px; padding: 3px 8px; }
-        .badge-pending { background: #FFF3E0; color: #E65100; }
-        .badge-approved { background: #E8F5E9; color: #2E7D32; }
-        .badge-rejected { background: #FFEBEE; color: #C62828; }
-        .info-row { font-size: 12px; margin-bottom: 4px; }
+        :root {
+            --bg-dark: #0D1117;
+            --bg-card: #161B22;
+            --bg-card-hover: #21262D;
+            --primary: #58A6FF;
+            --primary-glow: rgba(88, 166, 255, 0.3);
+            --text-white: #F0F6FC;
+            --text-gray: #8B949E;
+            --text-muted: #6E7681;
+            --border: #30363D;
+            --success: #3FB950;
+            --warning: #D29922;
+            --danger: #F85149;
+        }
+        * { box-sizing: border-box; }
+        body { background: var(--bg-dark); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 13px; color: var(--text-white); margin: 0; min-height: 100vh; }
+        .sidebar { background: var(--bg-card); width: 220px; min-height: 100vh; position: fixed; left: 0; top: 0; border-right: 1px solid var(--border); }
+        .sidebar-header { padding: 20px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+        .shop-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, #1f6feb 100%); display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; }
+        .shop-info h5 { margin: 0; font-size: 14px; font-weight: 600; color: var(--primary); }
+        .sidebar-nav { padding: 12px 0; }
+        .nav-item { display: block; padding: 10px 16px; color: var(--text-gray); text-decoration: none; font-size: 13px; border-left: 3px solid transparent; transition: all 0.15s; display: flex; align-items: center; gap: 10px; }
+        .nav-item:hover { background: var(--bg-card-hover); color: var(--text-white); }
+        .nav-item.active { background: rgba(88, 166, 255, 0.15); color: var(--text-white); border-left-color: var(--primary); }
+        .nav-item i { font-size: 16px; width: 20px; text-align: center; }
+        .nav-item.logout { color: var(--danger); margin-top: 20px; }
+        .nav-item.logout:hover { background: rgba(248, 81, 73, 0.15); }
+        .content-area { margin-left: 220px; padding: 24px; min-height: 100vh; }
+        .page-title { font-size: 20px; font-weight: 600; color: var(--text-white); margin-bottom: 24px; }
+        .refund-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+        .refund-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding: 12px 16px; background: var(--bg-card-hover); }
+        .refund-body { padding: 16px; }
+        .badge { font-size: 11px; font-weight: 500; border-radius: 4px; padding: 4px 10px; }
+        .badge-pending { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
+        .badge-approved { background: rgba(63, 185, 80, 0.2); color: var(--success); }
+        .badge-rejected { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
+        .info-row { font-size: 12px; margin-bottom: 6px; }
         .info-label { color: var(--text-muted); }
-        .info-value { color: var(--text-dark); }
-        .reason-text { color: var(--text-secondary); font-size: 12px; background: #fafafa; border: 1px solid var(--border); border-radius: 2px; padding: 8px 10px; margin-top: 6px; }
-        .btn-action { border-radius: 2px; font-size: 11px; padding: 4px 12px; font-weight: 500; }
-        .btn-approve { background: #2E7D32; color: white; border: none; }
-        .btn-approve:hover { background: #1B5E20; color: white; }
-        .btn-reject { background: #C62828; color: white; border: none; }
-        .btn-reject:hover { background: #B71C1C; color: white; }
-        .result-box { background: #fafafa; border: 1px solid var(--border); border-radius: 2px; padding: 8px 10px; margin-top: 6px; font-size: 12px; }
-        .empty-state { text-align: center; padding: 40px 0; color: var(--text-muted); }
-        .modal-content { border-radius: 4px; border: 1px solid var(--border); }
-        .modal-header { background: white; border-bottom: 1px solid var(--border); padding: 10px 16px; }
-        .modal-header .modal-title { font-size: 14px; font-weight: 600; }
-        .modal-footer { border-top: 1px solid var(--border); padding: 10px 16px; }
-        .form-control { border-radius: 2px; border: 1px solid var(--border); font-size: 12px; }
-        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 0.15rem rgba(255,68,0,0.15); }
+        .info-value { color: var(--text-white); }
+        .reason-text { color: var(--text-gray); font-size: 12px; background: var(--bg-card-hover); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; margin-top: 8px; }
+        .btn-action { border-radius: 6px; font-size: 12px; padding: 6px 16px; font-weight: 500; transition: all 0.2s; }
+        .btn-approve { background: var(--success); color: white; border: none; }
+        .btn-approve:hover { background: #2ea043; color: white; box-shadow: 0 0 10px rgba(63, 185, 80, 0.4); }
+        .btn-reject { background: var(--danger); color: white; border: none; }
+        .btn-reject:hover { background: #da3633; color: white; box-shadow: 0 0 10px rgba(248, 81, 73, 0.4); }
+        .result-box { background: var(--bg-card-hover); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; margin-top: 8px; font-size: 12px; color: var(--text-gray); }
+        .empty-state { text-align: center; padding: 60px 0; color: var(--text-muted); }
+        .empty-state i { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+        .modal-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; }
+        .modal-header { border-bottom: 1px solid var(--border); padding: 14px 16px; }
+        .modal-header .modal-title { font-size: 15px; font-weight: 600; color: var(--text-white); }
+        .modal-footer { border-top: 1px solid var(--border); padding: 14px 16px; }
+        .btn-close { filter: invert(1); }
+        .form-control { background: var(--bg-card-hover); border: 1px solid var(--border); border-radius: 6px; font-size: 12px; color: var(--text-white); }
+        .form-control:focus { background: var(--bg-card-hover); border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-glow); color: var(--text-white); }
+        .form-label { color: var(--text-gray); font-size: 12px; font-weight: 500; }
+        .btn-cancel { background: var(--bg-card-hover); color: var(--text-gray); border: 1px solid var(--border); border-radius: 6px; padding: 6px 16px; }
+        .btn-cancel:hover { background: var(--border); color: var(--text-white); }
     </style>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2 sidebar">
-            <div class="sidebar-header">
-                <h5 th:text="${merchant.shopName}">店铺名称</h5>
-            </div>
-            <nav class="nav flex-column">
-                <a class="nav-link" href="/merchant/dashboard">概览</a>
-                <a class="nav-link" href="/merchant/products">商品管理</a>
-                <a class="nav-link" href="/merchant/orders">订单管理</a>
-                <a class="nav-link active" href="/merchant/refunds">退款管理</a>
-                <a class="nav-link" href="/merchant/reviews">评价管理</a>
-                <a class="nav-link" href="/merchant/logout">退出登录</a>
-            </nav>
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="shop-avatar"><i class="bi bi-shop"></i></div>
+        <div class="shop-info">
+            <h5 th:text="${merchant.shopName}">店铺名称</h5>
         </div>
-        <div class="col-md-10 content-area">
-            <div class="page-title">退款管理</div>
+    </div>
+    <nav class="sidebar-nav">
+        <a class="nav-item" href="/merchant/dashboard"><i class="bi bi-grid-1x2"></i>概览</a>
+        <a class="nav-item" href="/merchant/products"><i class="bi bi-box"></i>商品管理</a>
+        <a class="nav-item" href="/merchant/orders"><i class="bi bi-receipt"></i>订单管理</a>
+        <a class="nav-item active" href="/merchant/refunds"><i class="bi bi-arrow-counterclockwise"></i>退款管理</a>
+        <a class="nav-item" href="/merchant/reviews"><i class="bi bi-chat-square-text"></i>评价管理</a>
+        <a class="nav-item logout" href="/merchant/logout"><i class="bi bi-box-arrow-left"></i>退出登录</a>
+    </nav>
+</div>
 
-            <div th:if="${refunds == null or refunds.isEmpty()}" class="empty-state">
-                <p>暂无退款申请</p>
+<div class="content-area">
+    <h1 class="page-title">退款管理</h1>
+
+    <div th:if="${refunds == null or refunds.isEmpty()}" class="empty-state">
+        <i class="bi bi-check-circle"></i>
+        <p>暂无退款申请</p>
+    </div>
+
+    <div th:each="refund : ${refunds}" class="refund-card">
+        <div class="refund-header">
+            <div>
+                <span class="info-label">订单号：</span>
+                <span style="color: var(--primary); font-weight: 600;" th:text="${refund.orderNo}"></span>
+                <span style="color: var(--text-muted); font-size: 11px; margin-left: 16px;" th:text="${#temporals.format(refund.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
             </div>
-
-            <div th:each="refund : ${refunds}" class="refund-card">
-                <div class="refund-header">
-                    <div>
-                        <span class="info-label">订单号：</span>
-                        <span style="font-weight:600;font-size:12px" th:text="${refund.orderNo}"></span>
-                        <span style="color:var(--text-muted);font-size:11px;margin-left:12px" th:text="${#temporals.format(refund.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
-                    </div>
-                    <div>
-                        <span class="badge badge-pending" th:if="${refund.status == 'pending'}">待处理</span>
-                        <span class="badge badge-approved" th:if="${refund.status == 'approved'}">已同意</span>
-                        <span class="badge badge-rejected" th:if="${refund.status == 'rejected'}">已拒绝</span>
-                    </div>
+            <div>
+                <span class="badge badge-pending" th:if="${refund.status == 'pending'}">待处理</span>
+                <span class="badge badge-approved" th:if="${refund.status == 'approved'}">已同意</span>
+                <span class="badge badge-rejected" th:if="${refund.status == 'rejected'}">已拒绝</span>
+            </div>
+        </div>
+        <div class="refund-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-row"><span class="info-label">商品：</span><span class="info-value" th:text="${refund.productName}"></span></div>
+                    <div class="info-row"><span class="info-label">买家：</span><span class="info-value" th:text="${refund.username}"></span></div>
+                    <div class="info-row"><span class="info-label">退款原因：</span></div>
+                    <div class="reason-text" th:text="${refund.reason}"></div>
                 </div>
-                <div class="refund-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="info-row"><span class="info-label">商品：</span><span class="info-value" th:text="${refund.productName}"></span></div>
-                            <div class="info-row"><span class="info-label">买家：</span><span class="info-value" th:text="${refund.username}"></span></div>
-                            <div class="info-row"><span class="info-label">退款原因：</span></div>
-                            <div class="reason-text" th:text="${refund.reason}"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div th:if="${refund.status == 'pending'}">
-                                <form th:action="@{/merchant/refund/approve/{id}(id=${refund.id})}" method="post" style="display:inline;">
-                                    <button type="submit" class="btn-action btn-approve">同意退款</button>
-                                </form>
-                                <button type="button" class="btn-action btn-reject" data-bs-toggle="modal" th:attr="data-bs-target='#rejectModal' + ${refund.id}">拒绝退款</button>
+                <div class="col-md-6">
+                    <div th:if="${refund.status == 'pending'}">
+                        <form th:action="@{/merchant/refund/approve/{id}(id=${refund.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn-action btn-approve">同意退款</button>
+                        </form>
+                        <button type="button" class="btn-action btn-reject" data-bs-toggle="modal" th:attr="data-bs-target='#rejectModal' + ${refund.id}">拒绝退款</button>
 
-                                <div class="modal fade" th:id="'rejectModal' + ${refund.id}" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">拒绝退款</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <form th:action="@{/merchant/refund/reject/{id}(id=${refund.id})}" method="post">
-                                                <div class="modal-body">
-                                                    <div class="mb-3">
-                                                        <label class="form-label" style="font-size:12px;font-weight:600">拒绝原因</label>
-                                                        <textarea name="result" class="form-control" rows="3" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn-action" style="background:#757575;color:white;border:none" data-bs-dismiss="modal">取消</button>
-                                                    <button type="submit" class="btn-action btn-reject">确认拒绝</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                        <div class="modal fade" th:id="'rejectModal' + ${refund.id}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">拒绝退款</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                     </div>
+                                    <form th:action="@{/merchant/refund/reject/{id}(id=${refund.id})}" method="post">
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label">拒绝原因</label>
+                                                <textarea name="result" class="form-control" rows="3" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn-cancel" data-bs-dismiss="modal">取消</button>
+                                            <button type="submit" class="btn-action btn-reject">确认拒绝</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div th:if="${refund.status != 'pending'}">
-                                <div class="info-row"><span class="info-label">处理结果：</span></div>
-                                <div class="result-box" th:text="${refund.result}"></div>
-                                <div class="info-row" style="margin-top:6px" th:if="${refund.processedAt != null}">
-                                    <span class="info-label">处理时间：</span>
-                                    <span class="info-value" style="font-size:11px" th:text="${#temporals.format(refund.processedAt, 'yyyy-MM-dd HH:mm')}"></span>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                    <div th:if="${refund.status != 'pending'}">
+                        <div class="info-row"><span class="info-label">处理结果：</span></div>
+                        <div class="result-box" th:text="${refund.result}"></div>
+                        <div class="info-row" style="margin-top: 8px;" th:if="${refund.processedAt != null}">
+                            <span class="info-label">处理时间：</span>
+                            <span class="info-value" style="font-size: 11px;" th:text="${#temporals.format(refund.processedAt, 'yyyy-MM-dd HH:mm')}"></span>
                         </div>
                     </div>
                 </div>
@@ -131,6 +157,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

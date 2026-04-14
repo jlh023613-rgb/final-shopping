@@ -8,10 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #FF4400;
-            --primary-dark: #E63E00;
-            --primary-light: #FFF5F0;
-            --bg: #F5F5F5;
+            --primary: #E4393C;
+            --primary-dark: #C81623;
+            --primary-light: #FFF0F0;
+            --accent: #FF6B35;
+            --bg: #F4F4F4;
             --border: #e8e8e8;
             --text-dark: #333;
             --text-secondary: #666;
@@ -20,7 +21,7 @@
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background-color: var(--bg); color: var(--text-dark); font-size: 14px; }
         a { color: var(--primary); text-decoration: none; }
         a:hover { color: var(--primary-dark); }
-        .btn-primary { background-color: var(--primary); border-color: var(--primary); }
+        .btn-primary { background-color: var(--primary); border-color: var(--primary); border-radius: 4px; }
         .btn-primary:hover { background-color: var(--primary-dark); border-color: var(--primary-dark); }
         .text-primary { color: var(--primary) !important; }
         .bg-primary { background-color: var(--primary) !important; }
@@ -29,49 +30,95 @@
 </head>
 <body>
 
-<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-white sticky-top" style="border-bottom: 2px solid var(--primary); padding: 0;">
-    <div class="container" style="height: 50px;">
-        <a class="navbar-brand" href="/" style="color: var(--primary); font-weight: 700; font-size: 1.1rem; padding: 0;">
+<div th:fragment="topbar" class="topbar" style="background: var(--primary-dark); height: 30px; line-height: 30px; font-size: 12px;">
+    <div class="container d-flex justify-content-between align-items-center" style="height: 100%;">
+        <span style="color: rgba(255,255,255,0.9);">欢迎来到网上商城 | 免费注册享优惠</span>
+        <span>
+            <a href="/merchant/login" style="color: rgba(255,255,255,0.7); font-size: 11px;">商家入口</a>
+            <span style="color: rgba(255,255,255,0.4); margin: 0 8px;">|</span>
+            <a href="/admin/login" style="color: rgba(255,255,255,0.7); font-size: 11px;">管理员入口</a>
+        </span>
+    </div>
+</div>
+
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-white sticky-top" style="border-bottom: 1px solid #ddd; padding: 0; top: 30px;">
+    <div class="container" style="height: 60px;">
+        <a class="navbar-brand" href="/" style="color: var(--primary); font-weight: 700; font-size: 1.4rem; padding: 0;">
             网上商城
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="padding: 2px 6px;">
-            <span class="navbar-toggler-icon" style="width: 18px; height: 18px;"></span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="padding: 4px 8px;">
+            <span class="navbar-toggler-icon" style="width: 20px; height: 20px;"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <form class="d-flex mx-auto" action="/" method="get" style="width: 440px; max-width: 100%;">
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" name="keyword" placeholder="搜索商品..." th:value="${keyword}" style="border-color: var(--primary); border-right: none;">
-                    <button class="btn text-white" type="submit" style="background-color: var(--primary); border-color: var(--primary); font-size: 13px;">
+            <form class="d-flex mx-auto" action="/" method="get" style="width: 500px; max-width: 100%;">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" placeholder="搜索商品..." th:value="${keyword}" style="border-radius: 20px 0 0 20px; border: 2px solid var(--primary); border-right: none; padding: 8px 16px;">
+                    <button class="btn text-white" type="submit" style="background-color: var(--primary); border-color: var(--primary); border-radius: 0 20px 20px 0; padding: 8px 24px; font-weight: 500;">
                         搜索
                     </button>
                 </div>
             </form>
-            <div class="d-flex align-items-center" style="font-size: 12px;">
-                <span th:if="${user == null}">
-                    <a href="/user/login" style="color: var(--primary);">登录</a>
-                    <span class="text-muted mx-1">|</span>
-                    <a href="/user/register" style="color: var(--primary);">注册</a>
+            <div class="d-flex align-items-center" style="font-size: 13px;">
+                <span th:if="${user == null}" class="d-flex align-items-center" style="gap: 8px;">
+                    <a href="/user/login" class="btn-login">登录</a>
+                    <a href="/user/register" class="btn-register">注册</a>
                 </span>
                 <span th:if="${user != null}" class="d-flex align-items-center">
-                    <a href="/cart" class="text-decoration-none me-3" style="color: var(--text-secondary);">
-                        购物车<span class="cart-badge" style="display:none; background: var(--primary); color: white; font-size: 10px; padding: 0 4px; border-radius: 2px; margin-left: 2px; vertical-align: top;">0</span>
+                    <a href="/cart" class="nav-link-hover text-decoration-none me-3" style="color: var(--text-secondary);">
+                        <i class="bi bi-cart3 me-1"></i>购物车<span class="cart-badge" style="display:none; background: var(--primary); color: white; font-size: 10px; padding: 1px 5px; border-radius: 10px; margin-left: 4px; vertical-align: middle;">0</span>
                     </a>
-                    <a href="/user/center" class="text-decoration-none me-3" style="color: var(--text-secondary);">用户中心</a>
-                    <a href="/user/orders" class="text-decoration-none me-3" style="color: var(--text-secondary);">我的订单</a>
+                    <a href="/user/center" class="nav-link-hover text-decoration-none me-3" style="color: var(--text-secondary);">用户中心</a>
+                    <a href="/user/orders" class="nav-link-hover text-decoration-none me-3" style="color: var(--text-secondary);">我的订单</a>
                     <a href="/user/logout" style="color: var(--text-muted);">退出</a>
                 </span>
-                <span class="text-muted mx-2">|</span>
-                <a href="/merchant/login" style="color: var(--text-muted);">商家</a>
-                <span class="text-muted mx-1">|</span>
-                <a href="/admin/login" style="color: var(--text-muted);">管理</a>
             </div>
         </div>
     </div>
 </nav>
 
-<footer th:fragment="footer" style="background: #333; color: #aaa; text-align: center; padding: 16px 0; margin-top: 40px; font-size: 12px;">
+<style>
+    .nav-link-hover:hover { color: var(--primary) !important; }
+    .btn-login {
+        display: inline-block;
+        padding: 6px 18px;
+        background: white;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+        border-radius: 20px;
+        font-size: 13px;
+        text-decoration: none;
+        transition: all 0.15s;
+    }
+    .btn-login:hover {
+        background: var(--primary-light);
+        color: var(--primary);
+    }
+    .btn-register {
+        display: inline-block;
+        padding: 6px 18px;
+        background: var(--primary);
+        color: white;
+        border: 1px solid var(--primary);
+        border-radius: 20px;
+        font-size: 13px;
+        text-decoration: none;
+        transition: all 0.15s;
+    }
+    .btn-register:hover {
+        background: var(--primary-dark);
+        border-color: var(--primary-dark);
+        color: white;
+    }
+</style>
+
+<footer th:fragment="footer" style="background: #333; color: #aaa; text-align: center; padding: 20px 0; margin-top: 40px; font-size: 12px;">
     <div class="container">
-        &copy; 2024 网上商城 版权所有
+        <div style="margin-bottom: 8px;">
+            <a href="#" style="color: #aaa; margin: 0 15px;">关于我们</a>
+            <a href="#" style="color: #aaa; margin: 0 15px;">联系客服</a>
+            <a href="#" style="color: #aaa; margin: 0 15px;">帮助中心</a>
+        </div>
+        <div>&copy; 2024 网上商城 版权所有</div>
     </div>
 </footer>
 

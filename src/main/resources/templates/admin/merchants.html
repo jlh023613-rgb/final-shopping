@@ -6,153 +6,408 @@
     <title>商家管理</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #FF4400; --primary-dark: #E63E00; --primary-light: #FFF5F0; --bg: #F5F5F5; --border: #e8e8e8; --text-dark: #333; --text-secondary: #666; --text-muted: #999; }
-        body { background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 13px; color: var(--text-dark); margin: 0; }
-        .sidebar { background: white; border-right: 1px solid var(--border); min-height: 100vh; padding-top: 0; }
-        .sidebar-header { background: #333; color: white; padding: 16px 16px 12px; }
-        .sidebar-header h5 { margin: 0; font-size: 15px; font-weight: 700; }
-        .sidebar .nav-link { color: var(--text-dark); padding: 10px 16px; border-radius: 0; margin: 0; font-size: 13px; border-left: 3px solid transparent; }
-        .sidebar .nav-link:hover { background: var(--primary-light); color: var(--primary); border-left-color: var(--primary); }
-        .sidebar .nav-link.active { background: var(--primary-light); color: var(--primary); font-weight: 600; border-left-color: var(--primary); }
-        .content-area { padding: 20px; }
-        .page-title { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-        .data-card { background: white; border: 1px solid var(--border); border-radius: 4px; }
-        .data-card .card-body { padding: 0; }
-        .table { margin-bottom: 0; font-size: 12px; }
-        .table th { font-weight: 600; color: var(--text-secondary); border-bottom-width: 1px; padding: 8px 12px; background: #fafafa; }
-        .table td { padding: 8px 12px; vertical-align: middle; }
-        .badge { font-size: 11px; font-weight: 500; border-radius: 2px; padding: 3px 8px; }
-        .badge-pending { background: #FFF3E0; color: #E65100; }
-        .badge-approved { background: #E8F5E9; color: #2E7D32; }
-        .badge-closed { background: #FFEBEE; color: #C62828; }
-        .badge-rejected { background: #F5F5F5; color: #757575; }
-        .badge-category { background: var(--primary-light); color: var(--primary); }
-        .filter-btn { border-radius: 2px; font-size: 11px; padding: 4px 10px; border: 1px solid var(--border); background: white; color: var(--text-secondary); }
-        .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-        .btn-action { border-radius: 2px; font-size: 11px; padding: 4px 10px; font-weight: 500; }
-        .btn-approve { background: #2E7D32; color: white; border: none; }
-        .btn-approve:hover { background: #1B5E20; color: white; }
-        .btn-reject-sm { background: white; color: #C62828; border: 1px solid #C62828; }
-        .btn-reject-sm:hover { background: #FFEBEE; color: #C62828; }
-        .btn-close-shop { background: white; color: #C62828; border: 1px solid #C62828; }
-        .btn-close-shop:hover { background: #FFEBEE; color: #C62828; }
-        .btn-reopen { background: white; color: #2E7D32; border: 1px solid #2E7D32; }
-        .btn-reopen:hover { background: #E8F5E9; color: #2E7D32; }
-        .modal-content { border-radius: 4px; border: 1px solid var(--border); }
-        .modal-header { background: white; border-bottom: 1px solid var(--border); padding: 10px 16px; }
-        .modal-header .modal-title { font-size: 14px; font-weight: 600; }
-        .modal-footer { border-top: 1px solid var(--border); padding: 10px 16px; }
-        .form-label { font-size: 12px; font-weight: 600; }
-        .form-select, .form-control { border-radius: 2px; border: 1px solid var(--border); font-size: 12px; }
-        .form-select:focus, .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 0.15rem rgba(255,68,0,0.15); }
+        :root {
+            --bg-dark: #080C14;
+            --bg-sidebar: #0D1117;
+            --bg-card: #161B22;
+            --bg-card-hover: #21262D;
+            --primary: #7C3AED;
+            --primary-dark: #5B21B6;
+            --primary-light: #A78BFA;
+            --secondary: #2563EB;
+            --primary-glow: rgba(124, 58, 237, 0.4);
+            --text-white: #F0F6FC;
+            --text-gray: #8B949E;
+            --text-muted: #6E7681;
+            --border: #30363D;
+            --success: #3FB950;
+            --warning: #D29922;
+            --danger: #F85149;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background: var(--bg-dark);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            font-size: 14px;
+            color: var(--text-white);
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(124, 58, 237, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124, 58, 237, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .sidebar {
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            min-height: 100vh;
+            width: 220px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+        .sidebar-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 20px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sidebar-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .sidebar-title {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .menu-group {
+            padding: 12px 16px 8px;
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+        }
+        .menu-group:first-of-type { border-top: none; margin-top: 0; }
+        .nav-link {
+            color: var(--text-gray);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .nav-link:hover {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--primary-light);
+            border-left-color: var(--primary);
+        }
+        .nav-link.active {
+            background: rgba(124, 58, 237, 0.2);
+            color: white;
+            font-weight: 500;
+            border-left-color: var(--primary);
+        }
+        .nav-link .icon { font-size: 16px; width: 20px; text-align: center; }
+        .nav-link.logout { color: var(--danger); position: absolute; bottom: 20px; width: 100%; }
+        .nav-link.logout:hover {
+            background: rgba(248, 81, 73, 0.1);
+            color: var(--danger);
+            border-left-color: var(--danger);
+        }
+        .main-content {
+            margin-left: 220px;
+            padding: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .page-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-white);
+            margin: 0;
+        }
+        .filter-group { display: flex; gap: 8px; }
+        .filter-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            background: var(--bg-card);
+            color: var(--text-gray);
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .data-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .table { margin-bottom: 0; font-size: 13px; }
+        .table th {
+            font-weight: 600;
+            color: var(--primary-light);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 16px;
+            background: rgba(124, 58, 237, 0.1);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .table td {
+            padding: 12px 16px;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-white);
+        }
+        .table tbody tr:hover { background: var(--bg-card-hover); }
+        .table tbody tr:last-child td { border-bottom: none; }
+        .badge {
+            font-size: 11px;
+            font-weight: 500;
+            border-radius: 6px;
+            padding: 4px 10px;
+        }
+        .badge-pending { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
+        .badge-approved { background: rgba(63, 185, 80, 0.2); color: var(--success); }
+        .badge-closed { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
+        .badge-rejected { background: rgba(110, 118, 129, 0.2); color: var(--text-muted); }
+        .badge-category { background: rgba(124, 58, 237, 0.2); color: var(--primary-light); }
+        .btn-action {
+            border-radius: 6px;
+            font-size: 12px;
+            padding: 6px 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-approve {
+            background: var(--success);
+            color: white;
+        }
+        .btn-approve:hover {
+            background: #2EA043;
+            color: white;
+            box-shadow: 0 0 10px rgba(63, 185, 80, 0.4);
+        }
+        .btn-reject {
+            background: rgba(248, 81, 73, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(248, 81, 73, 0.3);
+        }
+        .btn-reject:hover {
+            background: rgba(248, 81, 73, 0.3);
+            color: white;
+        }
+        .btn-close-shop {
+            background: rgba(210, 153, 34, 0.2);
+            color: var(--warning);
+            border: 1px solid rgba(210, 153, 34, 0.3);
+        }
+        .btn-close-shop:hover {
+            background: rgba(210, 153, 34, 0.3);
+            color: white;
+        }
+        .btn-reopen {
+            background: rgba(63, 185, 80, 0.2);
+            color: var(--success);
+            border: 1px solid rgba(63, 185, 80, 0.3);
+        }
+        .btn-reopen:hover {
+            background: rgba(63, 185, 80, 0.3);
+            color: white;
+        }
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        .modal-header {
+            background: rgba(124, 58, 237, 0.1);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 20px;
+        }
+        .modal-header .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-white);
+        }
+        .modal-header .btn-close { filter: invert(1); }
+        .modal-body { padding: 20px; }
+        .modal-footer {
+            border-top: 1px solid var(--border);
+            padding: 16px 20px;
+        }
+        .form-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+        }
+        .form-select, .form-control {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-white);
+            padding: 10px 14px;
+        }
+        .form-select:focus, .form-control:focus {
+            background: var(--bg-dark);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+            color: var(--text-white);
+        }
+        .btn-cancel {
+            background: var(--bg-card-hover);
+            color: var(--text-gray);
+            border: 1px solid var(--border);
+        }
+        .btn-cancel:hover {
+            background: var(--border);
+            color: white;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        .text-muted { color: var(--text-muted) !important; }
     </style>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2 sidebar">
-            <div class="sidebar-header">
-                <h5>管理员后台</h5>
-            </div>
-            <nav class="nav flex-column">
-                <a class="nav-link" href="/admin/dashboard">概览</a>
-                <a class="nav-link active" href="/admin/merchants">商家管理</a>
-                <a class="nav-link" href="/admin/complaints">投诉管理</a>
-                <a class="nav-link" href="/admin/refunds">退款管理</a>
-                <a class="nav-link" href="/admin/order-list">订单列表</a>
-                <a class="nav-link" href="/admin/logout">退出登录</a>
-            </nav>
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-icon">⚙</div>
+        <h5 class="sidebar-title">管理控制台</h5>
+    </div>
+    <nav class="nav flex-column" style="flex-direction: column !important;">
+        <div class="menu-group">概览</div>
+        <a class="nav-link" href="/admin/dashboard"><span class="icon">📊</span>概览</a>
+        <div class="menu-group">商家管理</div>
+        <a class="nav-link active" href="/admin/merchants"><span class="icon">🏪</span>商家管理</a>
+        <div class="menu-group">订单管理</div>
+        <a class="nav-link" href="/admin/order-list"><span class="icon">📦</span>订单列表</a>
+        <a class="nav-link" href="/admin/refunds"><span class="icon">💰</span>退款管理</a>
+        <div class="menu-group">投诉管理</div>
+        <a class="nav-link" href="/admin/complaints"><span class="icon">📝</span>投诉管理</a>
+        <a class="nav-link logout" href="/admin/logout"><span class="icon">🚪</span>退出登录</a>
+    </nav>
+</div>
+<div class="main-content">
+    <div class="page-header">
+        <h1 class="page-title">商家管理</h1>
+        <div class="filter-group">
+            <a href="/admin/merchants" class="filter-btn" th:classappend="${currentStatus == null or currentStatus.isEmpty()} ? ' active'">全部</a>
+            <a href="/admin/merchants?status=pending" class="filter-btn" th:classappend="${currentStatus == 'pending'} ? ' active'">待审核</a>
+            <a href="/admin/merchants?status=approved" class="filter-btn" th:classappend="${currentStatus == 'approved'} ? ' active'">已通过</a>
+            <a href="/admin/merchants?status=closed" class="filter-btn" th:classappend="${currentStatus == 'closed'} ? ' active'">已关停</a>
         </div>
-        <div class="col-md-10 content-area">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="page-title mb-0 pb-0 border-0">商家管理</div>
-                <div>
-                    <a href="/admin/merchants" class="filter-btn" th:classappend="${currentStatus == null or currentStatus.isEmpty()} ? ' active'">全部</a>
-                    <a href="/admin/merchants?status=pending" class="filter-btn" th:classappend="${currentStatus == 'pending'} ? ' active'">待审核</a>
-                    <a href="/admin/merchants?status=approved" class="filter-btn" th:classappend="${currentStatus == 'approved'} ? ' active'">已通过</a>
-                    <a href="/admin/merchants?status=closed" class="filter-btn" th:classappend="${currentStatus == 'closed'} ? ' active'">已关停</a>
-                </div>
-            </div>
-            <div class="data-card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr><th>ID</th><th>账号</th><th>店铺名称</th><th>描述</th><th>分类</th><th>状态</th><th>注册时间</th><th>操作</th></tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="m : ${merchants}">
-                                <td th:text="${m.id}"></td>
-                                <td th:text="${m.username}"></td>
-                                <td th:text="${m.shopName}"></td>
-                                <td>
-                                    <span th:text="${#strings.abbreviate(m.shopDescription != null ? m.shopDescription : '', 30)}"></span>
-                                </td>
-                                <td>
-                                    <span th:if="${m.category != null}" class="badge badge-category" th:text="${m.category}"></span>
-                                    <span th:unless="${m.category != null}" style="color:var(--text-muted);font-size:11px">未指定</span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending" th:if="${m.status == 'pending'}">待审核</span>
-                                    <span class="badge badge-approved" th:if="${m.status == 'approved'}">正常</span>
-                                    <span class="badge badge-closed" th:if="${m.status == 'closed'}">已关停</span>
-                                    <span class="badge badge-rejected" th:if="${m.status == 'rejected'}">已拒绝</span>
-                                </td>
-                                <td style="font-size:11px;color:var(--text-muted)" th:text="${#temporals.format(m.createdAt, 'yyyy-MM-dd')}"></td>
-                                <td>
-                                    <div th:if="${m.status == 'pending'}">
-                                        <button type="button" class="btn-action btn-approve" data-bs-toggle="modal" th:attr="data-bs-target='#approveModal' + ${m.id}">通过</button>
-                                        <form th:action="@{/admin/merchant/reject/{id}(id=${m.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定拒绝？')">
-                                            <button type="submit" class="btn-action btn-reject-sm">拒绝</button>
-                                        </form>
-                                        <div class="modal fade" th:id="'approveModal' + ${m.id}" tabindex="-1">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">审核通过 - 指定分类</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                    </div>
-                                                    <form th:action="@{/admin/merchant/approve/{id}(id=${m.id})}" method="post">
-                                                        <div class="modal-body">
-                                                            <label class="form-label">选择商品分类</label>
-                                                            <select name="category" class="form-select" required>
-                                                                <option value="">请选择分类</option>
-                                                                <option value="phone">手机数码</option>
-                                                                <option value="computer">电脑办公</option>
-                                                                <option value="appliance">家用电器</option>
-                                                                <option value="cloth-shoes">服饰鞋包</option>
-                                                                <option value="food">食品生鲜</option>
-                                                                <option value="book">图书文具</option>
-                                                                <option value="cosmetics">美妆个护</option>
-                                                                <option value="sports">运动户外</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn-action" style="background:#757575;color:white;border:none" data-bs-dismiss="modal">取消</button>
-                                                            <button type="submit" class="btn-action btn-approve">确认通过</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
+    </div>
+    <div class="data-card">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>账号</th>
+                        <th>店铺名称</th>
+                        <th>描述</th>
+                        <th>分类</th>
+                        <th>状态</th>
+                        <th>注册时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="m : ${merchants}">
+                        <td th:text="${m.id}"></td>
+                        <td th:text="${m.username}"></td>
+                        <td th:text="${m.shopName}"></td>
+                        <td><span th:text="${#strings.abbreviate(m.shopDescription != null ? m.shopDescription : '', 30)}"></span></td>
+                        <td>
+                            <span th:if="${m.category != null}" class="badge badge-category" th:text="${m.category}"></span>
+                            <span th:unless="${m.category != null}" class="text-muted">未指定</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-pending" th:if="${m.status == 'pending'}">待审核</span>
+                            <span class="badge badge-approved" th:if="${m.status == 'approved'}">正常</span>
+                            <span class="badge badge-closed" th:if="${m.status == 'closed'}">已关停</span>
+                            <span class="badge badge-rejected" th:if="${m.status == 'rejected'}">已拒绝</span>
+                        </td>
+                        <td class="text-muted" th:text="${#temporals.format(m.createdAt, 'yyyy-MM-dd')}"></td>
+                        <td>
+                            <div th:if="${m.status == 'pending'}" style="display: flex; gap: 8px;">
+                                <button type="button" class="btn-action btn-approve" data-bs-toggle="modal" th:attr="data-bs-target='#approveModal' + ${m.id}">通过</button>
+                                <form th:action="@{/admin/merchant/reject/{id}(id=${m.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定拒绝？')">
+                                    <button type="submit" class="btn-action btn-reject">拒绝</button>
+                                </form>
+                                <div class="modal fade" th:id="'approveModal' + ${m.id}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">审核通过 - 指定分类</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
+                                            <form th:action="@{/admin/merchant/approve/{id}(id=${m.id})}" method="post">
+                                                <div class="modal-body">
+                                                    <label class="form-label">选择商品分类</label>
+                                                    <select name="category" class="form-select" required>
+                                                        <option value="">请选择分类</option>
+                                                        <option value="phone">手机数码</option>
+                                                        <option value="computer">电脑办公</option>
+                                                        <option value="appliance">家用电器</option>
+                                                        <option value="cloth-shoes">服饰鞋包</option>
+                                                        <option value="food">食品生鲜</option>
+                                                        <option value="book">图书文具</option>
+                                                        <option value="cosmetics">美妆个护</option>
+                                                        <option value="sports">运动户外</option>
+                                                    </select>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn-action btn-cancel" data-bs-dismiss="modal">取消</button>
+                                                    <button type="submit" class="btn-action btn-approve">确认通过</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                    <form th:if="${m.status == 'approved'}" th:action="@{/admin/merchant/close/{id}(id=${m.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定关停？')">
-                                        <button type="submit" class="btn-action btn-close-shop">关停</button>
-                                    </form>
-                                    <form th:if="${m.status == 'closed'}" th:action="@{/admin/merchant/reopen/{id}(id=${m.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定重新开启？')">
-                                        <button type="submit" class="btn-action btn-reopen">重新开启</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <tr th:if="${merchants == null or merchants.isEmpty()}">
-                                <td colspan="8" class="text-center text-secondary py-4">暂无商家</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                                </div>
+                            </div>
+                            <form th:if="${m.status == 'approved'}" th:action="@{/admin/merchant/close/{id}(id=${m.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定关停？')">
+                                <button type="submit" class="btn-action btn-close-shop">关停</button>
+                            </form>
+                            <form th:if="${m.status == 'closed'}" th:action="@{/admin/merchant/reopen/{id}(id=${m.id})}" method="post" style="display:inline;" onsubmit="return confirm('确定重新开启？')">
+                                <button type="submit" class="btn-action btn-reopen">重新开启</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${merchants == null or merchants.isEmpty()}">
+                        <td colspan="8" class="empty-state">暂无商家</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

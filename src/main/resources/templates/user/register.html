@@ -5,114 +5,185 @@
     <title>用户注册</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #FF4400; --primary-dark: #E63E00; }
         body {
-            background: #F5F5F5;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            padding: 20px;
+        }
+        .brand {
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         .register-card {
-            background: white;
-            border-radius: 4px;
-            padding: 2rem;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
             width: 100%;
             max-width: 420px;
-            border: 1px solid #e8e8e8;
         }
         .register-title {
             text-align: center;
-            margin-bottom: 1.5rem;
-            color: #333;
-            font-size: 20px;
+            margin-bottom: 30px;
+            color: #1a1a2e;
+            font-size: 22px;
             font-weight: 700;
         }
-        .btn-primary {
-            background-color: var(--primary);
-            border-color: var(--primary);
-            width: 100%;
-            padding: 0.6rem;
-            border-radius: 4px;
-            font-weight: 600;
+        .form-group {
+            margin-bottom: 18px;
         }
-        .btn-primary:hover { background-color: var(--primary-dark); border-color: var(--primary-dark); }
-        .form-control, .form-select { border-radius: 4px; padding: 0.6rem; font-size: 14px; }
-        .form-control:focus, .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 0.2rem rgba(255,68,0,0.15); }
-        .alert { border-radius: 4px; font-size: 13px; }
-        .links { text-align: center; margin-top: 1rem; font-size: 13px; }
-        .password-strength { height: 4px; border-radius: 2px; margin-top: 4px; transition: all 0.3s; }
+        .form-label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .form-control, .form-select {
+            background: #f5f5f5;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .form-control:focus, .form-select:focus {
+            background: #fff;
+            box-shadow: none;
+            border-bottom-color: #2563eb;
+        }
+        .form-control::placeholder {
+            color: #aaa;
+        }
+        .btn-register {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2563eb 100%);
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            color: white;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(37, 99, 235, 0.4);
+            color: white;
+        }
+        .alert {
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        .links {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #666;
+        }
+        .login-link {
+            color: #2563eb;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .login-link:hover {
+            text-decoration: underline;
+        }
+        .password-strength { height: 4px; border-radius: 2px; margin-top: 6px; transition: all 0.3s; }
         .strength-weak { background: #dc3545; width: 33%; }
         .strength-medium { background: #ffc107; width: 66%; }
         .strength-strong { background: #28a745; width: 100%; }
-        .strength-text { font-size: 11px; margin-top: 2px; }
-        .brand { color: var(--primary); font-weight: 700; text-align: center; margin-bottom: 0.5rem; font-size: 22px; }
-        .modal-content { border-radius: 4px; }
+        .strength-text { font-size: 11px; margin-top: 4px; }
+        .error-text { font-size: 11px; color: #dc3545; margin-top: 4px; }
+        .modal-content { border-radius: 16px; border: none; }
+        .modal-header { border-bottom: 1px solid #eee; }
+        .modal-footer { border-top: 1px solid #eee; }
+        .btn-modal-primary {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2563eb 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 20px;
+            color: white;
+            font-weight: 500;
+        }
+        .btn-modal-secondary {
+            border-radius: 8px;
+            padding: 8px 20px;
+        }
     </style>
 </head>
 <body>
+<div class="brand">网上商城</div>
 <div class="register-card">
-    <div class="brand">网上商城</div>
-    <h3 class="register-title">用户注册</h3>
+    <h3 class="register-title">创建账号</h3>
     
     <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
     <form id="registerForm" th:action="@{/user/register}" method="post">
-        <div class="mb-3">
-            <label class="form-label" style="font-size: 13px;">用户名</label>
+        <div class="form-group">
+            <label class="form-label">用户名</label>
             <input type="text" name="username" id="username" class="form-control" placeholder="请输入用户名" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" style="font-size: 13px;">手机号</label>
+        <div class="form-group">
+            <label class="form-label">手机号</label>
             <input type="text" name="phone" id="phone" class="form-control" placeholder="请输入手机号" required>
-            <div id="phoneError" class="text-danger small mt-1" style="font-size: 11px;"></div>
+            <div id="phoneError" class="error-text"></div>
         </div>
-        <div class="mb-3">
-            <label class="form-label" style="font-size: 13px;">密码</label>
-            <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码" required minlength="12" maxlength="16">
+        <div class="form-group">
+            <label class="form-label">密码</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码 (12-16位)" required minlength="12" maxlength="16">
             <div class="password-strength" id="strengthBar"></div>
             <div class="strength-text" id="strengthText"></div>
         </div>
-        <div class="mb-3">
-            <label class="form-label" style="font-size: 13px;">确认密码</label>
+        <div class="form-group">
+            <label class="form-label">确认密码</label>
             <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="请再次输入密码" required>
-            <div id="confirmError" class="text-danger small mt-1" style="font-size: 11px;"></div>
+            <div id="confirmError" class="error-text"></div>
         </div>
-        <div class="mb-3">
-            <label class="form-label" style="font-size: 13px;">性别</label>
+        <div class="form-group">
+            <label class="form-label">性别</label>
             <select name="gender" class="form-select">
                 <option value="M">男</option>
                 <option value="F">女</option>
             </select>
         </div>
-        <button type="button" class="btn btn-primary" onclick="showCaptchaModal()">注册</button>
+        <button type="button" class="btn btn-register" onclick="showCaptchaModal()">注册</button>
     </form>
 
     <div class="links">
-        已有账号？<a href="/user/login" style="color: var(--primary);">立即登录</a>
+        已有账号？<a href="/user/login" class="login-link">立即登录</a>
     </div>
 </div>
 
 <div class="modal fade" id="captchaModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header" style="border-bottom: 1px solid #e8e8e8;">
-                <h5 class="modal-title" style="font-size: 15px;">请输入验证码</h5>
+            <div class="modal-header">
+                <h5 class="modal-title" style="font-size: 16px; font-weight: 600;">请输入验证码</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body text-center">
+            <div class="modal-body text-center py-4">
                 <div class="mb-3">
-                    <canvas id="captchaCanvas" width="150" height="50" style="border: 1px solid #e8e8e8; border-radius: 2px; cursor: pointer;" onclick="generateCaptcha()"></canvas>
+                    <canvas id="captchaCanvas" width="150" height="50" style="border: 1px solid #e8e8e8; border-radius: 8px; cursor: pointer;" onclick="generateCaptcha()"></canvas>
                 </div>
-                <div class="text-muted small mb-2" style="font-size: 11px;">点击图片刷新验证码</div>
+                <div class="text-muted small mb-3" style="font-size: 12px;">点击图片刷新验证码</div>
                 <input type="text" id="captchaInput" class="form-control text-center" placeholder="请输入验证码" maxlength="4" style="font-size: 1.1rem; letter-spacing: 5px;">
-                <div id="captchaError" class="text-danger small mt-2" style="font-size: 11px;"></div>
+                <div id="captchaError" class="error-text mt-2"></div>
             </div>
-            <div class="modal-footer" style="border-top: 1px solid #e8e8e8;">
-                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal" style="border-radius: 4px;">取消</button>
-                <button type="button" class="btn btn-sm btn-primary" style="border-radius: 4px;" onclick="submitForm()">确认注册</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btn-modal-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-modal-primary" onclick="submitForm()">确认注册</button>
             </div>
         </div>
     </div>
@@ -127,7 +198,7 @@
         const ctx = canvas.getContext('2d');
         const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
         
-        ctx.fillStyle = '#f0f0f0';
+        ctx.fillStyle = '#f5f5f5';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         captchaCode = '';
