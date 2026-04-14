@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Controller
@@ -85,7 +85,7 @@ public class IndexController {
             return "index";
         }
 
-        String effectiveCategory = (category != null && !category.isBlank()) ? category.trim() : null;
+        String effectiveCategory = normalizeCategory(category);
         int total = productMapper.countByCategory(effectiveCategory);
         int totalPages = (int) Math.ceil((double) total / PAGE_SIZE);
         if (totalPages < 1) totalPages = 1;
@@ -113,5 +113,19 @@ public class IndexController {
         model.addAttribute("shops", shops);
         model.addAttribute("user", user);
         return "index";
+    }
+
+    private String normalizeCategory(String category) {
+        if (category == null || category.isBlank()) {
+            return null;
+        }
+        String normalized = category.trim().toLowerCase(Locale.ROOT);
+        return switch (normalized) {
+            case "appliances" -> "appliance";
+            case "clothes" -> "cloth-shoes";
+            case "sport", "sports-outdoor", "outdoor" -> "sports";
+            case "beauty", "makeup", "meizhuang" -> "cosmetics";
+            default -> normalized;
+        };
     }
 }

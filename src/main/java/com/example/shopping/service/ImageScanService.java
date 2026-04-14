@@ -24,7 +24,6 @@ public class ImageScanService {
     private static final Logger log = LoggerFactory.getLogger(ImageScanService.class);
     private static final Pattern IMAGE_PATTERN = Pattern.compile("(?i).+\\.(jpg|jpeg|png|gif|webp)$");
     private static final BigDecimal DEFAULT_PRICE = new BigDecimal("3999.00");
-    private static final String[] CATEGORIES = {"phone", "computer", "appliance", "clothes", "food"};
 
     private final ShopMapper shopMapper;
     private final ProductMapper productMapper;
@@ -125,7 +124,7 @@ public class ImageScanService {
         String mainImage = imagePaths.get(0);
         Product p = new Product();
         p.setName(modelName);
-        p.setCategory(CATEGORIES[Math.abs(modelName.hashCode()) % CATEGORIES.length]);
+        p.setCategory(resolveCategory(shopFolder));
         p.setPrice(DEFAULT_PRICE.add(BigDecimal.valueOf(Math.abs((long) modelName.hashCode() % 5000))));
         p.setOriginalPrice(p.getPrice().add(BigDecimal.valueOf(500)));
         p.setStock(100);
@@ -160,5 +159,31 @@ public class ImageScanService {
     private static String folderNameToDisplayName(String folder) {
         if (folder == null || folder.isEmpty()) return folder;
         return folder.substring(0, 1).toUpperCase(Locale.ROOT) + folder.substring(1).toLowerCase(Locale.ROOT);
+    }
+
+    private String resolveCategory(String folderName) {
+        if (folderName == null || folderName.isBlank()) {
+            return "other";
+        }
+        String folder = folderName.trim().toLowerCase(Locale.ROOT);
+        return switch (folder) {
+            case "phone", "phones" -> "phone";
+            case "computer", "computers" -> "computer";
+            case "appliance", "appliances" -> "appliance";
+            case "cloth-shoes", "clothes" -> "cloth-shoes";
+            case "food" -> "food";
+            case "book", "books" -> "book";
+            case "sports", "sport", "sports-outdoor", "outdoor" -> "sports";
+            case "cosmetics", "beauty", "makeup", "meizhuang" -> "cosmetics";
+            default -> {
+                if (folder.startsWith("sports")) {
+                    yield "sports";
+                }
+                if (folder.startsWith("meizhuang")) {
+                    yield "cosmetics";
+                }
+                yield folder;
+            }
+        };
     }
 }

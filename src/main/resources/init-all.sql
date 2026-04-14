@@ -189,12 +189,17 @@ CREATE TABLE admins (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ============================================================
--- 第三部分：基础数据（管理员账号）
+-- 第三部分：基础数据（用户账号）
+-- ============================================================
+INSERT IGNORE INTO users (username, password, phone, gender, role) VALUES ('测试用户', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '18606518660', 'M', 'ROLE_USER');
+
+-- ============================================================
+-- 第四部分：基础数据（管理员账号）
 -- ============================================================
 INSERT IGNORE INTO admins (username, password) VALUES ('lhh', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6');
 
 -- ============================================================
--- 第四部分：商家数据
+-- 第五部分：商家数据
 -- ============================================================
 INSERT INTO merchants (username, password, shop_name, shop_description, shop_image, category, status, created_at, updated_at) VALUES
 ('shop1', '$2a$10$Kff8lRDm6XV3UcyTinDFjuig6Q6TbjefOPpT1dRJVPvxCfeAdP6b6', '华为手机专营店', '华为手机官方授权店，正品保障', NULL, 'phone', 'approved', NOW(), NOW()),

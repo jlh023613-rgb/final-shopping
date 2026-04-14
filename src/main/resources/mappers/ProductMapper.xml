@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.shopping.mapper.ProductMapper">
+    <sql id="categoryFilter">
+        <if test="category != null and category != ''">
+            <choose>
+                <when test="category == 'appliance'">
+                    AND (
+                        category IN ('appliance', 'appliances')
+                        OR image_url LIKE '/image/appliances/%'
+                    )
+                </when>
+                <when test="category == 'cloth-shoes'">
+                    AND (
+                        category IN ('cloth-shoes', 'clothes')
+                        OR image_url LIKE '/image/cloth-shoes/%'
+                    )
+                </when>
+                <when test="category == 'sports'">
+                    AND (
+                        category IN ('sports', 'sport', 'sports-outdoor', 'outdoor')
+                        OR image_url LIKE '/image/sports/%'
+                        OR merchant_id IN (SELECT id FROM shops WHERE folder LIKE 'sports%')
+                    )
+                </when>
+                <when test="category == 'cosmetics'">
+                    AND (
+                        category IN ('cosmetics', 'beauty', 'makeup', 'meizhuang')
+                        OR image_url LIKE '/image/cosmetics/%'
+                        OR merchant_id IN (SELECT id FROM shops WHERE folder LIKE 'meizhuang%')
+                    )
+                </when>
+                <otherwise>
+                    AND category = #{category}
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
     <select id="findAll" resultType="com.example.shopping.entity.Product">
         SELECT * FROM products WHERE status = 1 AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
     </select>
@@ -10,7 +46,11 @@
     </select>
     
     <select id="findByCategory" resultType="com.example.shopping.entity.Product">
-        SELECT * FROM products WHERE status = 1 AND category = #{category} AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops)) ORDER BY RAND()
+        SELECT * FROM products
+        WHERE status = 1
+        <include refid="categoryFilter"/>
+        AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
+        ORDER BY RAND()
     </select>
     
     <select id="findByNameContainingIgnoreCase" resultType="com.example.shopping.entity.Product">
@@ -51,9 +91,7 @@
     <select id="findByPage" resultType="com.example.shopping.entity.Product">
         SELECT * FROM products 
         WHERE status = 1 
-        <if test="category != null and category != ''">
-            AND category = #{category}
-        </if>
+        <include refid="categoryFilter"/>
         AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
         ORDER BY id DESC
         LIMIT #{offset}, #{pageSize}
@@ -62,9 +100,7 @@
     <select id="countByCategory" resultType="int">
         SELECT COUNT(*) FROM products 
         WHERE status = 1 
-        <if test="category != null and category != ''">
-            AND category = #{category}
-        </if>
+        <include refid="categoryFilter"/>
         AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
     </select>
 </mapper>
