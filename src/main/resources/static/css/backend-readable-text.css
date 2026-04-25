@@ -1,0 +1,71 @@
+/* Only improve text readability. Keep buttons, badges and status colors intact. */
+:root {
+    --backend-readable-text: #8b949e;
+}
+
+body {
+    color: var(--backend-readable-text);
+}
+
+.page-title,
+.page-head h1,
+.welcome,
+.quick-title,
+.panel-title,
+.section-title,
+.section-sub,
+.shop-name,
+.shop-info h5,
+.sidebar-header h5,
+.meta,
+.desc,
+.tiny-text,
+.reason-text,
+.result-text,
+.review-content,
+.reply-text,
+.info-label,
+.info-value,
+.info-text,
+.form-label,
+.form-text,
+.empty-box,
+.empty-state,
+.content-box,
+.result-box,
+.reason-box,
+.reply-box,
+.modal-title,
+.form-check-label,
+.close-extra,
+.table,
+.table th,
+.table td {
+    color: var(--backend-readable-text) !important;
+}
+
+/* The hard-to-read bold titles inside tables (shop names, product names, etc.). */
+.table td > div[style*="font-weight: 700"],
+.table td > div[style*="font-size: 15px"],
+.table td > div[style*="font-size: 16px"],
+.table td > div[style*="font-weight: 600"] {
+    color: var(--backend-readable-text) !important;
+    font-weight: 500 !important;
+}
+
+/* Keep form text readable without touching button colors. */
+.form-control,
+.form-select,
+.reply-input,
+.category-select {
+    color: var(--backend-readable-text) !important;
+}
+
+.form-control::placeholder,
+.form-select::placeholder,
+.reply-input::placeholder,
+textarea::placeholder,
+input::placeholder {
+    color: var(--backend-readable-text) !important;
+    opacity: 0.85;
+}

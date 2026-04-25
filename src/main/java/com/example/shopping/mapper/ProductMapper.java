@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -18,8 +19,7 @@ public interface ProductMapper {
     List<Product> findByCategory(String category);
     
     Product findById(Long id);
-    
-    @Select("SELECT * FROM products WHERE merchant_id = #{merchantId}")
+
     List<Product> findByMerchantId(Long merchantId);
     
     void insert(Product product);
@@ -36,4 +36,11 @@ public interface ProductMapper {
     List<Product> findByPage(@Param("category") String category, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
     int countByCategory(@Param("category") String category);
+
+    List<Product> findMerchantApplicationsByStatus(@Param("status") Integer status);
+
+    void updateAuditStatus(@Param("id") Long id,
+                           @Param("status") Integer status,
+                           @Param("auditReason") String auditReason,
+                           @Param("auditedAt") LocalDateTime auditedAt);
 }

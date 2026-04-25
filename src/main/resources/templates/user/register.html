@@ -2,243 +2,295 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>用户注册</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-top: #08111f;
+            --bg-bottom: #14253f;
+            --glass: rgba(11, 23, 42, 0.78);
+            --glass-border: rgba(148, 163, 184, 0.18);
+            --primary: #3b82f6;
+            --primary-strong: #2563eb;
+            --danger: #f87171;
+            --text-main: #f8fafc;
+            --text-sub: rgba(226, 232, 240, 0.72);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
             min-height: 100vh;
+            margin: 0;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-            overflow-x: hidden;
-            position: relative;
-            background: #1a1a2e;
-            padding: 40px 20px;
+            padding: 32px 16px;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.18), transparent 32%),
+                radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.16), transparent 28%),
+                linear-gradient(135deg, var(--bg-top), var(--bg-bottom));
+            font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
         }
-        .bg-flow {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-            background: linear-gradient(-45deg, #1a1a2e, #e4393c, #1a1a2e, #e4393c, #1a1a2e);
-            background-size: 400% 400%;
-            animation: flowBg 12s ease infinite;
+
+        .register-shell {
+            width: 100%;
+            max-width: 460px;
         }
-        @keyframes flowBg {
-            0% { background-position: 0% 50%; }
-            25% { background-position: 100% 0%; }
-            50% { background-position: 100% 50%; }
-            75% { background-position: 0% 100%; }
-            100% { background-position: 0% 50%; }
-        }
-        .bg-flow::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at 30% 70%, rgba(228,57,60,0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 30%, rgba(26,26,46,0.3) 0%, transparent 50%);
-        }
+
         .brand {
-            position: relative;
-            z-index: 10;
-            color: white;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 20px rgba(228,57,60,0.5);
-            letter-spacing: 4px;
+            text-align: center;
+            color: #fff;
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: 6px;
+            margin-bottom: 24px;
+            text-shadow: 0 0 24px rgba(59, 130, 246, 0.28);
         }
+
         .register-card {
             position: relative;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 20px;
-            padding: 40px 36px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 60px rgba(228,57,60,0.1);
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 38px 34px 30px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 28px 60px rgba(0, 0, 0, 0.28);
         }
+
         .role-badge {
             position: absolute;
             top: -12px;
             right: 24px;
-            background: linear-gradient(135deg, #2563eb, #3b82f6);
-            color: white;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: #fff;
             font-size: 11px;
-            font-weight: 600;
-            padding: 4px 14px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(37,99,235,0.4);
+            font-weight: 700;
             letter-spacing: 1px;
         }
+
         .register-title {
+            margin: 0 0 24px;
             text-align: center;
-            margin-bottom: 28px;
-            color: white;
-            font-size: 22px;
+            color: var(--text-main);
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .alert {
+            border-radius: 14px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(248, 113, 113, 0.22);
+            background: rgba(248, 113, 113, 0.12);
+            color: #fecaca;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-sub);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-control,
+        .form-select {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 14px;
+            padding: 13px 14px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.34);
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.18);
+        }
+
+        .form-select option {
+            background: #0f172a;
+            color: #fff;
+        }
+
+        .error-text,
+        .helper-text {
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .error-text {
+            color: #fecaca;
+        }
+
+        .helper-text {
+            color: rgba(226, 232, 240, 0.58);
+        }
+
+        .password-strength {
+            height: 4px;
+            border-radius: 999px;
+            margin-top: 8px;
+            background: rgba(148, 163, 184, 0.22);
+            overflow: hidden;
+        }
+
+        .password-strength span {
+            display: block;
+            height: 100%;
+            width: 0;
+            border-radius: 999px;
+            transition: width 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-register {
+            width: 100%;
+            border: none;
+            border-radius: 14px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+            color: #fff;
+            font-size: 15px;
+            font-weight: 800;
+            margin-top: 8px;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 24px rgba(37, 99, 235, 0.24);
+        }
+
+        .links {
+            margin-top: 22px;
+            text-align: center;
+            color: rgba(226, 232, 240, 0.62);
+            font-size: 13px;
+        }
+
+        .links a {
+            color: #93c5fd;
+            text-decoration: none;
             font-weight: 700;
         }
-        .form-group { margin-bottom: 18px; }
-        .form-label {
-            font-size: 13px;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 8px;
-            display: block;
+
+        .links a:hover {
+            color: #dbeafe;
         }
-        .form-control, .form-select {
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px 8px 0 0;
-            padding: 12px 16px;
-            font-size: 14px;
-            color: white;
-            transition: all 0.3s;
+
+        .modal-content {
+            background: rgba(9, 17, 32, 0.96);
+            color: #fff;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 20px;
         }
-        .form-control::placeholder, .form-select::placeholder { color: rgba(255,255,255,0.35); }
-        .form-control:focus, .form-select:focus {
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: none;
-            border-bottom-color: #e4393c;
-            color: white;
+
+        .modal-header,
+        .modal-footer {
+            border-color: rgba(148, 163, 184, 0.14);
         }
-        .form-select option { background: #1a1a2e; color: white; }
-        .btn-register {
-            background: linear-gradient(135deg, #e4393c 0%, #c81623 100%);
-            border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 15px;
-            color: white;
-            transition: all 0.3s;
-            margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(228,57,60,0.4);
+
+        .btn-close {
+            filter: invert(1);
         }
-        .btn-register:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(228,57,60,0.6);
-            color: white;
+
+        .captcha-box {
+            display: inline-block;
+            padding: 8px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(148, 163, 184, 0.16);
         }
-        .alert {
-            border-radius: 10px;
-            font-size: 13px;
-            margin-bottom: 20px;
-            background: rgba(239,68,68,0.15);
-            border: 1px solid rgba(239,68,68,0.3);
-            color: #fca5a5;
-        }
-        .links {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 13px;
-            color: rgba(255,255,255,0.6);
-        }
-        .login-link {
-            color: #e4393c;
-            font-weight: 500;
-            text-decoration: none;
-        }
-        .login-link:hover { text-decoration: underline; color: #ff6b6b; }
-        .password-strength { height: 4px; border-radius: 2px; margin-top: 6px; transition: all 0.3s; }
-        .strength-weak { background: #dc3545; width: 33%; }
-        .strength-medium { background: #ffc107; width: 66%; }
-        .strength-strong { background: #28a745; width: 100%; }
-        .strength-text { font-size: 11px; margin-top: 4px; color: rgba(255,255,255,0.6); }
-        .error-text { font-size: 11px; color: #fca5a5; margin-top: 4px; }
-        .modal-content { border-radius: 16px; border: none; background: rgba(26,26,46,0.95); backdrop-filter: blur(20px); color: white; }
-        .modal-header { border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .modal-footer { border-top: 1px solid rgba(255,255,255,0.1); }
-        .modal-title { color: white; }
-        .btn-close { filter: invert(1); }
-        .btn-modal-primary {
-            background: linear-gradient(135deg, #e4393c 0%, #c81623 100%);
-            border: none;
-            border-radius: 8px;
-            padding: 8px 20px;
-            color: white;
-            font-weight: 500;
-        }
-        .btn-modal-secondary {
-            border-radius: 8px;
-            padding: 8px 20px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.2);
+
+        .captcha-input.is-invalid {
+            border-color: var(--danger);
         }
     </style>
 </head>
 <body>
-<div class="bg-flow"></div>
-<div class="brand">网上商城</div>
-<div class="register-card">
-    <div class="role-badge">用户</div>
-    <h3 class="register-title">创建账号</h3>
-    
-    <div th:if="${error}" class="alert" th:text="${error}"></div>
+<div class="register-shell">
+    <div class="brand">网上商城</div>
+    <div class="register-card">
+        <div class="role-badge">用户</div>
+        <h1 class="register-title">创建账号</h1>
 
-    <form id="registerForm" th:action="@{/user/register}" method="post">
-        <div class="form-group">
-            <label class="form-label">用户名</label>
-            <input type="text" name="username" id="username" class="form-control" placeholder="请输入用户名" required>
-        </div>
-        <div class="form-group">
-            <label class="form-label">手机号</label>
-            <input type="text" name="phone" id="phone" class="form-control" placeholder="请输入手机号" required>
-            <div id="phoneError" class="error-text"></div>
-        </div>
-        <div class="form-group">
-            <label class="form-label">密码</label>
-            <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码 (12-16位)" required minlength="12" maxlength="16">
-            <div class="password-strength" id="strengthBar"></div>
-            <div class="strength-text" id="strengthText"></div>
-        </div>
-        <div class="form-group">
-            <label class="form-label">确认密码</label>
-            <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="请再次输入密码" required>
-            <div id="confirmError" class="error-text"></div>
-        </div>
-        <div class="form-group">
-            <label class="form-label">性别</label>
-            <select name="gender" class="form-select">
-                <option value="M">男</option>
-                <option value="F">女</option>
-            </select>
-        </div>
-        <button type="button" class="btn btn-register" onclick="showCaptchaModal()">注册</button>
-    </form>
+        <div th:if="${error}" class="alert" th:text="${error}"></div>
 
-    <div class="links">
-        已有账号？<a href="/user/login" class="login-link">立即登录</a>
+        <form id="registerForm" th:action="@{/user/register}" method="post">
+            <div class="form-group">
+                <label class="form-label" for="username">用户名</label>
+                <input id="username" type="text" name="username" class="form-control" placeholder="请输入用户名" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="phone">手机号</label>
+                <input id="phone" type="text" name="phone" class="form-control" placeholder="请输入手机号" required>
+                <div id="phoneError" class="error-text"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">密码</label>
+                <input id="password" type="password" name="password" class="form-control" placeholder="请输入 12 到 16 位密码" minlength="12" maxlength="16" required>
+                <div class="password-strength"><span id="strengthBar"></span></div>
+                <div id="strengthText" class="helper-text"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="confirmPassword">确认密码</label>
+                <input id="confirmPassword" type="password" name="confirmPassword" class="form-control" placeholder="请再次输入密码" required>
+                <div id="confirmError" class="error-text"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="gender">性别</label>
+                <select id="gender" name="gender" class="form-select">
+                    <option value="M">男</option>
+                    <option value="F">女</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn-register" onclick="showCaptchaModal()">注册账号</button>
+        </form>
+
+        <div class="links">
+            已有账号？<a href="/user/login">立即登录</a>
+        </div>
     </div>
 </div>
 
-<div class="modal fade" id="captchaModal" tabindex="-1">
+<div class="modal fade" id="captchaModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" style="font-size: 16px; font-weight: 600;">请输入验证码</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h5 class="modal-title">请输入验证码</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
             </div>
-            <div class="modal-body text-center py-4">
-                <div class="mb-3">
-                    <canvas id="captchaCanvas" width="150" height="50" style="border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer;" onclick="generateCaptcha()"></canvas>
+            <div class="modal-body text-center">
+                <div class="captcha-box mb-3">
+                    <canvas id="captchaCanvas" width="160" height="56" style="cursor: pointer;" onclick="generateCaptcha()"></canvas>
                 </div>
-                <div style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 12px;">点击图片刷新验证码</div>
-                <input type="text" id="captchaInput" class="form-control text-center" placeholder="请输入验证码" maxlength="4" style="font-size: 1.1rem; letter-spacing: 5px;">
-                <div id="captchaError" class="error-text mt-2"></div>
+                <div class="helper-text mb-3">点击验证码图片可以刷新</div>
+                <input id="captchaInput" type="text" class="form-control text-center captcha-input" placeholder="请输入验证码" maxlength="4">
+                <div id="captchaError" class="error-text"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-modal-secondary" data-bs-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-modal-primary" onclick="submitForm()">确认注册</button>
+                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">确认注册</button>
             </div>
         </div>
     </div>
@@ -246,38 +298,48 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    let captchaCode = '';
-    
+    let captchaCode = "";
+
     function generateCaptcha() {
-        const canvas = document.getElementById('captchaCanvas');
-        const ctx = canvas.getContext('2d');
-        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        
-        ctx.fillStyle = '#1a1a2e';
+        const canvas = document.getElementById("captchaCanvas");
+        const ctx = canvas.getContext("2d");
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#0f172a";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        captchaCode = '';
+
+        captchaCode = "";
         for (let i = 0; i < 4; i++) {
             const char = chars[Math.floor(Math.random() * chars.length)];
             captchaCode += char;
-            ctx.font = 'bold 28px Arial';
-            ctx.fillStyle = `rgb(${100 + Math.random() * 155}, ${100 + Math.random() * 155}, ${100 + Math.random() * 155})`;
-            ctx.fillText(char, 20 + i * 32, 35);
+            ctx.save();
+            ctx.translate(28 + i * 32, 32);
+            ctx.rotate((Math.random() - 0.5) * 0.35);
+            ctx.font = "bold 28px Arial";
+            ctx.fillStyle = `rgb(${110 + Math.random() * 120}, ${140 + Math.random() * 90}, ${190 + Math.random() * 60})`;
+            ctx.fillText(char, 0, 0);
+            ctx.restore();
         }
-        
-        for (let i = 0; i < 5; i++) {
-            ctx.strokeStyle = `rgba(${Math.random() * 200}, ${Math.random() * 200}, ${Math.random() * 200}, 0.3)`;
+
+        for (let i = 0; i < 6; i++) {
+            ctx.strokeStyle = `rgba(${80 + Math.random() * 100}, ${120 + Math.random() * 100}, 255, 0.35)`;
             ctx.beginPath();
             ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
             ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
             ctx.stroke();
         }
-        
-        document.getElementById('captchaInput').value = '';
-        document.getElementById('captchaError').textContent = '';
+
+        document.getElementById("captchaInput").value = "";
+        document.getElementById("captchaInput").classList.remove("is-invalid");
+        document.getElementById("captchaError").textContent = "";
     }
-    
-    function checkPasswordStrength(password) {
+
+    function validatePhone(phone) {
+        return /^1[3-9]\d{9}$/.test(phone);
+    }
+
+    function countPasswordTypes(password) {
         let types = 0;
         if (/[a-z]/.test(password)) types++;
         if (/[A-Z]/.test(password)) types++;
@@ -285,109 +347,109 @@
         if (/[^a-zA-Z0-9]/.test(password)) types++;
         return types;
     }
-    
+
     function updateStrengthBar() {
-        const password = document.getElementById('password').value;
-        const bar = document.getElementById('strengthBar');
-        const text = document.getElementById('strengthText');
-        const types = checkPasswordStrength(password);
-        
-        bar.className = 'password-strength';
-        if (password.length === 0) {
-            bar.style.display = 'none';
-            text.textContent = '';
-        } else if (types <= 1) {
-            bar.classList.add('strength-weak');
-            text.textContent = '弱密码 - 请包含大小写字母、数字或特殊字符';
-            text.style.color = '#fca5a5';
-        } else if (types === 2) {
-            bar.classList.add('strength-medium');
-            text.textContent = '中密码';
-            text.style.color = '#fcd34d';
-        } else {
-            bar.classList.add('strength-strong');
-            text.textContent = '强密码';
-            text.style.color = '#86efac';
-        }
-    }
-    
-    function validatePhone(phone) {
-        return /^1[3-9]\d{9}$/.test(phone);
-    }
-    
-    function validateForm() {
-        const phone = document.getElementById('phone').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const phoneError = document.getElementById('phoneError');
-        const confirmError = document.getElementById('confirmError');
-        
-        phoneError.textContent = '';
-        confirmError.textContent = '';
-        
-        if (!validatePhone(phone)) {
-            phoneError.textContent = '请输入正确的手机号格式';
-            return false;
-        }
-        
-        if (password.length < 12 || password.length > 16) {
-            alert('密码长度必须为12-16位');
-            return false;
-        }
-        
-        const types = checkPasswordStrength(password);
-        if (types <= 1) {
-            alert('密码强度太弱，请包含大小写字母、数字或特殊字符中的至少两种');
-            return false;
-        }
-        
-        if (password !== confirmPassword) {
-            confirmError.textContent = '两次输入的密码不一致';
-            return false;
-        }
-        
-        return true;
-    }
-    
-    function showCaptchaModal() {
-        if (!validateForm()) return;
-        generateCaptcha();
-        const modal = new bootstrap.Modal(document.getElementById('captchaModal'));
-        modal.show();
-    }
-    
-    function submitForm() {
-        const input = document.getElementById('captchaInput').value.toUpperCase();
-        const error = document.getElementById('captchaError');
-        
-        if (input !== captchaCode) {
-            error.textContent = '验证码错误，请重新输入';
-            generateCaptcha();
+        const password = document.getElementById("password").value;
+        const strengthBar = document.getElementById("strengthBar");
+        const strengthText = document.getElementById("strengthText");
+        const types = countPasswordTypes(password);
+
+        if (!password) {
+            strengthBar.style.width = "0";
+            strengthText.textContent = "";
             return;
         }
-        
-        bootstrap.Modal.getInstance(document.getElementById('captchaModal')).hide();
-        document.getElementById('registerForm').submit();
+
+        if (types <= 1) {
+            strengthBar.style.width = "34%";
+            strengthBar.style.background = "#ef4444";
+            strengthText.textContent = "密码偏弱，请至少包含两种字符组合";
+        } else if (types === 2) {
+            strengthBar.style.width = "67%";
+            strengthBar.style.background = "#f59e0b";
+            strengthText.textContent = "密码强度中等";
+        } else {
+            strengthBar.style.width = "100%";
+            strengthBar.style.background = "#22c55e";
+            strengthText.textContent = "密码强度良好";
+        }
     }
-    
-    document.getElementById('password').addEventListener('input', updateStrengthBar);
-    
-    document.getElementById('confirmPassword').addEventListener('input', function() {
-        const confirmError = document.getElementById('confirmError');
-        if (this.value !== document.getElementById('password').value) {
-            confirmError.textContent = '两次输入的密码不一致';
-        } else {
-            confirmError.textContent = '';
+
+    function validateForm() {
+        const phone = document.getElementById("phone").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        const phoneError = document.getElementById("phoneError");
+        const confirmError = document.getElementById("confirmError");
+
+        phoneError.textContent = "";
+        confirmError.textContent = "";
+
+        if (!validatePhone(phone)) {
+            phoneError.textContent = "请输入正确的手机号格式";
+            return false;
         }
+
+        if (password.length < 12 || password.length > 16) {
+            alert("密码长度必须在 12 到 16 位之间");
+            return false;
+        }
+
+        if (countPasswordTypes(password) <= 1) {
+            alert("密码强度太弱，请至少包含大小写字母、数字、特殊字符中的两种");
+            return false;
+        }
+
+        if (password !== confirmPassword) {
+            confirmError.textContent = "两次输入的密码不一致";
+            return false;
+        }
+
+        return true;
+    }
+
+    function showCaptchaModal() {
+        if (!validateForm()) {
+            return;
+        }
+        generateCaptcha();
+        const modal = new bootstrap.Modal(document.getElementById("captchaModal"));
+        modal.show();
+    }
+
+    function submitForm() {
+        const inputEl = document.getElementById("captchaInput");
+        const errorEl = document.getElementById("captchaError");
+        const inputValue = inputEl.value.trim().toUpperCase();
+
+        if (inputValue !== captchaCode) {
+            generateCaptcha();
+            inputEl.classList.add("is-invalid");
+            errorEl.textContent = "验证码错误，请重新输入";
+            return;
+        }
+
+        inputEl.classList.remove("is-invalid");
+        errorEl.textContent = "";
+        bootstrap.Modal.getInstance(document.getElementById("captchaModal")).hide();
+        document.getElementById("registerForm").submit();
+    }
+
+    document.getElementById("password").addEventListener("input", updateStrengthBar);
+    document.getElementById("confirmPassword").addEventListener("input", function () {
+        const errorEl = document.getElementById("confirmError");
+        errorEl.textContent = this.value && this.value !== document.getElementById("password").value
+            ? "两次输入的密码不一致"
+            : "";
     });
-    
-    document.getElementById('phone').addEventListener('blur', function() {
-        const phoneError = document.getElementById('phoneError');
-        if (this.value && !validatePhone(this.value)) {
-            phoneError.textContent = '请输入正确的手机号格式';
-        } else {
-            phoneError.textContent = '';
-        }
+    document.getElementById("phone").addEventListener("blur", function () {
+        document.getElementById("phoneError").textContent = this.value && !validatePhone(this.value)
+            ? "请输入正确的手机号格式"
+            : "";
+    });
+    document.getElementById("captchaInput").addEventListener("input", function () {
+        this.classList.remove("is-invalid");
+        document.getElementById("captchaError").textContent = "";
     });
 </script>
 </body>

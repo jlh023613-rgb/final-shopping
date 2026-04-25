@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>商品申请审核</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #080c14;
+            --bg-sidebar: #0d1117;
+            --bg-card: #161b22;
+            --bg-card-hover: #21262d;
+            --primary: #4f8cff;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+            --text-main: #f0f6fc;
+            --text-sub: #8b949e;
+            --border: #30363d;
+        }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; background: var(--bg-dark); color: var(--text-main); font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+        .sidebar { position: fixed; inset: 0 auto 0 0; width: 228px; background: var(--bg-sidebar); border-right: 1px solid var(--border); }
+        .sidebar-header { padding: 20px 18px; font-size: 16px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .menu-title { padding: 14px 18px 8px; font-size: 11px; letter-spacing: 1px; color: #6e7681; text-transform: uppercase; }
+        .nav-link { display: flex; align-items: center; gap: 10px; padding: 11px 18px; color: var(--text-sub); text-decoration: none; border-left: 3px solid transparent; transition: .2s ease; }
+        .nav-link:hover, .nav-link.active { color: #fff; background: rgba(79,140,255,.12); border-left-color: var(--primary); }
+        .main { margin-left: 228px; padding: 28px; }
+        .head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .head h1 { margin: 0; font-size: 24px; font-weight: 700; }
+        .filters { display: flex; gap: 10px; flex-wrap: wrap; }
+        .filter-btn { padding: 8px 16px; border: 1px solid var(--border); border-radius: 999px; color: var(--text-sub); text-decoration: none; background: var(--bg-card); }
+        .filter-btn.active, .filter-btn:hover { color: #fff; border-color: var(--primary); background: rgba(79,140,255,.14); }
+        .card-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+        .table { margin: 0; color: var(--text-main); }
+        .table th { background: rgba(79,140,255,.08); color: #9ec1ff; font-size: 12px; text-transform: uppercase; letter-spacing: .8px; padding: 14px 16px; border-color: var(--border); }
+        .table td { padding: 16px; border-color: var(--border); background: var(--bg-card); vertical-align: middle; }
+        .table tbody tr:hover td { background: var(--bg-card-hover); }
+        .product-thumb { width: 72px; height: 72px; border-radius: 14px; object-fit: cover; background: #0f141b; border: 1px solid var(--border); }
+        .thumb-fallback { width: 72px; height: 72px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: #10151d; color: var(--text-sub); border: 1px dashed var(--border); font-size: 12px; }
+        .meta { color: var(--text-sub); font-size: 12px; line-height: 1.7; }
+        .status-badge { display: inline-flex; align-items: center; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+        .status-pending { background: rgba(210,153,34,.18); color: #f3c969; }
+        .status-approved { background: rgba(63,185,80,.16); color: #7ee787; }
+        .status-rejected { background: rgba(248,81,73,.16); color: #ff938a; }
+        .reason-text { max-width: 260px; font-size: 13px; color: var(--text-sub); line-height: 1.8; white-space: pre-line; }
+        .action-stack { display: flex; flex-direction: column; gap: 10px; }
+        .btn-main, .btn-danger, .btn-sub { border: none; border-radius: 12px; padding: 9px 14px; font-size: 13px; font-weight: 700; }
+        .btn-main { background: var(--primary); color: #fff; }
+        .btn-danger { background: rgba(248,81,73,.16); color: #ff938a; border: 1px solid rgba(248,81,73,.24); }
+        .btn-sub { background: rgba(255,255,255,.06); color: #fff; border: 1px solid var(--border); }
+        .modal-content { background: var(--bg-card); color: #fff; border: 1px solid var(--border); border-radius: 18px; }
+        .modal-header, .modal-footer { border-color: var(--border); }
+        .btn-close { filter: invert(1); }
+        .form-control { background: #0f141b; color: #fff; border-color: var(--border); }
+        .form-control:focus { background: #0f141b; color: #fff; border-color: var(--primary); box-shadow: 0 0 0 0.2rem rgba(79,140,255,.18); }
+        .empty-box { padding: 80px 20px; text-align: center; color: var(--text-sub); }
+    </style>
+    <link href="/css/backend-readable-text.css?v=20260416b" rel="stylesheet">
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-header">管理员控制台</div>
+    <div class="menu-title">工作台</div>
+    <a class="nav-link" href="/admin/dashboard">概览</a>
+    <div class="menu-title">审核管理</div>
+    <a class="nav-link" href="/admin/merchants">商家管理</a>
+    <a class="nav-link active" href="/admin/product-applications">商品申请</a>
+    <div class="menu-title">异常订单</div>
+    <a class="nav-link" href="/admin/order-list">异常订单列表</a>
+    <a class="nav-link" href="/admin/complaints">投诉管理</a>
+    <a class="nav-link" href="/admin/refunds">退款管理</a>
+    <div class="menu-title">退出</div>
+    <a class="nav-link" href="/admin/logout">退出登录</a>
+</div>
+
+<div class="main">
+    <div class="head">
+        <h1>商品申请审核</h1>
+        <div class="filters">
+            <a href="/admin/product-applications" class="filter-btn" th:classappend="${currentStatus == null} ? ' active'">全部</a>
+            <a href="/admin/product-applications?status=0" class="filter-btn" th:classappend="${currentStatus == 0} ? ' active'">待审核</a>
+            <a href="/admin/product-applications?status=1" class="filter-btn" th:classappend="${currentStatus == 1} ? ' active'">已通过</a>
+            <a href="/admin/product-applications?status=-1" class="filter-btn" th:classappend="${currentStatus == -1} ? ' active'">已驳回</a>
+        </div>
+    </div>
+
+    <div class="card-box">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th>图片</th>
+                    <th>商品信息</th>
+                    <th>所属商家</th>
+                    <th>价格 / 库存</th>
+                    <th>审核状态</th>
+                    <th>审核说明</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${products}">
+                    <td>
+                        <img th:if="${p.imageUrl != null and !p.imageUrl.isEmpty()}" th:src="${p.imageUrl}" alt="商品图" class="product-thumb">
+                        <div th:if="${p.imageUrl == null or p.imageUrl.isEmpty()}" class="thumb-fallback">无图片</div>
+                    </td>
+                    <td>
+                        <div style="font-weight: 700;" th:text="${p.name}">商品名称</div>
+                        <div class="meta">
+                            分类：<span th:text="${p.category}"></span><br>
+                            申请时间：<span th:text="${p.submittedAt != null ? #temporals.format(p.submittedAt, 'yyyy-MM-dd HH:mm') : '-'}"></span>
+                        </div>
+                    </td>
+                    <td th:text="${p.merchantShopName}">商家</td>
+                    <td>
+                        <div>￥<span th:text="${p.price}"></span></div>
+                        <div class="meta">库存：<span th:text="${p.stock}"></span></div>
+                    </td>
+                    <td>
+                        <span th:if="${p.status == 0}" class="status-badge status-pending">待审核</span>
+                        <span th:if="${p.status == 1}" class="status-badge status-approved">已通过</span>
+                        <span th:if="${p.status == -1}" class="status-badge status-rejected">已驳回</span>
+                        <div class="meta mt-2" th:if="${p.auditedAt != null}">审核时间：<span th:text="${#temporals.format(p.auditedAt, 'yyyy-MM-dd HH:mm')}"></span></div>
+                    </td>
+                    <td>
+                        <div class="reason-text" th:text="${p.auditReason != null and !p.auditReason.isEmpty() ? p.auditReason : '暂无审核说明'}"></div>
+                    </td>
+                    <td>
+                        <div class="action-stack" th:if="${p.status == 0}">
+                            <form th:action="@{/admin/product-application/approve/{id}(id=${p.id})}" method="post">
+                                <button type="submit" class="btn-main">通过申请</button>
+                            </form>
+                            <button type="button" class="btn-danger" data-bs-toggle="modal" th:attr="data-bs-target='#rejectProductModal' + ${p.id}">驳回申请</button>
+                        </div>
+                        <div class="action-stack" th:if="${p.status != 0}">
+                            <span class="btn-sub" th:text="${p.status == 1 ? '已完成审核' : '已给出驳回原因'}"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${products == null or products.isEmpty()}">
+                    <td colspan="7">
+                        <div class="empty-box">当前没有商品申请记录</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<th:block th:each="p : ${products}">
+    <div class="modal fade" th:id="'rejectProductModal' + ${p.id}" tabindex="-1" th:if="${p.status == 0}">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">驳回商品申请</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form th:action="@{/admin/product-application/reject/{id}(id=${p.id})}" method="post">
+                    <div class="modal-body">
+                        <label class="form-label">驳回原因</label>
+                        <textarea name="auditReason" class="form-control" rows="3" placeholder="请输入驳回原因，商家会在商品管理页看到" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-sub" data-bs-dismiss="modal">取消</button>
+                        <button type="submit" class="btn-danger">确认驳回</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

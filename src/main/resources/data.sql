@@ -574,6 +574,147 @@ WHERE category = 'computer'
   );
 
 -- ============================================================
+-- 手机数码与电脑办公详情字段精准补齐（仅覆盖待补充/通用兜底文案）
+-- ============================================================
+UPDATE products p
+JOIN (
+    SELECT '华为 Mate 80' AS name, '华为' AS brand, 'Mate 80' AS model, '商务旗舰' AS position, '麒麟平台 / 卫星通信' AS highlight, '商务沟通 / 差旅出行' AS scene, '鸿蒙生态' AS system_name
+    UNION ALL SELECT '华为 Pura 80', '华为', 'Pura 80', '影像旗舰', '超感知影像 / 时尚设计', '人像拍摄 / 日常记录', '鸿蒙生态'
+    UNION ALL SELECT 'iPhone 14', 'Apple', 'iPhone 14', '标准旗舰', 'A15 芯片 / 超视网膜显示屏', '日常拍摄 / 苹果生态', 'iOS'
+    UNION ALL SELECT 'iPhone 14 Pro', 'Apple', 'iPhone 14 Pro', 'Pro 旗舰', '灵动岛 / ProMotion', '专业拍摄 / 高端旗舰体验', 'iOS'
+    UNION ALL SELECT 'iPhone 15', 'Apple', 'iPhone 15', '标准旗舰', 'A16 芯片 / USB-C', '日常使用 / 便捷连接', 'iOS'
+    UNION ALL SELECT 'iPhone 15 Pro', 'Apple', 'iPhone 15 Pro', 'Pro 旗舰', '钛金属机身 / A17 Pro', '进阶影像 / 高性能处理', 'iOS'
+    UNION ALL SELECT 'iPhone 16', 'Apple', 'iPhone 16', '标准旗舰', 'A18 芯片 / 相机控制按钮', '拍照记录 / 生态协同', 'iOS'
+    UNION ALL SELECT 'iPhone 16 Pro', 'Apple', 'iPhone 16 Pro', 'Pro 旗舰', 'A18 Pro / 4K 120fps 视频', '视频创作 / 专业影像', 'iOS'
+    UNION ALL SELECT 'iPhone 17', 'Apple', 'iPhone 17', '新一代旗舰', '全新设计 / A19 芯片', '日常旗舰 / 长期使用', 'iOS'
+    UNION ALL SELECT 'iPhone 17 Pro', 'Apple', 'iPhone 17 Pro', '新一代 Pro 旗舰', 'A19 Pro / 专业影像系统', '高端创作 / 旗舰换机', 'iOS'
+    UNION ALL SELECT '一加 15', '一加', '15', '性能旗舰', '骁龙旗舰 / 哈苏影像', '游戏娱乐 / 全能旗舰', 'ColorOS'
+    UNION ALL SELECT '一加 Ace Turbo 6', '一加', 'Ace Turbo 6', '性能直屏机', '性能怪兽 / 超级快充', '高帧率游戏 / 高性价比', 'ColorOS'
+    UNION ALL SELECT 'OPPO A6c', 'OPPO', 'A6c', '长续航入门机', '轻薄设计 / 超长续航', '日常通勤 / 长辈备用', 'ColorOS'
+    UNION ALL SELECT 'OPPO Find X9', 'OPPO', 'Find X9', '影像旗舰', '哈苏联合调校 / 旗舰影像', '人像夜景 / 高端换机', 'ColorOS'
+    UNION ALL SELECT '三星 Galaxy S26', '三星', 'Galaxy S26', 'AI 旗舰', 'AI 体验 / 高素质屏幕', '综合旗舰 / 影音娱乐', 'One UI'
+    UNION ALL SELECT '三星 Galaxy S26 Ultra', '三星', 'Galaxy S26 Ultra', 'Ultra 旗舰', 'S Pen / 全能影像', '商务记录 / 高端创作', 'One UI'
+    UNION ALL SELECT 'vivo S20', 'vivo', 'S20', '自拍轻薄机', '柔光自拍 / 轻薄设计', '自拍人像 / 时尚通勤', 'OriginOS'
+    UNION ALL SELECT 'vivo Y500', 'vivo', 'Y500', '长续航实用机', '大电池 / 持久续航', '日常通讯 / 长时间外出', 'OriginOS'
+    UNION ALL SELECT 'vivo X200', 'vivo', 'X200', '影像旗舰', '蔡司影像 / 旗舰体验', '人文抓拍 / 旗舰换机', 'OriginOS'
+    UNION ALL SELECT '小米 16', '小米', '16', '性能影像旗舰', '骁龙旗舰 / 徕卡影像', '拍照创作 / 全能旗舰', '澎湃OS'
+    UNION ALL SELECT '小米 17', '小米', '17', '新一代旗舰', '全新设计 / 澎湃OS', '长期主力机 / 生态互联', '澎湃OS'
+    UNION ALL SELECT 'Redmi Turbo 5', 'Redmi', 'Turbo 5', '高性价比性能机', '性能小金刚 / 超值之选', '游戏娱乐 / 预算优先', '澎湃OS'
+    UNION ALL SELECT 'iQOO 15', 'iQOO', '15', '电竞旗舰', '高性能平台 / 游戏优化', '手游高帧 / 重度娱乐', 'OriginOS'
+    UNION ALL SELECT 'realme GT 8 Pro', 'realme', 'GT 8 Pro', '性能旗舰', '高性能平台 / 游戏表现', '游戏娱乐 / 高刷体验', 'realme UI'
+    UNION ALL SELECT 'realme 16 Pro', 'realme', '16 Pro', '轻薄性能机', '轻薄设计 / 性能均衡', '日常通勤 / 主力使用', 'realme UI'
+    UNION ALL SELECT 'realme Neo 8', 'realme', 'Neo 8', '潮流性能机', '高性价比 / 潮流设计', '学生党 / 日常娱乐', 'realme UI'
+) d ON p.category = 'phone' AND p.name = d.name
+SET p.brand = d.brand,
+    p.model = d.model,
+    p.specifications = JSON_OBJECT(
+        '品牌', d.brand,
+        '型号', d.model,
+        '产品定位', d.position,
+        '核心亮点', d.highlight,
+        '适用场景', d.scene,
+        '系统', d.system_name
+    ),
+    p.features = CONCAT(
+        '围绕', d.highlight, '打造，整体定位更贴近', d.position, '用户。', '\n',
+        '重点面向', d.scene, '场景，兼顾日常使用与核心卖点体验。', '\n',
+        CASE
+            WHEN d.brand = 'Apple' THEN '更适合已经在用 iPhone、Mac 或 iPad 的用户继续扩展苹果生态。'
+            WHEN d.brand = '华为' THEN '鸿蒙生态协同更适合重视多设备联动和通信体验的用户。'
+            WHEN d.brand IN ('小米', 'Redmi') THEN '澎湃OS 生态更方便和小米设备联动，做主力机也更顺手。'
+            WHEN d.brand IN ('vivo', 'iQOO') THEN 'OriginOS 风格流畅，适合重视系统观感和日常顺手度的用户。'
+            WHEN d.brand IN ('OPPO', '一加') THEN 'ColorOS 交互成熟，兼顾日常易用性和长期稳定体验。'
+            WHEN d.brand = '三星' THEN 'One UI 功能完整，适合需要效率功能和大屏交互体验的用户。'
+            ELSE CONCAT(d.system_name, ' 生态取向明确，适合把它作为长期主力机使用。')
+        END
+    ),
+    p.packaging_list = CONCAT(p.name, ' x1\n数据线 x1\n取卡针 x1\n说明资料 x1\n保修卡 x1')
+WHERE (
+    p.brand IS NULL OR p.brand = ''
+    OR p.model IS NULL OR p.model = ''
+    OR p.specifications LIKE '%待补充%'
+    OR p.features LIKE '官方正品保障%'
+    OR p.packaging_list = CONCAT(p.name, ' x1\n说明书 x1\n保修卡 x1\n充电配件 x1')
+);
+
+UPDATE products p
+JOIN (
+    SELECT 'MacBook Air 13' AS name, 'Apple' AS brand, 'MacBook Air 13' AS model, '轻薄笔记本' AS form_factor, 'M3 芯片 / 13 英寸便携' AS highlight, '移动办公 / 学习' AS scene, 'macOS' AS system_name, 'laptop' AS device_type
+    UNION ALL SELECT 'MacBook Air 15', 'Apple', 'MacBook Air 15', '轻薄笔记本', 'M3 芯片 / 15 英寸大屏', '移动办公 / 影音娱乐', 'macOS', 'laptop'
+    UNION ALL SELECT 'MacBook Pro 14', 'Apple', 'MacBook Pro 14', '专业创作本', 'M3 Pro / 14 英寸高性能', '剪辑设计 / 开发创作', 'macOS', 'laptop'
+    UNION ALL SELECT 'MacBook Pro 16', 'Apple', 'MacBook Pro 16', '旗舰创作本', 'M3 Max / 16 英寸大屏', '大型创作 / 高负载生产力', 'macOS', 'laptop'
+    UNION ALL SELECT 'Mac mini', 'Apple', 'Mac mini', '迷你主机', 'M2 芯片 / 小巧桌面', '桌面办公 / 家庭工作站', 'macOS', 'desktop'
+    UNION ALL SELECT 'iPad Air', 'Apple', 'iPad Air', '轻薄平板', 'M2 芯片 / 轻薄机身', '学习笔记 / 移动办公', 'iPadOS', 'tablet'
+    UNION ALL SELECT 'iPad Pro', 'Apple', 'iPad Pro', '专业平板', 'M4 芯片 / 高性能创作', '绘画设计 / 视频处理', 'iPadOS', 'tablet'
+    UNION ALL SELECT 'iPad mini', 'Apple', 'iPad mini', '便携平板', 'A17 Pro / 小巧机身', '阅读记录 / 随身娱乐', 'iPadOS', 'tablet'
+    UNION ALL SELECT 'MateBook 14s', '华为', 'MateBook 14s', '轻薄商务本', '高效办公 / 轻薄机身', '通勤办公 / 学习使用', 'Windows', 'laptop'
+    UNION ALL SELECT 'MateBook D14', '华为', 'MateBook D14', '高性价比办公本', '14 英寸便携 / 日常办公', '学习文档 / 轻量办公', 'Windows', 'laptop'
+    UNION ALL SELECT 'MateBook GT 14', '华为', 'MateBook GT 14', '高性能轻薄本', '性能调校 / 轻薄设计', '高效办公 / 轻创作', 'Windows', 'laptop'
+    UNION ALL SELECT 'MateBook X Pro', '华为', 'MateBook X Pro', '旗舰轻薄本', '高端做工 / 便携商务', '商务出差 / 高端办公', 'Windows', 'laptop'
+    UNION ALL SELECT 'MateStation S', '华为', 'MateStation S', '迷你主机', '小巧桌面 / 扩展灵活', '桌面办公 / 家用学习', 'Windows', 'desktop'
+    UNION ALL SELECT 'ProArt Studiobook', '华硕', 'ProArt Studiobook', '创作者笔记本', '面向设计创作 / 专业表达', '设计绘图 / 内容制作', 'Windows', 'laptop'
+    UNION ALL SELECT 'Predator Helios 16', '宏碁', 'Predator Helios 16', '16 英寸电竞本', '大屏高性能 / 游戏定位', '主流 3A / 电竞娱乐', 'Windows', 'laptop'
+    UNION ALL SELECT 'Alienware m16', '戴尔', 'Alienware m16', '旗舰游戏本', '高性能平台 / 强散热定位', '发烧级游戏 / 高负载使用', 'Windows', 'laptop'
+    UNION ALL SELECT 'Alienware x14', '戴尔', 'Alienware x14', '轻薄游戏本', '轻量机身 / 电竞定位', '便携游戏 / 校园宿舍', 'Windows', 'laptop'
+    UNION ALL SELECT 'Dell G15', '戴尔', 'G15', '高性价比游戏本', '主流游戏性能 / 价格友好', '日常游戏 / 学生党', 'Windows', 'laptop'
+    UNION ALL SELECT 'Inspiron 16 Plus', '戴尔', 'Inspiron 16 Plus', '大屏办公本', '16 英寸大屏 / 家用办公', '文档处理 / 影音娱乐', 'Windows', 'laptop'
+    UNION ALL SELECT 'Latitude 5440', '戴尔', 'Latitude 5440', '商务办公本', '稳定耐用 / 商务定位', '企业办公 / 远程会议', 'Windows', 'laptop'
+    UNION ALL SELECT 'Latitude 7440', '戴尔', 'Latitude 7440', '高端商务本', '轻薄商用 / 品质办公', '高频出差 / 移动办公', 'Windows', 'laptop'
+    UNION ALL SELECT 'XPS 13', '戴尔', 'XPS 13', '超轻薄旗舰本', '高端设计 / 小尺寸便携', '通勤办公 / 轻创作', 'Windows', 'laptop'
+    UNION ALL SELECT 'XPS 14', '戴尔', 'XPS 14', '高端轻薄本', '大屏生产力 / 精致做工', '办公创作 / 日常主力', 'Windows', 'laptop'
+    UNION ALL SELECT 'XPS 16', '戴尔', 'XPS 16', '旗舰创作本', '大屏高性能 / 创作表达', '内容创作 / 高端办公', 'Windows', 'laptop'
+    UNION ALL SELECT 'EliteBook 1040', '惠普', 'EliteBook 1040', '高端商务本', '旗舰商用 / 移动办公', '商务会议 / 出差办公', 'Windows', 'laptop'
+    UNION ALL SELECT 'EliteBook 840', '惠普', 'EliteBook 840', '商务办公本', '稳定高效 / 企业商用', '企业办公 / 文档处理', 'Windows', 'laptop'
+    UNION ALL SELECT 'Omen 16', '惠普', 'Omen 16', '电竞游戏本', '高性能定位 / 游戏散热', '高帧率游戏 / 娱乐使用', 'Windows', 'laptop'
+    UNION ALL SELECT 'Pavilion', '惠普', 'Pavilion', '家用娱乐本', '日常易用 / 家庭场景', '家用办公 / 影音娱乐', 'Windows', 'laptop'
+    UNION ALL SELECT 'Spectre', '惠普', 'Spectre', '高端轻薄本', '设计感机身 / 高端定位', '移动办公 / 轻创作', 'Windows', 'laptop'
+    UNION ALL SELECT 'Legion R9000P', '联想', 'Legion R9000P', '电竞游戏本', '高性能调校 / 游戏定位', '大型游戏 / 多任务娱乐', 'Windows', 'laptop'
+    UNION ALL SELECT 'ThinkBook 14', '联想', 'ThinkBook 14', '商务办公本', '稳妥高效 / 商务定位', '文档处理 / 通勤办公', 'Windows', 'laptop'
+    UNION ALL SELECT 'Legion Y7000P', '联想', 'Legion Y7000P', '主流游戏本', '平衡性能 / 主流电竞', '日常游戏 / 校园使用', 'Windows', 'laptop'
+    UNION ALL SELECT 'Legion Y9000K', '联想', 'Legion Y9000K', '旗舰游戏本', '发烧性能 / 旗舰定位', '重度游戏 / 高负载娱乐', 'Windows', 'laptop'
+    UNION ALL SELECT 'Legion Y9000P', '联想', 'Legion Y9000P', '高端游戏本', '高性能平台 / 全能游戏', '高画质游戏 / 创作兼顾', 'Windows', 'laptop'
+    UNION ALL SELECT 'Yoga Book 9i', '联想', 'Yoga Book 9i', '双屏创意本', '双屏形态 / 多任务表达', '创意办公 / 演示协作', 'Windows', 'laptop'
+    UNION ALL SELECT '小新 16', '联想', '小新 16', '大屏轻薄本', '大屏视野 / 日常主力', '学习网课 / 家用办公', 'Windows', 'laptop'
+    UNION ALL SELECT '小新 Air14', '联想', '小新 Air14', '轻薄便携本', '通勤便携 / 日常办公', '移动学习 / 文档处理', 'Windows', 'laptop'
+    UNION ALL SELECT '小新 Pro14', '联想', '小新 Pro14', '高性能轻薄本', '性能释放 / 便携尺寸', '学习创作 / 主力办公', 'Windows', 'laptop'
+    UNION ALL SELECT 'Surface Go 3', '微软', 'Surface Go 3', '便携二合一', '轻巧机身 / 触控形态', '随身记录 / 轻办公', 'Windows', 'tablet'
+    UNION ALL SELECT 'Surface Laptop 5/6', '微软', 'Surface Laptop 5/6', '轻薄笔记本', '触控办公 / 轻巧机身', '移动办公 / 日常主力', 'Windows', 'laptop'
+    UNION ALL SELECT 'Surface Laptop SE', '微软', 'Surface Laptop SE', '教育笔记本', '教学场景 / 轻量易用', '网课学习 / 校园使用', 'Windows', 'laptop'
+    UNION ALL SELECT 'Surface Pro 9/10', '微软', 'Surface Pro 9/10', '专业二合一', '平板笔记本双形态 / 触控办公', '会议演示 / 移动协作', 'Windows', 'tablet'
+) d ON p.category = 'computer' AND p.name = d.name
+SET p.brand = d.brand,
+    p.model = d.model,
+    p.specifications = JSON_OBJECT(
+        '品牌', d.brand,
+        '型号', d.model,
+        '设备形态', d.form_factor,
+        '核心亮点', d.highlight,
+        '适用场景', d.scene,
+        '系统', d.system_name
+    ),
+    p.features = CONCAT(
+        '主打', d.highlight, '，整体更偏向', d.form_factor, '这一使用形态。', '\n',
+        '适合', d.scene, '等场景，能够覆盖主流学习、办公或娱乐需求。', '\n',
+        CASE
+            WHEN d.system_name = 'macOS' THEN 'macOS 更适合已经在用 iPhone、iPad 或其他 Apple 设备的用户协同使用。'
+            WHEN d.system_name = 'iPadOS' THEN 'iPadOS 适合触控、手写与移动场景，做随身生产力设备更灵活。'
+            ELSE 'Windows 生态兼容性更强，接入常见办公软件和外设会更省心。'
+        END
+    ),
+    p.packaging_list = CASE
+        WHEN d.device_type = 'desktop' THEN CONCAT(p.name, ' 主机 x1\n电源线 x1\n说明资料 x1\n保修卡 x1')
+        WHEN d.device_type = 'tablet' THEN CONCAT(p.name, ' x1\n电源适配器 x1\n数据线 x1\n说明资料 x1')
+        ELSE CONCAT(p.name, ' x1\n电源适配器 x1\n电源线 x1\n说明资料 x1')
+    END
+WHERE (
+    p.brand IS NULL OR p.brand = ''
+    OR p.model IS NULL OR p.model = ''
+    OR p.specifications LIKE '%待补充%'
+    OR p.features LIKE '官方正品保障%'
+    OR p.packaging_list = CONCAT(p.name, ' x1\n电源适配器 x1\n说明书 x1\n保修卡 x1')
+);
+
+-- ============================================================
 -- 初始化完成
 -- ============================================================
 

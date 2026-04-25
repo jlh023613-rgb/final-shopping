@@ -13,6 +13,9 @@ public class Merchant {
     private String shopImage;
     private String category;
     private String status;
+    private String closeReason;
+    private LocalDateTime closeUntil;
+    private LocalDateTime closedAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

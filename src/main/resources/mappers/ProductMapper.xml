@@ -60,16 +60,37 @@
     <select id="findById" resultType="com.example.shopping.entity.Product">
         SELECT * FROM products WHERE id = #{id}
     </select>
+
+    <select id="findByMerchantId" resultType="com.example.shopping.entity.Product">
+        SELECT *
+        FROM products
+        WHERE merchant_id = #{merchantId}
+        ORDER BY
+            CASE WHEN status = 0 THEN 0 WHEN status = -1 THEN 1 ELSE 2 END,
+            COALESCE(submitted_at, update_time, create_time) DESC,
+            id DESC
+    </select>
     
     <insert id="insert" parameterType="com.example.shopping.entity.Product" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO products (name, category, price, original_price, stock, image_url, description, status, merchant_id)
-        VALUES (#{name}, #{category}, #{price}, #{originalPrice}, #{stock}, #{imageUrl}, #{description}, #{status}, #{merchantId})
+        INSERT INTO products (
+            name, category, specifications, features, packaging_list,
+            price, original_price, stock, image_url, description,
+            status, merchant_id, audit_reason, submitted_at, audited_at
+        )
+        VALUES (
+            #{name}, #{category}, #{specifications}, #{features}, #{packagingList},
+            #{price}, #{originalPrice}, #{stock}, #{imageUrl}, #{description},
+            #{status}, #{merchantId}, #{auditReason}, #{submittedAt}, #{auditedAt}
+        )
     </insert>
     
     <update id="update" parameterType="com.example.shopping.entity.Product">
         UPDATE products SET 
             name = #{name},
             category = #{category},
+            specifications = #{specifications},
+            features = #{features},
+            packaging_list = #{packagingList},
             price = #{price},
             original_price = #{originalPrice},
             stock = #{stock},
@@ -117,4 +138,28 @@
         </choose>
         AND (merchant_id IS NULL OR merchant_id IN (SELECT id FROM shops))
     </select>
+
+    <select id="findMerchantApplicationsByStatus" resultType="com.example.shopping.entity.Product">
+        SELECT p.*, m.shop_name AS merchant_shop_name
+        FROM products p
+        INNER JOIN merchants m ON p.merchant_id = m.id
+        <where>
+            p.audit_reason IS NOT NULL
+            <if test="status != null">
+                AND p.status = #{status}
+            </if>
+        </where>
+        ORDER BY
+            CASE WHEN p.status = 0 THEN 0 ELSE 1 END,
+            COALESCE(p.submitted_at, p.update_time, p.create_time) DESC,
+            p.id DESC
+    </select>
+
+    <update id="updateAuditStatus">
+        UPDATE products
+        SET status = #{status},
+            audit_reason = #{auditReason},
+            audited_at = #{auditedAt}
+        WHERE id = #{id}
+    </update>
 </mapper>

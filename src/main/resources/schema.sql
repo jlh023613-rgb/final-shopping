@@ -44,6 +44,9 @@ CREATE TABLE IF NOT EXISTS merchants (
     shop_image VARCHAR(500),
     category VARCHAR(50),
     status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    close_reason VARCHAR(500),
+    close_until DATETIME,
+    closed_at DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -78,6 +81,9 @@ CREATE TABLE IF NOT EXISTS products (
     specifications TEXT,
     features TEXT,
     packaging_list TEXT,
+    audit_reason VARCHAR(500),
+    submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    audited_at DATETIME,
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -181,3 +187,63 @@ CREATE TABLE IF NOT EXISTS admins (
     password VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+SET @column_exists = (
+    SELECT COUNT(*)
+    FROM information_schema.columns
+    WHERE table_schema = DATABASE() AND table_name = 'merchants' AND column_name = 'close_reason'
+);
+SET @ddl = IF(@column_exists = 0, 'ALTER TABLE merchants ADD COLUMN close_reason VARCHAR(500) NULL', 'SELECT 1');
+PREPARE stmt FROM @ddl;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @column_exists = (
+    SELECT COUNT(*)
+    FROM information_schema.columns
+    WHERE table_schema = DATABASE() AND table_name = 'merchants' AND column_name = 'close_until'
+);
+SET @ddl = IF(@column_exists = 0, 'ALTER TABLE merchants ADD COLUMN close_until DATETIME NULL', 'SELECT 1');
+PREPARE stmt FROM @ddl;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @column_exists = (
+    SELECT COUNT(*)
+    FROM information_schema.columns
+    WHERE table_schema = DATABASE() AND table_name = 'merchants' AND column_name = 'closed_at'
+);
+SET @ddl = IF(@column_exists = 0, 'ALTER TABLE merchants ADD COLUMN closed_at DATETIME NULL', 'SELECT 1');
+PREPARE stmt FROM @ddl;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @column_exists = (
+    SELECT COUNT(*)
+    FROM information_schema.columns
+    WHERE table_schema = DATABASE() AND table_name = 'products' AND column_name = 'audit_reason'
+);
+SET @ddl = IF(@column_exists = 0, 'ALTER TABLE products ADD COLUMN audit_reason VARCHAR(500) NULL', 'SELECT 1');
+PREPARE stmt FROM @ddl;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @column_exists = (
+    SELECT COUNT(*)
+    FROM information_schema.columns
+    WHERE table_schema = DATABASE() AND table_name = 'products' AND column_name = 'submitted_at'
+);
+SET @ddl = IF(@column_exists = 0, 'ALTER TABLE products ADD COLUMN submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP', 'SELECT 1');
+PREPARE stmt FROM @ddl;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @column_exists = (
+    SELECT COUNT(*)
+    FROM information_schema.columns
+    WHERE table_schema = DATABASE() AND table_name = 'products' AND column_name = 'audited_at'
+);
+SET @ddl = IF(@column_exists = 0, 'ALTER TABLE products ADD COLUMN audited_at DATETIME NULL', 'SELECT 1');
+PREPARE stmt FROM @ddl;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;

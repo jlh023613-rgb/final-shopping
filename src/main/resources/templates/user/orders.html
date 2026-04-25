@@ -1,71 +1,167 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout :: head}"></head>
 <body class="bg-light">
 <style>
-    :root { --primary: #FF4400; --primary-dark: #E63E00; --primary-light: #FFF5F0; --bg: #F5F5F5; --border: #e8e8e8; --text-dark: #333; --text-secondary: #666; --text-muted: #999; }
-    body { background-color: var(--bg); }
-    .page-title { font-size: 16px; font-weight: 600; color: var(--text-dark); padding-left: 10px; border-left: 3px solid var(--primary); margin-bottom: 16px; }
-    .order-card { background: white; border: 1px solid var(--border); border-radius: 4px; margin-bottom: 10px; overflow: hidden; }
-    .order-header { display: flex; justify-content: space-between; align-items: center; background: #fafafa; padding: 8px 14px; border-bottom: 1px solid var(--border); font-size: 12px; }
-    .order-body { padding: 12px 14px; display: flex; align-items: center; }
-    .order-img { width: 70px; height: 70px; object-fit: contain; background: #fff; border: 1px solid var(--border); border-radius: 2px; margin-right: 12px; flex-shrink: 0; }
-    .order-info { flex-grow: 1; min-width: 0; }
-    .order-name { font-size: 13px; color: var(--text-dark); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .order-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-    .order-price { font-size: 16px; color: var(--primary); font-weight: 700; }
-    .order-qty { font-size: 12px; color: var(--text-muted); margin-left: 6px; }
-    .order-addr { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-    .order-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; margin-left: 16px; }
-    .status-badge { font-size: 12px; padding: 2px 8px; border-radius: 2px; font-weight: 500; }
-    .status-pending { background: #FFF8E1; color: #E65100; }
-    .status-shipping { background: #E3F2FD; color: #1565C0; }
-    .status-delivered { background: #E8F5E9; color: #2E7D32; }
-    .status-completed { background: #E8F5E9; color: #1B5E20; }
-    .status-cancelled { background: #FBE9E7; color: #BF360C; }
-    .status-refunded { background: #F3E5F5; color: #6A1B9A; }
-    .status-reviewed { background: #E8EAF6; color: #283593; }
-    .action-btn { padding: 3px 12px; font-size: 12px; border-radius: 2px; border: 1px solid var(--border); background: white; color: var(--text-secondary); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-    .action-btn:hover { border-color: var(--primary); color: var(--primary); }
-    .action-btn-primary { background: var(--primary); color: white; border-color: var(--primary); }
-    .action-btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); color: white; }
-    .action-btn-danger { background: white; color: #d32f2f; border-color: #d32f2f; }
-    .action-btn-danger:hover { background: #d32f2f; color: white; }
-    .action-btn-success { background: white; color: #2e7d32; border-color: #2e7d32; }
-    .action-btn-success:hover { background: #2e7d32; color: white; }
-    .empty-state { text-align: center; padding: 60px 0; color: var(--text-muted); }
-    .empty-state p { margin-top: 12px; font-size: 14px; }
-    .btn-goshop { background: var(--primary); color: white; border: none; padding: 6px 20px; border-radius: 2px; font-size: 13px; }
-    .btn-goshop:hover { background: var(--primary-dark); color: white; }
-    .after-sale-box { margin-top: 8px; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: #fafcff; font-size: 12px; }
-    .after-sale-title { font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
-    .after-sale-meta { color: var(--text-secondary); line-height: 1.6; white-space: pre-line; }
-    .after-sale-success { background: #f3fff6; border-color: #cdeed8; }
-    .after-sale-danger { background: #fff6f6; border-color: #ffd7d7; }
-    .after-sale-warning { background: #fffdf3; border-color: #ffe8b0; }
+    :root {
+        --primary: #ff5a1f;
+        --primary-dark: #e64912;
+        --border: #eceff3;
+        --text-main: #1f2937;
+        --text-sub: #6b7280;
+        --bg-soft: #f8fafc;
+    }
+    body { background: #f4f6f8; }
+    .page-title { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 18px; }
+    .order-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        margin-bottom: 14px;
+        overflow: hidden;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.04);
+    }
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: #fbfcfd;
+        border-bottom: 1px solid var(--border);
+        font-size: 12px;
+        color: var(--text-sub);
+    }
+    .order-body { padding: 16px; display: flex; gap: 14px; align-items: flex-start; }
+    .order-img {
+        width: 84px;
+        height: 84px;
+        object-fit: contain;
+        border-radius: 14px;
+        background: #fff;
+        border: 1px solid var(--border);
+        flex-shrink: 0;
+    }
+    .order-info { flex: 1; min-width: 0; }
+    .order-name { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+    .order-meta { font-size: 13px; color: var(--text-sub); line-height: 1.8; }
+    .order-price { font-size: 20px; color: var(--primary); font-weight: 800; }
+    .order-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; flex-shrink: 0; }
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+    .status-pending { background: #fff7e8; color: #b45309; }
+    .status-shipping { background: #e8f2ff; color: #1d4ed8; }
+    .status-delivered { background: #eafaf0; color: #15803d; }
+    .status-completed { background: #eafaf0; color: #166534; }
+    .status-cancelled { background: #f3f4f6; color: #6b7280; }
+    .status-refunded { background: #fdf2f8; color: #be185d; }
+    .status-reviewed { background: #eef2ff; color: #4338ca; }
+    .action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 7px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--text-sub);
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+    .action-btn:hover { color: var(--primary); border-color: var(--primary); }
+    .action-btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .action-btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); color: #fff; }
+    .action-btn-danger { color: #dc2626; border-color: #fecaca; }
+    .action-btn-success { color: #15803d; border-color: #bbf7d0; }
+    .after-sale-toggle {
+        margin-top: 14px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--bg-soft);
+        overflow: hidden;
+    }
+    .after-sale-toggle summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 12px 14px;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .after-sale-toggle summary::-webkit-details-marker { display: none; }
+    .after-sale-toggle summary::after {
+        content: '展开';
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+    }
+    .after-sale-toggle[open] summary::after { content: '收起'; }
+    .after-sale-content {
+        padding: 0 14px 14px;
+        border-top: 1px solid var(--border);
+    }
+    .after-sale-box {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: #fff;
+        font-size: 12px;
+        line-height: 1.8;
+    }
+    .after-sale-title { font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+    .after-sale-success { border-color: #ccebd6; background: #f4fff7; }
+    .after-sale-danger { border-color: #ffd6d6; background: #fff7f7; }
+    .after-sale-warning { border-color: #ffe9b5; background: #fffdf4; }
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        color: var(--text-sub);
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+    }
+    .btn-goshop {
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 12px;
+        font-weight: 700;
+        text-decoration: none;
+    }
 </style>
 
 <nav th:replace="~{layout :: nav}"></nav>
 
-<main class="container py-3">
+<main class="container py-4">
     <div class="page-title">我的订单</div>
-    <div th:if="${error}" class="alert alert-warning py-2" style="font-size: 13px; border-radius: 2px;" th:text="${error}"></div>
-    <div th:if="${notice == 'refund_escalated'}" class="alert alert-info py-2" style="font-size: 13px; border-radius: 2px;">
-        已提交管理员介入申请，请等待平台处理结果。
-    </div>
-    <div th:if="${notice == 'refund_escalate_failed'}" class="alert alert-warning py-2" style="font-size: 13px; border-radius: 2px;">
-        当前退款状态不支持再次申请管理员介入。
-    </div>
+
+    <div th:if="${error}" class="alert alert-warning" th:text="${error}"></div>
+    <div th:if="${notice == 'refund_escalated'}" class="alert alert-info">已提交管理员介入申请，请等待平台处理结果。</div>
+    <div th:if="${notice == 'refund_escalate_failed'}" class="alert alert-warning">当前退款状态暂不支持再次申请管理员介入。</div>
+
     <div th:if="${orders == null or orders.isEmpty()}" class="empty-state">
-        <p>暂无订单</p>
-        <a href="/" class="btn btn-goshop">去购物</a>
+        <p>你还没有订单，先去看看喜欢的商品吧。</p>
+        <a href="/" class="btn-goshop">去逛商城</a>
     </div>
+
     <div th:each="order : ${orders}" class="order-card">
         <div class="order-header">
             <div>
-                <span style="color: var(--text-muted);">订单号：</span>
-                <span style="font-weight: 600;" th:text="${order.orderNo}"></span>
-                <span style="color: var(--text-muted); margin-left: 12px;" th:text="${#temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                订单号：<strong th:text="${order.orderNo}"></strong>
+                <span style="margin-left: 12px;" th:text="${order.createdAt != null ? #temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm') : '-'}"></span>
             </div>
             <div>
                 <span class="status-badge status-pending" th:if="${order.status == 'pending'}">等待接单</span>
@@ -77,62 +173,57 @@
                 <span class="status-badge status-reviewed" th:if="${order.status == 'reviewed'}">已评价</span>
             </div>
         </div>
+
         <div class="order-body">
-            <img th:if="${order.productImage != null}" th:src="${order.productImage}" class="order-img">
+            <img th:if="${order.productImage != null}" th:src="${order.productImage}" class="order-img" alt="商品图">
             <div class="order-info">
-                <div class="order-name" th:text="${order.productName}"></div>
-                <div class="order-meta">商家：<span th:text="${order.merchantShopName}"></span></div>
-                <div style="margin-top: 4px;">
-                    <span class="order-price" th:text="'¥' + ${order.totalPrice}"></span>
-                    <span class="order-qty" th:text="'x' + ${order.quantity}"></span>
-                </div>
-                <div class="order-addr" th:text="'收货地址: ' + ${order.receiverAddress}"></div>
-
-                <div th:if="${order.hasComplaint}" class="after-sale-box"
-                     th:classappend="${order.complaintStatus == 'handled'} ? ' after-sale-success' : ' after-sale-warning'">
-                    <div class="after-sale-title">投诉处理结果</div>
-                    <div class="after-sale-meta">
-                        <div>状态：<span th:text="${order.complaintStatus == 'handled' ? '已处理' : '处理中'}"></span></div>
-                        <div th:if="${order.complaintResult != null and !order.complaintResult.isEmpty()}"
-                             th:text="'结果：' + ${order.complaintResult}"></div>
-                    </div>
+                <div class="order-name" th:text="${order.productName}">商品名称</div>
+                <div class="order-meta">
+                    店铺：<span th:text="${order.merchantShopName}"></span><br>
+                    总价：<span class="order-price" th:text="${'￥' + order.totalPrice}"></span>
+                    <span style="margin-left: 8px;">x<span th:text="${order.quantity}"></span></span><br>
+                    收货地址：<span th:text="${order.receiverAddress}"></span>
                 </div>
 
-                <div th:if="${order.hasRefund}" class="after-sale-box"
-                     th:classappend="${order.refundStatus == 'approved'} ? ' after-sale-success' : (${order.refundStatus == 'rejected'} ? ' after-sale-danger' : ' after-sale-warning')">
-                    <div class="after-sale-title">退款处理结果</div>
-                    <div class="after-sale-meta">
-                        <div>
+                <details class="after-sale-toggle" th:if="${order.hasComplaint or order.hasRefund}">
+                    <summary>查看售后处理</summary>
+                    <div class="after-sale-content">
+                        <div th:if="${order.hasComplaint}" class="after-sale-box" th:classappend="${order.complaintStatus == 'handled'} ? ' after-sale-success' : ' after-sale-warning'">
+                            <div class="after-sale-title">投诉处理结果</div>
+                            状态：<span th:text="${order.complaintStatus == 'handled' ? '已处理' : '处理中'}"></span><br>
+                            <span th:if="${order.complaintResult != null and !order.complaintResult.isEmpty()}" th:text="${order.complaintResult}"></span>
+                        </div>
+                        <div th:if="${order.hasRefund}" class="after-sale-box" th:classappend="${order.refundStatus == 'approved'} ? ' after-sale-success' : (${order.refundStatus == 'rejected'} ? ' after-sale-danger' : ' after-sale-warning')">
+                            <div class="after-sale-title">退款处理结果</div>
                             状态：
                             <span th:if="${order.refundStatus == 'pending'}">商家处理中</span>
                             <span th:if="${order.refundStatus == 'escalated'}">管理员介入处理中</span>
                             <span th:if="${order.refundStatus == 'approved'}">退款成功</span>
-                            <span th:if="${order.refundStatus == 'rejected'}">退款失败</span>
+                            <span th:if="${order.refundStatus == 'rejected'}">退款失败</span><br>
+                            <span th:if="${order.refundResult != null and !order.refundResult.isEmpty()}" th:text="${order.refundResult}"></span><br th:if="${order.refundProcessedAt != null}">
+                            <span th:if="${order.refundProcessedAt != null}" th:text="${'处理时间：' + #temporals.format(order.refundProcessedAt, 'yyyy-MM-dd HH:mm')}"></span>
                         </div>
-                        <div th:if="${order.refundResult != null and !order.refundResult.isEmpty()}"
-                             th:text="'原因：' + ${order.refundResult}"></div>
-                        <div th:if="${order.refundProcessedAt != null}"
-                             th:text="'处理时间：' + ${#temporals.format(order.refundProcessedAt, 'yyyy-MM-dd HH:mm')}"></div>
                     </div>
-                </div>
+                </details>
             </div>
+
             <div class="order-actions">
-                <form th:if="${order.status == 'pending'}" th:action="@{/user/order/cancel/{id}(id=${order.id})}" method="post" style="display:inline;">
-                    <button type="submit" class="action-btn action-btn-danger" onclick="return confirm('确定取消订单？')">取消订单</button>
+                <form th:if="${order.status == 'pending'}" th:action="@{/user/order/cancel/{id}(id=${order.id})}" method="post">
+                    <button type="submit" class="action-btn action-btn-danger" onclick="return confirm('确认取消这个订单吗？');">取消订单</button>
                 </form>
-                <form th:if="${order.status == 'delivered'}" th:action="@{/user/order/confirm-receive/{id}(id=${order.id})}" method="post" style="display:inline;">
+                <form th:if="${order.status == 'delivered'}" th:action="@{/user/order/confirm-receive/{id}(id=${order.id})}" method="post">
                     <button type="submit" class="action-btn action-btn-success">确认收货</button>
                 </form>
                 <a th:if="${order.status == 'completed'}" th:href="@{/user/review/{orderId}(orderId=${order.id})}" class="action-btn action-btn-primary">去评价</a>
                 <a th:if="${(order.status == 'completed' or order.status == 'reviewed') and !order.hasComplaint}" th:href="@{/user/complaint/{orderId}(orderId=${order.id})}" class="action-btn">投诉</a>
-                <span th:if="${order.hasComplaint}" class="action-btn" style="color: var(--text-muted); cursor: default; border-color: #eee;">已投诉</span>
+                <span th:if="${order.hasComplaint}" class="action-btn">已投诉</span>
                 <a th:if="${order.canRefund}" th:href="@{/user/refund/{orderId}(orderId=${order.id})}" class="action-btn">申请退款</a>
-                <span th:if="${order.hasRefund and order.refundStatus == 'pending'}" class="action-btn" style="color: #b26a00; cursor: default; border-color: #ffd18b;">退款处理中</span>
-                <span th:if="${order.hasRefund and order.refundStatus == 'escalated'}" class="action-btn" style="color: #1f6feb; cursor: default; border-color: #9ec5ff;">管理员介入中</span>
-                <span th:if="${order.hasRefund and order.refundStatus == 'approved'}" class="action-btn" style="color: #2e7d32; cursor: default; border-color: #a5d6a7;">退款成功</span>
-                <span th:if="${order.hasRefund and order.refundStatus == 'rejected'}" class="action-btn" style="color: #d32f2f; cursor: default; border-color: #ef9a9a;">退款失败</span>
-                <form th:if="${order.canEscalateRefund}" th:action="@{/user/refund/escalate/{orderId}(orderId=${order.id})}" method="post" style="display:inline;">
-                    <button type="submit" class="action-btn action-btn-primary" onclick="return confirm('确认申请管理员介入该退款？')">申请管理员介入</button>
+                <span th:if="${order.hasRefund and order.refundStatus == 'pending'}" class="action-btn">退款处理中</span>
+                <span th:if="${order.hasRefund and order.refundStatus == 'escalated'}" class="action-btn">管理员处理中</span>
+                <span th:if="${order.hasRefund and order.refundStatus == 'approved'}" class="action-btn">退款成功</span>
+                <span th:if="${order.hasRefund and order.refundStatus == 'rejected'}" class="action-btn">退款失败</span>
+                <form th:if="${order.canEscalateRefund}" th:action="@{/user/refund/escalate/{orderId}(orderId=${order.id})}" method="post">
+                    <button type="submit" class="action-btn action-btn-primary" onclick="return confirm('确认申请管理员介入该退款吗？');">申请管理员介入</button>
                 </form>
             </div>
         </div>

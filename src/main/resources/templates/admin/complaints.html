@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -7,352 +7,265 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #080C14;
-            --bg-sidebar: #0D1117;
-            --bg-card: #161B22;
-            --bg-card-hover: #21262D;
-            --primary: #7C3AED;
-            --primary-dark: #5B21B6;
-            --primary-light: #A78BFA;
-            --secondary: #2563EB;
-            --primary-glow: rgba(124, 58, 237, 0.4);
-            --text-white: #F0F6FC;
-            --text-gray: #8B949E;
-            --text-muted: #6E7681;
-            --border: #30363D;
-            --success: #3FB950;
-            --warning: #D29922;
-            --danger: #F85149;
+            --bg-dark: #080c14;
+            --bg-sidebar: #0d1117;
+            --bg-card: #161b22;
+            --bg-card-hover: #21262d;
+            --primary: #4f8cff;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+            --text-main: #f0f6fc;
+            --text-sub: #8b949e;
+            --border: #30363d;
         }
         * { box-sizing: border-box; }
         body {
-            background: var(--bg-dark);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-            font-size: 14px;
-            color: var(--text-white);
             margin: 0;
             min-height: 100vh;
-            position: relative;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(124, 58, 237, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(124, 58, 237, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
         }
         .sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: 228px;
             background: var(--bg-sidebar);
             border-right: 1px solid var(--border);
-            min-height: 100vh;
-            width: 220px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 100;
         }
         .sidebar-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: 20px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .sidebar-icon {
-            width: 36px;
-            height: 36px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-        .sidebar-title {
-            color: white;
+            padding: 20px 18px;
             font-size: 16px;
-            font-weight: 600;
-            margin: 0;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
         }
-        .menu-group {
-            padding: 12px 16px 8px;
-            color: var(--text-muted);
+        .menu-title {
+            padding: 14px 18px 8px;
             font-size: 11px;
-            text-transform: uppercase;
             letter-spacing: 1px;
-            border-top: 1px solid var(--border);
-            margin-top: 8px;
+            color: #6e7681;
+            text-transform: uppercase;
         }
-        .menu-group:first-of-type { border-top: none; margin-top: 0; }
         .nav-link {
-            color: var(--text-gray);
-            padding: 10px 16px;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 13px;
+            padding: 11px 18px;
+            color: var(--text-sub);
+            text-decoration: none;
             border-left: 3px solid transparent;
-            transition: all 0.2s;
+            transition: .2s ease;
         }
-        .nav-link:hover {
-            background: rgba(124, 58, 237, 0.1);
-            color: var(--primary-light);
-            border-left-color: var(--primary);
-        }
+        .nav-link:hover,
         .nav-link.active {
-            background: rgba(124, 58, 237, 0.2);
-            color: white;
-            font-weight: 500;
+            color: #fff;
+            background: rgba(79, 140, 255, 0.12);
             border-left-color: var(--primary);
         }
-        .nav-link .icon { font-size: 16px; width: 20px; text-align: center; }
-        .nav-link.logout { color: var(--danger); position: absolute; bottom: 20px; width: 100%; }
-        .nav-link.logout:hover {
-            background: rgba(248, 81, 73, 0.1);
-            color: var(--danger);
-            border-left-color: var(--danger);
-        }
-        .main-content {
-            margin-left: 220px;
-            padding: 24px;
-            position: relative;
-            z-index: 1;
-        }
-        .page-header {
+        .main { margin-left: 228px; padding: 28px; }
+        .head {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 16px;
             margin-bottom: 20px;
         }
-        .page-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-white);
-            margin: 0;
-        }
-        .filter-group { display: flex; gap: 8px; }
+        .head h1 { margin: 0; font-size: 24px; font-weight: 700; }
+        .filters { display: flex; gap: 10px; flex-wrap: wrap; }
         .filter-btn {
             padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 500;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--text-sub);
             text-decoration: none;
             background: var(--bg-card);
-            color: var(--text-gray);
-            border: 1px solid var(--border);
-            transition: all 0.2s;
         }
+        .filter-btn.active,
         .filter-btn:hover {
+            color: #fff;
             border-color: var(--primary);
-            color: var(--primary-light);
-        }
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
+            background: rgba(79,140,255,.14);
         }
         .complaint-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            margin-bottom: 12px;
-            transition: all 0.2s;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.2);
         }
-        .complaint-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
-        .complaint-body { padding: 16px 20px; }
-        .complaint-header {
+        .complaint-top {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
+            gap: 12px;
+            flex-wrap: wrap;
             padding-bottom: 12px;
             border-bottom: 1px solid var(--border);
+            margin-bottom: 14px;
         }
-        .badge {
-            font-size: 11px;
-            font-weight: 500;
-            border-radius: 6px;
-            padding: 4px 10px;
-        }
-        .badge-pending { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
-        .badge-handled { background: rgba(63, 185, 80, 0.2); color: var(--success); }
-        .info-row { font-size: 13px; margin-bottom: 6px; }
-        .info-label { color: var(--text-muted); }
-        .info-value { color: var(--text-white); font-weight: 500; }
-        .complaint-content {
-            color: var(--text-gray);
-            font-size: 13px;
-            margin-top: 10px;
-            padding: 12px 14px;
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            line-height: 1.5;
-        }
-        .result-box {
-            background: rgba(63, 185, 80, 0.1);
-            border: 1px solid rgba(63, 185, 80, 0.3);
-            border-radius: 8px;
-            padding: 12px 14px;
-            margin-top: 12px;
-            font-size: 13px;
-        }
-        .result-label {
-            color: var(--success);
-            font-weight: 600;
-            font-size: 12px;
-            margin-bottom: 4px;
-        }
-        .result-text { color: var(--text-gray); }
-        .handle-form {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid var(--border);
-        }
-        .handle-row {
-            display: flex;
+        .meta { color: var(--text-sub); font-size: 13px; line-height: 1.8; }
+        .status-badge {
+            display: inline-flex;
             align-items: center;
-            gap: 12px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
         }
-        .form-control {
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+        .status-pending { background: rgba(210,153,34,.18); color: #f3c969; }
+        .status-handled { background: rgba(63,185,80,.16); color: #7ee787; }
+        .content-box,
+        .result-box {
+            border-radius: 14px;
+            padding: 14px 16px;
             font-size: 13px;
-            color: var(--text-white);
-            padding: 10px 14px;
-            flex: 1;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+        .content-box { background: #0f141b; border: 1px solid var(--border); }
+        .result-box { background: rgba(63,185,80,.08); border: 1px solid rgba(63,185,80,.2); margin-top: 12px; }
+        .form-control,
+        .form-check-input {
+            background: #0f141b;
+            color: #fff;
+            border-color: var(--border);
         }
         .form-control:focus {
-            background: var(--bg-dark);
+            background: #0f141b;
+            color: #fff;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-glow);
-            color: var(--text-white);
+            box-shadow: 0 0 0 0.2rem rgba(79,140,255,.18);
         }
-        .form-check {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
+        .form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+        .handle-box {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
         }
-        .form-check-input {
-            width: 16px;
-            height: 16px;
-            background-color: var(--bg-dark);
-            border: 1px solid var(--border);
-        }
-        .form-check-input:checked {
-            background-color: var(--danger);
-            border-color: var(--danger);
-        }
-        .form-check-label {
-            font-size: 12px;
-            color: var(--text-gray);
-        }
-        .btn-handle {
-            background: var(--success);
-            color: white;
+        .btn-submit {
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
+            padding: 10px 16px;
+            background: var(--primary);
+            color: #fff;
             font-size: 13px;
-            padding: 10px 20px;
-            font-weight: 500;
-            transition: all 0.2s;
-            cursor: pointer;
+            font-weight: 700;
         }
-        .btn-handle:hover {
-            background: #2EA043;
-            color: white;
-            box-shadow: 0 0 10px rgba(63, 185, 80, 0.4);
+        .close-extra {
+            display: none;
+            margin-top: 12px;
+            padding: 14px;
+            border: 1px dashed rgba(248,81,73,.4);
+            border-radius: 14px;
+            background: rgba(248,81,73,.06);
         }
-        .empty-state {
-            text-align: center;
+        .empty-box {
             padding: 80px 20px;
-            color: var(--text-muted);
+            text-align: center;
+            color: var(--text-sub);
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 18px;
         }
-        .text-muted { color: var(--text-muted) !important; }
     </style>
+    <link href="/css/backend-readable-text.css?v=20260416b" rel="stylesheet">
 </head>
 <body>
 <div class="sidebar">
-    <div class="sidebar-header">
-        <div class="sidebar-icon">⚙</div>
-        <h5 class="sidebar-title">管理控制台</h5>
-    </div>
-    <nav class="nav flex-column" style="flex-direction: column !important;">
-        <div class="menu-group">概览</div>
-        <a class="nav-link" href="/admin/dashboard"><span class="icon">📊</span>概览</a>
-        <div class="menu-group">商家管理</div>
-        <a class="nav-link" href="/admin/merchants"><span class="icon">🏪</span>商家管理</a>
-        <div class="menu-group">订单管理</div>
-        <a class="nav-link" href="/admin/order-list"><span class="icon">📦</span>订单列表</a>
-        <a class="nav-link" href="/admin/refunds"><span class="icon">💰</span>退款管理</a>
-        <div class="menu-group">投诉管理</div>
-        <a class="nav-link active" href="/admin/complaints"><span class="icon">📝</span>投诉管理</a>
-        <a class="nav-link logout" href="/admin/logout"><span class="icon">🚪</span>退出登录</a>
-    </nav>
+    <div class="sidebar-header">管理员控制台</div>
+    <div class="menu-title">工作台</div>
+    <a class="nav-link" href="/admin/dashboard">概览</a>
+    <div class="menu-title">审核管理</div>
+    <a class="nav-link" href="/admin/merchants">商家管理</a>
+    <a class="nav-link" href="/admin/product-applications">商品申请</a>
+    <div class="menu-title">异常订单</div>
+    <a class="nav-link" href="/admin/order-list">异常订单列表</a>
+    <a class="nav-link active" href="/admin/complaints">投诉管理</a>
+    <a class="nav-link" href="/admin/refunds">退款管理</a>
+    <div class="menu-title">退出</div>
+    <a class="nav-link" href="/admin/logout">退出登录</a>
 </div>
-<div class="main-content">
-    <div class="page-header">
-        <h1 class="page-title">投诉管理</h1>
-        <div class="filter-group">
+
+<div class="main">
+    <div class="head">
+        <h1>投诉管理</h1>
+        <div class="filters">
             <a href="/admin/complaints" class="filter-btn" th:classappend="${currentStatus == null or currentStatus.isEmpty()} ? ' active'">全部</a>
             <a href="/admin/complaints?status=pending" class="filter-btn" th:classappend="${currentStatus == 'pending'} ? ' active'">待处理</a>
             <a href="/admin/complaints?status=handled" class="filter-btn" th:classappend="${currentStatus == 'handled'} ? ' active'">已处理</a>
         </div>
     </div>
 
-    <div th:if="${complaints == null or complaints.isEmpty()}" class="empty-state">
-        <p>暂无投诉</p>
-    </div>
+    <div th:if="${complaints == null or complaints.isEmpty()}" class="empty-box">当前没有投诉记录</div>
 
     <div th:each="c : ${complaints}" class="complaint-card">
-        <div class="complaint-body">
-            <div class="complaint-header">
-                <div>
-                    <span class="info-value" th:text="${c.username}"></span>
-                    <span class="text-muted" style="margin: 0 8px;">投诉</span>
-                    <span class="info-value" th:text="${c.merchantShopName}"></span>
-                    <span class="badge badge-pending ms-2" th:if="${c.status == 'pending'}">待处理</span>
-                    <span class="badge badge-handled ms-2" th:if="${c.status == 'handled'}">已处理</span>
+        <div class="complaint-top">
+            <div>
+                <div style="font-size: 16px; font-weight: 700;">
+                    <span th:text="${c.username}"></span>
+                    <span style="color: var(--text-sub); font-weight: 500;">投诉</span>
+                    <span th:text="${c.merchantShopName}"></span>
                 </div>
-                <span class="text-muted" th:text="${#temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
-            </div>
-            <div th:if="${c.orderNo != null}" class="info-row">
-                <span class="info-label">关联订单：</span>
-                <span class="info-value" th:text="${c.orderNo}"></span>
-            </div>
-            <div class="complaint-content" th:text="${c.content}"></div>
-            <div th:if="${c.result != null}" class="result-box">
-                <div class="result-label">处理结果</div>
-                <div class="result-text" th:text="${c.result}"></div>
-            </div>
-            <form th:if="${c.status == 'pending'}" th:action="@{/admin/complaint/handle/{id}(id=${c.id})}" method="post" class="handle-form">
-                <div class="handle-row">
-                    <input type="text" name="result" class="form-control" placeholder="输入处理结果..." required>
-                    <div class="form-check">
-                        <input type="checkbox" name="closeShop" value="true" class="form-check-input" th:id="'closeShop' + ${c.id}">
-                        <label class="form-check-label" th:for="'closeShop' + ${c.id}">关停店铺</label>
-                    </div>
-                    <button type="submit" class="btn-handle">处理</button>
+                <div class="meta">
+                    订单号：<span th:text="${c.orderNo != null ? c.orderNo : '-'}"></span><br>
+                    商品：<span th:text="${c.productName != null ? c.productName : '-'}"></span>
                 </div>
-            </form>
+            </div>
+            <div style="text-align: right;">
+                <span th:if="${c.status == 'pending'}" class="status-badge status-pending">待处理</span>
+                <span th:if="${c.status == 'handled'}" class="status-badge status-handled">已处理</span>
+                <div class="meta mt-2" th:text="${c.createdAt != null ? #temporals.format(c.createdAt, 'yyyy-MM-dd HH:mm') : '-'}"></div>
+            </div>
         </div>
+
+        <div class="content-box" th:text="${c.content}"></div>
+
+        <div th:if="${c.result != null and !c.result.isEmpty()}" class="result-box" th:text="${c.result}"></div>
+
+        <form th:if="${c.status == 'pending'}" th:action="@{/admin/complaint/handle/{id}(id=${c.id})}" method="post" class="handle-box">
+            <div class="mb-3">
+                <label class="form-label">处理结果回复</label>
+                <textarea name="result" class="form-control" rows="3" placeholder="请输入给用户看的处理说明" required></textarea>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input close-toggle" type="checkbox" name="closeShop" value="true" th:attr="data-target='#closeExtra' + ${c.id}" th:id="'closeShop' + ${c.id}">
+                <label class="form-check-label" th:for="'closeShop' + ${c.id}">同时关停该店铺</label>
+            </div>
+            <div class="close-extra" th:id="'closeExtra' + ${c.id}">
+                <div class="mb-3">
+                    <label class="form-label">关停原因</label>
+                    <textarea name="closeReason" class="form-control" rows="2" placeholder="该原因会展示在商家后台公告中"></textarea>
+                </div>
+                <div>
+                    <label class="form-label">关停时长</label>
+                    <select name="closeDuration" class="form-control">
+                        <option value="1d">1天</option>
+                        <option value="7d" selected>7天</option>
+                        <option value="1m">1个月</option>
+                        <option value="3m">3个月</option>
+                        <option value="1y">1年</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn-submit">提交处理结果</button>
+        </form>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.querySelectorAll('.close-toggle').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            const target = document.querySelector(this.dataset.target);
+            if (!target) return;
+            target.style.display = this.checked ? 'block' : 'none';
+            target.querySelectorAll('textarea, input, select').forEach(function (field) {
+                field.required = checkbox.checked;
+            });
+        });
+    });
+</script>
 </body>
 </html>

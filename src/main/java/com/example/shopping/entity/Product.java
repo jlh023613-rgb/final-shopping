@@ -2,6 +2,7 @@ package com.example.shopping.entity;
 
 import lombok.Data;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 public class Product {
@@ -22,4 +23,8 @@ public class Product {
     private String description;
     private Integer status = 1;
     private Long merchantId;
+    private String auditReason;
+    private LocalDateTime submittedAt;
+    private LocalDateTime auditedAt;
+    private String merchantShopName;
 }

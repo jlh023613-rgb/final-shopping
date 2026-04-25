@@ -91,6 +91,56 @@ public class UserCenterController {
         return "redirect:/user/center";
     }
 
+    @PostMapping("/address/add-ajax")
+    @ResponseBody
+    public Map<String, Object> addAddressAjax(HttpSession session,
+                                              @RequestParam String receiverName,
+                                              @RequestParam String receiverPhone,
+                                              @RequestParam String province,
+                                              @RequestParam String city,
+                                              @RequestParam String district,
+                                              @RequestParam String detailAddress,
+                                              @RequestParam(defaultValue = "false") Boolean isDefault) {
+        Map<String, Object> result = new HashMap<>();
+        User user = getCurrentUser(session);
+        if (user == null) {
+            result.put("success", false);
+            result.put("message", "请先登录");
+            return result;
+        }
+
+        if (Boolean.TRUE.equals(isDefault)) {
+            addressMapper.clearDefault(user.getId());
+        }
+
+        Address address = new Address();
+        address.setUserId(user.getId());
+        address.setReceiverName(receiverName);
+        address.setReceiverPhone(receiverPhone);
+        address.setProvince(province);
+        address.setCity(city);
+        address.setDistrict(district);
+        address.setDetailAddress(detailAddress);
+        address.setIsDefault(isDefault);
+        addressMapper.insert(address);
+
+        Map<String, Object> addressData = new HashMap<>();
+        addressData.put("id", address.getId());
+        addressData.put("receiverName", address.getReceiverName());
+        addressData.put("receiverPhone", address.getReceiverPhone());
+        addressData.put("province", address.getProvince());
+        addressData.put("city", address.getCity());
+        addressData.put("district", address.getDistrict());
+        addressData.put("detailAddress", address.getDetailAddress());
+        addressData.put("isDefault", address.getIsDefault());
+
+        result.put("success", true);
+        result.put("message", "地址添加成功");
+        result.put("address", addressData);
+        result.put("fullAddress", address.getProvince() + address.getCity() + address.getDistrict() + address.getDetailAddress());
+        return result;
+    }
+
     @PostMapping("/address/delete/{id}")
     public String deleteAddress(@PathVariable Long id, HttpSession session) {
         User user = getCurrentUser(session);

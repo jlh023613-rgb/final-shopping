@@ -592,10 +592,11 @@
     function renderSpecifications() {
         var container = document.getElementById('specContent');
         var empty = document.getElementById('specEmpty');
+        var normalizedSpecifications = normalizeMultiLineText(specifications);
         
-        if (specifications && specifications.trim() !== '') {
+        if (normalizedSpecifications && normalizedSpecifications.trim() !== '') {
             try {
-                var spec = JSON.parse(specifications);
+                var spec = JSON.parse(normalizedSpecifications);
                 var html = '<table class="spec-table"><tbody>';
                 for (var key in spec) {
                     if (spec.hasOwnProperty(key)) {
@@ -605,7 +606,34 @@
                 html += '</tbody></table>';
                 container.innerHTML = html;
             } catch (e) {
-                empty.style.display = 'block';
+                var lines = normalizedSpecifications.split('\n');
+                var fallbackHtml = '<table class="spec-table"><tbody>';
+                var hasContent = false;
+
+                lines.forEach(function(line) {
+                    var text = line.trim();
+                    if (!text) {
+                        return;
+                    }
+
+                    var parts = text.split(/[:：]/);
+                    if (parts.length >= 2) {
+                        var key = parts.shift().trim();
+                        var value = parts.join('：').trim();
+                        fallbackHtml += '<tr><td>' + key + '</td><td>' + value + '</td></tr>';
+                    } else {
+                        fallbackHtml += '<tr><td>参数</td><td>' + text + '</td></tr>';
+                    }
+                    hasContent = true;
+                });
+
+                fallbackHtml += '</tbody></table>';
+
+                if (hasContent) {
+                    container.innerHTML = fallbackHtml;
+                } else {
+                    empty.style.display = 'block';
+                }
             }
         } else {
             empty.style.display = 'block';
@@ -615,9 +643,10 @@
     function renderFeatures() {
         var container = document.getElementById('featureContent');
         var empty = document.getElementById('featureEmpty');
+        var normalizedFeatures = normalizeMultiLineText(features);
         
-        if (features && features.trim() !== '') {
-            var lines = features.split('\n');
+        if (normalizedFeatures && normalizedFeatures.trim() !== '') {
+            var lines = normalizedFeatures.split('\n');
             var html = '';
             lines.forEach(function(line) {
                 if (line.trim() !== '') {
@@ -633,9 +662,10 @@
     function renderPackaging() {
         var container = document.getElementById('packagingContent');
         var empty = document.getElementById('packagingEmpty');
+        var normalizedPackaging = normalizeMultiLineText(packagingList);
         
-        if (packagingList && packagingList.trim() !== '') {
-            var lines = packagingList.split('\n');
+        if (normalizedPackaging && normalizedPackaging.trim() !== '') {
+            var lines = normalizedPackaging.split('\n');
             var html = '';
             lines.forEach(function(line) {
                 if (line.trim() !== '') {
@@ -646,6 +676,16 @@
         } else {
             empty.style.display = 'block';
         }
+    }
+
+    function normalizeMultiLineText(text) {
+        if (!text) {
+            return '';
+        }
+        return text
+            .replace(/`n/g, '\n')
+            .replace(/\\n/g, '\n')
+            .replace(/\r\n/g, '\n');
     }
     
     var currentIndex = 0;

@@ -26,6 +26,22 @@
     .summary-total-price { font-size: 22px; color: var(--primary); font-weight: 700; }
     .btn-submit { background: var(--primary); color: white; border: none; padding: 10px 0; border-radius: 2px; font-weight: 600; font-size: 14px; width: 100%; cursor: pointer; transition: background 0.15s; }
     .btn-submit:hover { background: var(--primary-dark); color: white; }
+    .section-title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .btn-add-address { background: var(--primary-light); color: var(--primary); border: 1px solid #ffd3c2; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+    .btn-add-address:hover { background: var(--primary); color: white; border-color: var(--primary); }
+    .empty-address-box { text-align: center; padding: 18px 12px; border: 1px dashed #ffcfbc; border-radius: 8px; background: #fffaf7; }
+    .empty-address-text { color: var(--text-muted); font-size: 13px; margin-bottom: 10px; }
+    .modal-content { border-radius: 10px; border: 1px solid var(--border); }
+    .modal-header { border-bottom: 1px solid var(--border); padding: 12px 16px; }
+    .modal-footer { border-top: 1px solid var(--border); padding: 10px 16px; }
+    .modal-body { padding: 16px; }
+    .form-control, .form-select { border-radius: 6px; border: 1px solid var(--border); font-size: 13px; }
+    .form-control:focus, .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 0.15rem rgba(255,68,0,0.15); }
+    .form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+    .btn-modal-primary { background: var(--primary); color: white; border: none; padding: 6px 20px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+    .btn-modal-primary:hover { background: var(--primary-dark); color: white; }
+    .btn-modal-secondary { background: white; color: var(--text-secondary); border: 1px solid var(--border); padding: 6px 20px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+    .address-error { font-size: 12px; color: #d32f2f; margin-top: 4px; min-height: 18px; }
 </style>
 
 <nav th:replace="~{layout :: nav}"></nav>
@@ -35,12 +51,15 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="section-card">
-                <div class="section-title">收货地址</div>
-                <div th:if="${addresses == null or addresses.isEmpty()}" class="text-center py-3">
-                    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">暂无收货地址</p>
-                    <a href="/user/center" style="color: var(--primary); font-size: 13px;">添加地址</a>
+                <div class="section-title section-title-row">
+                    <span>收货地址</span>
+                    <button type="button" class="btn-add-address" onclick="openAddressModal()">新增地址</button>
                 </div>
-                <div th:if="${addresses != null and !addresses.isEmpty()}" class="row g-2">
+                <div id="addressEmptyState" class="empty-address-box" th:style="${addresses != null and !addresses.isEmpty()} ? 'display:none;' : ''">
+                    <div class="empty-address-text">暂无收货地址，请先新增一个收货地址</div>
+                    <button type="button" class="btn-add-address" onclick="openAddressModal()">新增地址</button>
+                </div>
+                <div id="addressList" class="row g-2" th:style="${addresses == null or addresses.isEmpty()} ? 'display:none;' : ''">
                     <div th:each="addr : ${addresses}" class="col-md-6">
                         <div class="address-card" th:classappend="${addr.isDefault} ? 'selected'" th:attr="data-id=${addr.id}" onclick="selectAddress(this)">
                             <div>
@@ -98,15 +117,252 @@
     </div>
 </main>
 
+<div class="modal fade" id="addressModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" style="font-size: 14px; font-weight: 600;">新增收货地址</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="addressForm" onsubmit="saveAddress(event)">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label" style="font-size: 12px;">收货人</label>
+                            <input type="text" name="receiverName" id="orderReceiverName" class="form-control" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label" style="font-size: 12px;">手机号</label>
+                            <input type="text" name="receiverPhone" id="orderReceiverPhone" class="form-control" required>
+                            <div class="address-error" id="orderPhoneError"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 mb-3">
+                            <label class="form-label" style="font-size: 12px;">省份</label>
+                            <select name="province" id="orderProvince" class="form-select" required onchange="loadOrderCities()">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <label class="form-label" style="font-size: 12px;">城市</label>
+                            <select name="city" id="orderCity" class="form-select" required onchange="loadOrderDistricts()">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <label class="form-label" style="font-size: 12px;">区/县</label>
+                            <select name="district" id="orderDistrict" class="form-select" required>
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" style="font-size: 12px;">详细地址</label>
+                        <textarea name="detailAddress" id="orderDetailAddress" class="form-control" rows="2" required></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="isDefault" value="true" class="form-check-input" id="orderIsDefault">
+                        <label class="form-check-label" for="orderIsDefault" style="font-size: 13px;">设为默认地址</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-modal-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="submit" class="btn-modal-primary">保存地址</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <footer th:replace="~{layout :: footer}"></footer>
 <script th:replace="~{layout :: scripts}"></script>
+<script th:src="@{/js/region-data.js}"></script>
 <script>
+    var addressModal;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        addressModal = new bootstrap.Modal(document.getElementById('addressModal'));
+        loadOrderProvinces();
+        var selectedCard = document.querySelector('.address-card.selected');
+        if (!selectedCard) {
+            var firstCard = document.querySelector('.address-card');
+            if (firstCard) {
+                selectAddress(firstCard);
+            }
+        }
+    });
+
     function selectAddress(el) {
         document.querySelectorAll('.address-card').forEach(function(card) {
             card.classList.remove('selected');
         });
         el.classList.add('selected');
         document.getElementById('selectedAddressId').value = el.getAttribute('data-id');
+    }
+
+    function openAddressModal() {
+        resetAddressForm();
+        addressModal.show();
+    }
+
+    function resetAddressForm() {
+        document.getElementById('addressForm').reset();
+        document.getElementById('orderPhoneError').textContent = '';
+        document.getElementById('orderCity').innerHTML = '<option value="">请选择</option>';
+        document.getElementById('orderDistrict').innerHTML = '<option value="">请选择</option>';
+    }
+
+    function loadOrderProvinces() {
+        var provinceSelect = document.getElementById('orderProvince');
+        if (!provinceSelect || typeof regionData === 'undefined' || provinceSelect.options.length > 1) {
+            return;
+        }
+        for (var province in regionData) {
+            if (regionData.hasOwnProperty(province)) {
+                var option = document.createElement('option');
+                option.value = province;
+                option.text = province;
+                provinceSelect.appendChild(option);
+            }
+        }
+    }
+
+    function loadOrderCities() {
+        var province = document.getElementById('orderProvince').value;
+        var citySelect = document.getElementById('orderCity');
+        var districtSelect = document.getElementById('orderDistrict');
+        citySelect.innerHTML = '<option value="">请选择</option>';
+        districtSelect.innerHTML = '<option value="">请选择</option>';
+        if (!province || typeof regionData === 'undefined' || !regionData[province]) {
+            return;
+        }
+        var cities = regionData[province];
+        for (var city in cities) {
+            if (cities.hasOwnProperty(city)) {
+                var option = document.createElement('option');
+                option.value = city;
+                option.text = city;
+                citySelect.appendChild(option);
+            }
+        }
+    }
+
+    function loadOrderDistricts() {
+        var province = document.getElementById('orderProvince').value;
+        var city = document.getElementById('orderCity').value;
+        var districtSelect = document.getElementById('orderDistrict');
+        districtSelect.innerHTML = '<option value="">请选择</option>';
+        if (!province || !city || typeof regionData === 'undefined' || !regionData[province] || !regionData[province][city]) {
+            return;
+        }
+        var districts = regionData[province][city];
+        if (Array.isArray(districts)) {
+            districts.forEach(function(district) {
+                var option = document.createElement('option');
+                option.value = district;
+                option.text = district;
+                districtSelect.appendChild(option);
+            });
+        }
+    }
+
+    function validatePhone(phone) {
+        return /^1[3-9]\d{9}$/.test(phone);
+    }
+
+    function saveAddress(event) {
+        event.preventDefault();
+
+        var phone = document.getElementById('orderReceiverPhone').value.trim();
+        var phoneError = document.getElementById('orderPhoneError');
+        if (!validatePhone(phone)) {
+            phoneError.textContent = '请输入正确的手机号';
+            return;
+        }
+        phoneError.textContent = '';
+
+        var form = document.getElementById('addressForm');
+        var formData = new FormData(form);
+
+        fetch('/user/address/add-ajax', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (!data.success) {
+                alert(data.message || '地址保存失败');
+                return;
+            }
+            insertAddressCard(data.address, data.fullAddress);
+            addressModal.hide();
+        })
+        .catch(function() {
+            alert('地址保存失败，请稍后重试');
+        });
+    }
+
+    function insertAddressCard(address, fullAddress) {
+        var addressList = document.getElementById('addressList');
+        var emptyState = document.getElementById('addressEmptyState');
+
+        if (address.isDefault) {
+            document.querySelectorAll('.address-default').forEach(function(badge) {
+                badge.remove();
+            });
+        }
+
+        emptyState.style.display = 'none';
+        addressList.style.display = '';
+
+        var col = document.createElement('div');
+        col.className = 'col-md-6';
+
+        var card = document.createElement('div');
+        card.className = 'address-card selected';
+        card.setAttribute('data-id', address.id);
+        card.onclick = function() {
+            selectAddress(card);
+        };
+
+        var head = document.createElement('div');
+        var name = document.createElement('span');
+        name.className = 'address-name';
+        name.textContent = address.receiverName;
+        head.appendChild(name);
+
+        if (address.isDefault) {
+            var badge = document.createElement('span');
+            badge.className = 'address-default';
+            badge.textContent = '默认';
+            head.appendChild(badge);
+        }
+
+        var phone = document.createElement('div');
+        phone.className = 'address-phone';
+        phone.textContent = address.receiverPhone;
+
+        var detail = document.createElement('div');
+        detail.className = 'address-detail';
+        detail.textContent = fullAddress;
+
+        card.appendChild(head);
+        card.appendChild(phone);
+        card.appendChild(detail);
+        col.appendChild(card);
+
+        document.querySelectorAll('.address-card').forEach(function(existingCard) {
+            existingCard.classList.remove('selected');
+        });
+
+        addressList.insertBefore(col, addressList.firstChild);
+        document.getElementById('selectedAddressId').value = address.id;
     }
 
     function submitOrder() {
@@ -124,10 +380,12 @@
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: 'productId=' + productId + '&quantity=' + quantity + '&addressId=' + addressId
+            body: 'productId=' + encodeURIComponent(productId) + '&quantity=' + encodeURIComponent(quantity) + '&addressId=' + encodeURIComponent(addressId)
         })
-        .then(response => response.json())
-        .then(data => {
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
             if (data.success) {
                 alert('下单成功！');
                 window.location.href = '/user/orders';
@@ -135,7 +393,7 @@
                 alert(data.message);
             }
         })
-        .catch(error => {
+        .catch(function() {
             alert('下单失败，请重试');
         });
     }

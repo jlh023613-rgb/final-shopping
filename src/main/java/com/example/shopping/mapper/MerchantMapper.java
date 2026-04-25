@@ -2,6 +2,7 @@ package com.example.shopping.mapper;
 
 import com.example.shopping.entity.Merchant;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface MerchantMapper {
     List<Merchant> findAll();
     void updateStatus(Merchant merchant);
     void updateCategory(Merchant merchant);
+    void updateClosure(Merchant merchant);
+    void clearClosure(@Param("id") Long id);
     void update(Merchant merchant);
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -8,339 +8,160 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0D1117;
-            --bg-card: #161B22;
-            --bg-card-hover: #21262D;
-            --primary: #58A6FF;
-            --primary-glow: rgba(88, 166, 255, 0.3);
-            --text-white: #F0F6FC;
-            --text-gray: #8B949E;
-            --text-muted: #6E7681;
-            --border: #30363D;
-            --success: #3FB950;
-            --warning: #D29922;
-            --danger: #F85149;
-            --info: #58A6FF;
+            --bg-dark: #0d1117;
+            --bg-card: #161b22;
+            --bg-card-hover: #21262d;
+            --primary: #58a6ff;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+            --text-main: #f0f6fc;
+            --text-sub: #8b949e;
+            --border: #30363d;
         }
         * { box-sizing: border-box; }
-        body {
-            background: var(--bg-dark);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-            font-size: 13px;
-            color: var(--text-white);
-            margin: 0;
-            min-height: 100vh;
+        body { margin: 0; min-height: 100vh; background: var(--bg-dark); color: var(--text-main); font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+        .sidebar { position: fixed; inset: 0 auto 0 0; width: 228px; background: var(--bg-card); border-right: 1px solid var(--border); }
+        .sidebar-header { padding: 20px 18px; border-bottom: 1px solid var(--border); }
+        .shop-name { font-size: 18px; font-weight: 700; color: #fff; }
+        .shop-meta { margin-top: 6px; font-size: 12px; color: var(--text-sub); }
+        .nav-link { display: flex; align-items: center; gap: 10px; padding: 11px 18px; color: var(--text-sub); text-decoration: none; border-left: 3px solid transparent; transition: .2s ease; }
+        .nav-link:hover, .nav-link.active { color: #fff; background: rgba(88,166,255,.12); border-left-color: var(--primary); }
+        .main { margin-left: 228px; padding: 28px; }
+        .page-title { margin: 0 0 20px; font-size: 26px; font-weight: 700; }
+        .notice {
+            margin-bottom: 18px;
+            border-radius: 18px;
+            padding: 18px 20px;
+            border: 1px solid rgba(248,81,73,.25);
+            background: rgba(248,81,73,.08);
+            color: #ffd7d7;
+            line-height: 1.8;
         }
-        .sidebar {
-            background: var(--bg-card);
-            width: 220px;
-            min-height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            border-right: 1px solid var(--border);
-        }
-        .sidebar-header {
-            padding: 20px 16px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .shop-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary) 0%, #1f6feb 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: white;
-        }
-        .shop-info h5 {
-            margin: 0;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--primary);
-        }
-        .shop-info small {
-            color: var(--text-gray);
-            font-size: 11px;
-        }
-        .sidebar-nav {
-            padding: 12px 0;
-        }
-        .nav-item {
-            display: block;
-            padding: 10px 16px;
-            color: var(--text-gray);
-            text-decoration: none;
-            font-size: 13px;
-            border-left: 3px solid transparent;
-            transition: all 0.15s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .nav-item:hover {
-            background: var(--bg-card-hover);
-            color: var(--text-white);
-        }
-        .nav-item.active {
-            background: rgba(88, 166, 255, 0.15);
-            color: var(--text-white);
-            border-left-color: var(--primary);
-        }
-        .nav-item i {
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
-        }
-        .nav-item.logout {
-            color: var(--danger);
-            margin-top: 20px;
-        }
-        .nav-item.logout:hover {
-            background: rgba(248, 81, 73, 0.15);
-        }
-        .content-area {
-            margin-left: 220px;
-            padding: 24px;
-            min-height: 100vh;
-        }
-        .page-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-white);
-            margin-bottom: 24px;
-        }
-        .stat-card {
-            background: var(--bg-card-hover);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.2s;
-        }
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-        }
-        .stat-card.blue::before { background: var(--primary); }
-        .stat-card.green::before { background: var(--success); }
-        .stat-card.orange::before { background: var(--warning); }
-        .stat-card.red::before { background: var(--danger); }
-        .stat-card:hover {
-            box-shadow: 0 0 20px var(--primary-glow);
-            border-color: var(--primary);
-        }
-        .stat-label {
-            font-size: 12px;
-            color: var(--text-gray);
-            margin-bottom: 8px;
-        }
-        .stat-number {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text-white);
-        }
-        .stat-card.blue .stat-number { color: var(--primary); }
-        .stat-card.green .stat-number { color: var(--success); }
-        .stat-card.orange .stat-number { color: var(--warning); }
-        .stat-card.red .stat-number { color: var(--danger); }
-        .data-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .data-card-header {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--border);
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text-white);
-        }
-        .table {
-            margin-bottom: 0;
-            font-size: 12px;
-        }
-        .table th {
-            font-weight: 600;
-            color: var(--primary);
-            border-bottom: 1px solid var(--border);
-            padding: 10px 14px;
-            background: transparent;
-        }
-        .table td {
-            padding: 10px 14px;
-            border-bottom: 1px solid var(--border);
-            vertical-align: middle;
-            color: var(--text-white);
-        }
-        .table tr:last-child td { border-bottom: none; }
-        .table tbody tr:hover {
-            background: var(--bg-card-hover);
-        }
-        .badge {
-            font-size: 11px;
-            font-weight: 500;
-            border-radius: 4px;
-            padding: 4px 10px;
-        }
-        .badge-pending { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
-        .badge-shipping { background: rgba(88, 166, 255, 0.2); color: var(--primary); }
-        .badge-delivered { background: rgba(63, 185, 80, 0.2); color: var(--success); }
-        .badge-completed { background: rgba(63, 185, 80, 0.2); color: var(--success); }
-        .badge-cancelled { background: rgba(110, 118, 129, 0.2); color: var(--text-muted); }
-        .badge-refunded { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
-        .review-item {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--border);
-        }
-        .review-item:last-child { border-bottom: none; }
-        .review-username {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--text-white);
-        }
-        .review-stars { color: var(--warning); font-size: 12px; }
-        .review-content {
-            color: var(--text-gray);
-            font-size: 12px;
-            margin-top: 6px;
-        }
-        .review-date {
-            color: var(--text-muted);
-            font-size: 11px;
-        }
-        .table > :not(caption) > * > * { background-color: var(--bg-card) !important; color: var(--text-white) !important; border-color: var(--border) !important; }
-        .table > thead > * > * { background-color: var(--bg-dark) !important; color: var(--primary) !important; }
-        .table > tbody > tr:hover > * { background-color: var(--bg-card-hover) !important; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 22px; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 20px; }
+        .stat-label { font-size: 13px; color: var(--text-sub); margin-bottom: 10px; }
+        .stat-value { font-size: 32px; font-weight: 800; }
+        .blue { color: var(--primary); }
+        .green { color: var(--success); }
+        .orange { color: var(--warning); }
+        .red { color: var(--danger); }
+        .panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+        .panel-title { padding: 16px 20px; font-size: 16px; font-weight: 700; border-bottom: 1px solid var(--border); }
+        .table { margin: 0; color: var(--text-main); }
+        .table th, .table td { border-color: var(--border); padding: 14px 16px; background: var(--bg-card); }
+        .table th { color: #9ec1ff; background: rgba(88,166,255,.08); font-size: 12px; text-transform: uppercase; }
+        .empty-box { padding: 40px 20px; text-align: center; color: var(--text-sub); }
+        .status-chip { display: inline-flex; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+        .status-pending { background: rgba(210,153,34,.18); color: #f3c969; }
+        .status-shipping { background: rgba(88,166,255,.16); color: #9ec1ff; }
+        .status-delivered { background: rgba(63,185,80,.16); color: #7ee787; }
     </style>
+    <link href="/css/backend-readable-text.css?v=20260416b" rel="stylesheet">
 </head>
 <body>
 <div class="sidebar">
     <div class="sidebar-header">
-        <div class="shop-avatar"><i class="bi bi-shop"></i></div>
-        <div class="shop-info">
-            <h5 th:text="${merchant.shopName}">店铺名称</h5>
-            <small th:text="${merchant.category}">分类</small>
+        <div class="shop-name" th:text="${merchant.shopName}">店铺名称</div>
+        <div class="shop-meta">
+            经营分类：<span th:text="${merchant.category != null ? merchant.category : '未分配'}"></span><br>
+            当前状态：<span th:text="${merchant.status == 'closed' ? '已关停' : '正常'}"></span>
         </div>
     </div>
-    <nav class="sidebar-nav">
-        <a class="nav-item active" href="/merchant/dashboard"><i class="bi bi-grid-1x2"></i>概览</a>
-        <a class="nav-item" href="/merchant/products"><i class="bi bi-box"></i>商品管理</a>
-        <a class="nav-item" href="/merchant/orders"><i class="bi bi-receipt"></i>订单管理</a>
-        <a class="nav-item" href="/merchant/refunds"><i class="bi bi-arrow-counterclockwise"></i>退款管理</a>
-        <a class="nav-item" href="/merchant/reviews"><i class="bi bi-chat-square-text"></i>评价管理</a>
-        <a class="nav-item logout" href="/merchant/logout"><i class="bi bi-box-arrow-left"></i>退出登录</a>
-    </nav>
+    <a class="nav-link active" href="/merchant/dashboard"><i class="bi bi-grid"></i>概览</a>
+    <a class="nav-link" href="/merchant/products"><i class="bi bi-box-seam"></i>商品管理</a>
+    <a class="nav-link" href="/merchant/orders"><i class="bi bi-receipt"></i>订单管理</a>
+    <a class="nav-link" href="/merchant/refunds"><i class="bi bi-arrow-counterclockwise"></i>退款管理</a>
+    <a class="nav-link" href="/merchant/reviews"><i class="bi bi-chat-square-text"></i>评价管理</a>
+    <a class="nav-link" href="/merchant/logout"><i class="bi bi-box-arrow-left"></i>退出登录</a>
 </div>
 
-<div class="content-area">
+<div class="main">
     <h1 class="page-title">店铺概览</h1>
-    
-    <div class="row g-3 mb-4">
-        <div class="col-md-3">
-            <div class="stat-card blue">
-                <div class="stat-label">商品总数</div>
-                <div class="stat-number" th:text="${totalProducts}">0</div>
-            </div>
+
+    <div th:if="${showClosureNotice}" class="notice">
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">店铺关停公告</div>
+        你的店铺当前处于关停状态，商品管理相关操作已暂停。<br>
+        关停原因：<span th:text="${closureReason != null ? closureReason : '管理员暂未填写'}"></span><br>
+        恢复时间：<span th:text="${closureUntil != null ? #temporals.format(closureUntil, 'yyyy-MM-dd HH:mm') : '待管理员处理'}"></span>
+    </div>
+
+    <div th:if="${error}" class="notice" style="border-color: rgba(210,153,34,.25); background: rgba(210,153,34,.08); color: #ffe7b3;" th:text="${error}"></div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-label">商品总数</div>
+            <div class="stat-value blue" th:text="${totalProducts}">0</div>
         </div>
-        <div class="col-md-3">
-            <div class="stat-card orange">
-                <div class="stat-label">待接单</div>
-                <div class="stat-number" th:text="${pendingOrders}">0</div>
-            </div>
+        <div class="stat-card">
+            <div class="stat-label">待接单</div>
+            <div class="stat-value orange" th:text="${pendingOrders}">0</div>
         </div>
-        <div class="col-md-3">
-            <div class="stat-card blue">
-                <div class="stat-label">运输中</div>
-                <div class="stat-number" th:text="${shippingOrders}">0</div>
-            </div>
+        <div class="stat-card">
+            <div class="stat-label">运输中</div>
+            <div class="stat-value blue" th:text="${shippingOrders}">0</div>
         </div>
-        <div class="col-md-3">
-            <div class="stat-card green">
-                <div class="stat-label">已送达</div>
-                <div class="stat-number" th:text="${deliveredOrders}">0</div>
-            </div>
+        <div class="stat-card">
+            <div class="stat-label">待处理退款</div>
+            <div class="stat-value red" th:text="${pendingRefunds}">0</div>
         </div>
     </div>
 
-    <div class="row g-3 mb-4">
-        <div class="col-md-6">
-            <div class="stat-card green">
-                <div class="stat-label">订单总数</div>
-                <div class="stat-number" th:text="${totalOrders}">0</div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="stat-card red">
-                <div class="stat-label">待处理退款</div>
-                <div class="stat-number" th:text="${pendingRefunds}">0</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="data-card mb-4">
-        <div class="data-card-header">最近订单</div>
-        <div class="table-responsive">
-            <table class="table">
+    <div class="panel mb-4">
+        <div class="panel-title">最近订单</div>
+        <div class="table-responsive" th:if="${orders != null and !orders.isEmpty()}">
+            <table class="table align-middle">
                 <thead>
-                    <tr>
-                        <th>订单号</th>
-                        <th>商品</th>
-                        <th>金额</th>
-                        <th>状态</th>
-                        <th>时间</th>
-                    </tr>
+                <tr>
+                    <th>订单号</th>
+                    <th>商品</th>
+                    <th>金额</th>
+                    <th>状态</th>
+                    <th>时间</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="order : ${orders}">
-                        <td th:text="${order.orderNo}"></td>
-                        <td th:text="${order.productName}"></td>
-                        <td th:text="'¥' + ${order.totalPrice}"></td>
-                        <td>
-                            <span class="badge badge-pending" th:if="${order.status == 'pending'}">等待接单</span>
-                            <span class="badge badge-shipping" th:if="${order.status == 'shipping'}">运输中</span>
-                            <span class="badge badge-delivered" th:if="${order.status == 'delivered'}">已送达</span>
-                            <span class="badge badge-completed" th:if="${order.status == 'completed'}">已完成</span>
-                            <span class="badge badge-cancelled" th:if="${order.status == 'cancelled'}">已取消</span>
-                            <span class="badge badge-refunded" th:if="${order.status == 'refunded'}">已退款</span>
-                        </td>
-                        <td th:text="${#temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
-                    </tr>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.orderNo}">订单号</td>
+                    <td th:text="${order.productName}">商品</td>
+                    <td th:text="${'￥' + order.totalPrice}">￥0</td>
+                    <td>
+                        <span class="status-chip status-pending" th:if="${order.status == 'pending'}">待接单</span>
+                        <span class="status-chip status-shipping" th:if="${order.status == 'shipping'}">运输中</span>
+                        <span class="status-chip status-delivered" th:if="${order.status == 'delivered' or order.status == 'completed' or order.status == 'reviewed'}">已发货/已完成</span>
+                    </td>
+                    <td th:text="${order.createdAt != null ? #temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm') : '-'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${orders == null or orders.isEmpty()}" class="empty-box">最近还没有订单数据</div>
+    </div>
+
+    <div class="panel" th:if="${reviews != null and !reviews.isEmpty()}">
+        <div class="panel-title">最新评价</div>
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th>用户</th>
+                    <th>评分</th>
+                    <th>评价内容</th>
+                    <th>时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="review : ${reviews}">
+                    <td th:text="${review.username}">用户</td>
+                    <td th:text="${review.rating + ' 星'}">5 星</td>
+                    <td th:text="${review.content}">评价内容</td>
+                    <td th:text="${review.createdAt != null ? #temporals.format(review.createdAt, 'yyyy-MM-dd') : '-'}"></td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
-    <div class="data-card" th:if="${reviews != null and !reviews.isEmpty()}">
-        <div class="data-card-header">最新评价</div>
-        <div>
-            <div th:each="review : ${reviews}" class="review-item">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <span class="review-username" th:text="${review.username}"></span>
-                        <span class="review-stars ms-2">
-                            <span th:each="i : ${#numbers.sequence(1, review.rating)}">★</span>
-                        </span>
-                        <p class="review-content mb-0" th:text="${review.content}"></p>
-                    </div>
-                    <span class="review-date" th:text="${#temporals.format(review.createdAt, 'MM-dd')}"></span>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

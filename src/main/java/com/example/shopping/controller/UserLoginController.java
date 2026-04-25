@@ -2,6 +2,7 @@ package com.example.shopping.controller;
 
 import com.example.shopping.entity.User;
 import com.example.shopping.mapper.UserMapper;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,20 +10,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.servlet.http.HttpSession;
 import java.util.regex.Pattern;
 
 @Controller
 public class UserLoginController {
-
-    private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
 
     private static final Pattern PHONE_PATTERN = Pattern.compile("^1[3-9]\\d{9}$");
     private static final Pattern LOWERCASE = Pattern.compile("[a-z]");
     private static final Pattern UPPERCASE = Pattern.compile("[A-Z]");
     private static final Pattern DIGIT = Pattern.compile("[0-9]");
     private static final Pattern SPECIAL = Pattern.compile("[^a-zA-Z0-9]");
+
+    private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public UserLoginController(UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userMapper = userMapper;
@@ -63,30 +63,29 @@ public class UserLoginController {
 
     @PostMapping("/user/register")
     public String register(@RequestParam("username") String username,
-                          @RequestParam("phone") String phone,
-                          @RequestParam("password") String password,
-                          @RequestParam("confirmPassword") String confirmPassword,
-                          @RequestParam(value = "gender", defaultValue = "M") String gender,
-                          Model model) {
+                           @RequestParam("phone") String phone,
+                           @RequestParam("password") String password,
+                           @RequestParam("confirmPassword") String confirmPassword,
+                           @RequestParam(value = "gender", defaultValue = "M") String gender,
+                           Model model) {
         if (!PHONE_PATTERN.matcher(phone).matches()) {
             model.addAttribute("error", "请输入正确的手机号格式");
             return "user/register";
         }
 
         if (password.length() < 12 || password.length() > 16) {
-            model.addAttribute("error", "密码长度必须为12-16位");
+            model.addAttribute("error", "密码长度必须在 12 到 16 位之间");
             return "user/register";
         }
 
         User existingUser = userMapper.findByPhone(phone);
         if (existingUser != null) {
-            model.addAttribute("error", "该手机号已注册");
+            model.addAttribute("error", "该手机号已经注册");
             return "user/register";
         }
 
-        int passwordTypes = countPasswordTypes(password);
-        if (passwordTypes <= 1) {
-            model.addAttribute("error", "密码强度太弱，请包含大小写字母、数字或特殊字符中的至少两种");
+        if (countPasswordTypes(password) <= 1) {
+            model.addAttribute("error", "密码强度太弱，请至少包含大小写字母、数字、特殊字符中的两种");
             return "user/register";
         }
 
@@ -108,10 +107,18 @@ public class UserLoginController {
 
     private int countPasswordTypes(String password) {
         int types = 0;
-        if (LOWERCASE.matcher(password).find()) types++;
-        if (UPPERCASE.matcher(password).find()) types++;
-        if (DIGIT.matcher(password).find()) types++;
-        if (SPECIAL.matcher(password).find()) types++;
+        if (LOWERCASE.matcher(password).find()) {
+            types++;
+        }
+        if (UPPERCASE.matcher(password).find()) {
+            types++;
+        }
+        if (DIGIT.matcher(password).find()) {
+            types++;
+        }
+        if (SPECIAL.matcher(password).find()) {
+            types++;
+        }
         return types;
     }
 }

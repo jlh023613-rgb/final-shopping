@@ -1,89 +1,162 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>添加商品</title>
+    <title>新增商品申请</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        :root { --primary: #FF4400; --primary-dark: #E63E00; --primary-light: #FFF5F0; --bg: #F5F5F5; --border: #e8e8e8; --text-dark: #333; --text-secondary: #666; --text-muted: #999; }
-        body { background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 13px; color: var(--text-dark); margin: 0; }
-        .sidebar { background: white; border-right: 1px solid var(--border); min-height: 100vh; padding-top: 0; }
-        .sidebar-header { background: var(--primary); color: white; padding: 16px 16px 12px; }
-        .sidebar-header h5 { margin: 0; font-size: 15px; font-weight: 700; }
-        .sidebar .nav-link { color: var(--text-dark); padding: 10px 16px; border-radius: 0; margin: 0; font-size: 13px; border-left: 3px solid transparent; }
-        .sidebar .nav-link:hover { background: var(--primary-light); color: var(--primary); border-left-color: var(--primary); }
-        .sidebar .nav-link.active { background: var(--primary-light); color: var(--primary); font-weight: 600; border-left-color: var(--primary); }
-        .content-area { padding: 20px; }
-        .page-title { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-        .form-card { background: white; border: 1px solid var(--border); border-radius: 4px; }
-        .form-card .card-body { padding: 20px; }
-        .form-label { font-weight: 600; font-size: 12px; color: var(--text-dark); margin-bottom: 4px; }
-        .form-control { border-radius: 2px; border: 1px solid var(--border); font-size: 12px; padding: 6px 10px; }
-        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 0.15rem rgba(255,68,0,0.15); }
-        .btn-save { background: var(--primary); color: white; border: none; border-radius: 2px; font-size: 12px; padding: 6px 16px; font-weight: 600; }
-        .btn-save:hover { background: var(--primary-dark); color: white; }
-        .btn-back { background: white; color: var(--text-secondary); border: 1px solid var(--border); border-radius: 2px; font-size: 12px; padding: 6px 16px; }
-        .btn-back:hover { background: #fafafa; color: var(--text-dark); }
-        .alert { border-radius: 2px; font-size: 12px; }
+        :root {
+            --bg-dark: #0d1117;
+            --bg-card: #161b22;
+            --bg-card-hover: #21262d;
+            --primary: #58a6ff;
+            --text-main: #f0f6fc;
+            --text-sub: #8b949e;
+            --border: #30363d;
+            --danger: #f85149;
+        }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; background: var(--bg-dark); color: var(--text-main); font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+        .sidebar { position: fixed; inset: 0 auto 0 0; width: 228px; background: var(--bg-card); border-right: 1px solid var(--border); }
+        .sidebar-header { padding: 20px 18px; border-bottom: 1px solid var(--border); }
+        .shop-name { font-size: 18px; font-weight: 700; color: #fff; }
+        .shop-meta { margin-top: 6px; font-size: 12px; color: var(--text-sub); }
+        .nav-link { display: flex; align-items: center; gap: 10px; padding: 11px 18px; color: var(--text-sub); text-decoration: none; border-left: 3px solid transparent; transition: .2s ease; }
+        .nav-link:hover, .nav-link.active { color: #fff; background: rgba(88,166,255,.12); border-left-color: var(--primary); }
+        .main { margin-left: 228px; padding: 28px; }
+        .page-title { margin: 0 0 18px; font-size: 26px; font-weight: 700; }
+        .notice, .hint {
+            margin-bottom: 18px;
+            border-radius: 18px;
+            padding: 16px 18px;
+            line-height: 1.8;
+            font-size: 13px;
+        }
+        .notice { border: 1px solid rgba(248,81,73,.25); background: rgba(248,81,73,.08); color: #ffd7d7; }
+        .hint { border: 1px solid rgba(88,166,255,.22); background: rgba(88,166,255,.08); color: #cfe6ff; }
+        .form-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 22px; max-width: 920px; }
+        .section-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .section-sub { color: var(--text-sub); font-size: 13px; margin-bottom: 20px; }
+        .form-label { font-weight: 600; font-size: 13px; color: #fff; margin-bottom: 8px; }
+        .form-control {
+            background: #0f141b;
+            color: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 11px 13px;
+            font-size: 13px;
+        }
+        .form-control:focus {
+            background: #0f141b;
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(88,166,255,.18);
+        }
+        .form-text { color: var(--text-sub); font-size: 12px; }
+        .action-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+        .btn-main, .btn-sub {
+            border: none;
+            border-radius: 14px;
+            padding: 11px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .btn-main { background: var(--primary); color: #fff; }
+        .btn-sub { background: rgba(255,255,255,.06); color: #fff; border: 1px solid var(--border); }
     </style>
+    <link href="/css/backend-readable-text.css?v=20260416b" rel="stylesheet">
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2 sidebar">
-            <div class="sidebar-header">
-                <h5 th:text="${merchant.shopName}">店铺名称</h5>
-            </div>
-            <nav class="nav flex-column">
-                <a class="nav-link" href="/merchant/dashboard">概览</a>
-                <a class="nav-link active" href="/merchant/products">商品管理</a>
-                <a class="nav-link" href="/merchant/orders">订单管理</a>
-                <a class="nav-link" href="/merchant/refunds">退款管理</a>
-                <a class="nav-link" href="/merchant/reviews">评价管理</a>
-                <a class="nav-link" href="/merchant/logout">退出登录</a>
-            </nav>
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="shop-name" th:text="${merchant.shopName}">店铺名称</div>
+        <div class="shop-meta">
+            经营分类：<span th:text="${merchant.category != null ? merchant.category : '未分配'}"></span><br>
+            当前状态：<span th:text="${merchant.status == 'closed' ? '已关停' : '正常'}"></span>
         </div>
-        <div class="col-md-10 content-area">
-            <div class="page-title">添加商品</div>
-            <div class="form-card">
-                <div class="card-body">
-                    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-                    <form method="post" action="/merchant/product/add" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label class="form-label">商品名称</label>
-                            <input type="text" name="name" class="form-control" required>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">价格</label>
-                                <input type="number" name="price" class="form-control" step="0.01" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">原价</label>
-                                <input type="number" name="originalPrice" class="form-control" step="0.01">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">库存</label>
-                            <input type="number" name="stock" class="form-control" value="0">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">商品描述</label>
-                            <textarea name="description" class="form-control" rows="3"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">商品图片</label>
-                            <input type="file" name="imageFile" class="form-control" accept="image/*">
-                        </div>
-                        <div>
-                            <button type="submit" class="btn-save">添加商品</button>
-                            <a href="/merchant/products" class="btn-back ms-2">返回</a>
-                        </div>
-                    </form>
+    </div>
+    <a class="nav-link" href="/merchant/dashboard"><i class="bi bi-grid"></i>概览</a>
+    <a class="nav-link active" href="/merchant/products"><i class="bi bi-box-seam"></i>商品管理</a>
+    <a class="nav-link" href="/merchant/orders"><i class="bi bi-receipt"></i>订单管理</a>
+    <a class="nav-link" href="/merchant/refunds"><i class="bi bi-arrow-counterclockwise"></i>退款管理</a>
+    <a class="nav-link" href="/merchant/reviews"><i class="bi bi-chat-square-text"></i>评价管理</a>
+    <a class="nav-link" href="/merchant/logout"><i class="bi bi-box-arrow-left"></i>退出登录</a>
+</div>
+
+<div class="main">
+    <h1 class="page-title">新增商品申请</h1>
+
+    <div th:if="${showClosureNotice}" class="notice">
+        店铺目前处于关停状态，暂时不能提交新的商品申请。<br>
+        关停原因：<span th:text="${closureReason != null ? closureReason : '管理员暂未填写'}"></span><br>
+        恢复时间：<span th:text="${closureUntil != null ? #temporals.format(closureUntil, 'yyyy-MM-dd HH:mm') : '待管理员处理'}"></span>
+    </div>
+
+    <div th:if="${error}" class="notice" th:text="${error}"></div>
+
+    <div class="hint">
+        当前页提交的是“商品上架申请”。只有管理员审核通过后，该申请才算正式通过；如果审核不通过，你会在商品管理页看到驳回原因。
+    </div>
+
+    <div class="form-card">
+        <div class="section-title">填写商品申请信息</div>
+        <div class="section-sub">请尽量填写完整、清晰的信息，方便管理员快速审核。</div>
+
+        <form method="post" action="/merchant/product/add" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">商品名称</label>
+                <input type="text" name="name" class="form-control" placeholder="例如：旗舰手机 256G" required>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">售价</label>
+                    <input type="number" name="price" class="form-control" step="0.01" min="0" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">划线价</label>
+                    <input type="number" name="originalPrice" class="form-control" step="0.01" min="0">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">库存</label>
+                    <input type="number" name="stock" class="form-control" value="0" min="0">
                 </div>
             </div>
-        </div>
+
+            <div class="mt-3 mb-3">
+                <label class="form-label">商品描述</label>
+                <textarea name="description" class="form-control" rows="5" placeholder="请填写商品卖点、适用场景、售后说明等"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">规格参数</label>
+                <textarea name="specifications" class="form-control" rows="4" placeholder="例如：屏幕尺寸、处理器、内存、材质、尺寸等"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">产品特点</label>
+                <textarea name="features" class="form-control" rows="4" placeholder="例如：续航长、轻薄设计、降噪、防水等核心卖点"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">包装清单</label>
+                <textarea name="packagingList" class="form-control" rows="3" placeholder="例如：主机 x1、充电器 x1、说明书 x1"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">商品图片</label>
+                <input type="file" name="imageFile" class="form-control" accept="image/*">
+                <div class="form-text">建议上传清晰主图，管理员审核时会直接查看这张图片。</div>
+            </div>
+
+            <div class="action-row">
+                <button type="submit" class="btn-main">提交商品申请</button>
+                <a href="/merchant/products" class="btn-sub">返回商品管理</a>
+            </div>
+        </form>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

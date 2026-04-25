@@ -30,6 +30,24 @@
         UPDATE merchants SET category = #{category} WHERE id = #{id}
     </update>
 
+    <update id="updateClosure" parameterType="com.example.shopping.entity.Merchant">
+        UPDATE merchants
+        SET status = #{status},
+            close_reason = #{closeReason},
+            close_until = #{closeUntil},
+            closed_at = #{closedAt}
+        WHERE id = #{id}
+    </update>
+
+    <update id="clearClosure">
+        UPDATE merchants
+        SET status = 'approved',
+            close_reason = NULL,
+            close_until = NULL,
+            closed_at = NULL
+        WHERE id = #{id}
+    </update>
+
     <update id="update" parameterType="com.example.shopping.entity.Merchant">
         UPDATE merchants SET shop_name = #{shopName}, shop_description = #{shopDescription}, shop_image = #{shopImage}
         WHERE id = #{id}
